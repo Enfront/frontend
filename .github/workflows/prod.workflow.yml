@@ -1,0 +1,36 @@
+name: Build and publish Enfront frontend to live server
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+jobs:
+  build_and_deploy_frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+
+      - name: Build image
+        run: docker build -t enfront-frontend --build-arg PROD_ENV="NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}\nNEXT_PUBLIC_AWS_IMAGE_URL=${{ secrets.NEXT_PUBLIC_AWS_IMAGE_URL }}\nNEXT_PUBLIC_PAYPAL_CLIENT_ID=${{ secrets.NEXT_PUBLIC_PAYPAL_CLIENT_ID }}\nNEXT_PUBLIC_PAYPAL_RETURN_URL=${{ secrets.NEXT_PUBLIC_PAYPAL_RETURN_URL }}\nNEXT_PUBLIC_SITE_URL=${{ secrets.NEXT_PUBLIC_SITE_URL }}\nPAYPAL_PASSWORD=${{ secrets.PAYPAL_PASSWORD }}\nPAYPAL_USERNAME=${{ secrets.PAYPAL_USERNAME }}\nNEXT_PUBLIC_THEME_URL=${{ secrets.NEXT_PUBLIC_THEME_URL }}\nNEXT_PUBLIC_URL_SCHEME=${{ secrets.NEXT_PUBLIC_URL_SCHEME }}\nNEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=${{ secrets.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }}" .
+
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      - name: Log in to Digital Ocean Container Registry
+        run: doctl registry login --expiry-seconds 600
+
+      - name: Tag image latest
+        run: docker tag enfront-frontend registry.digitalocean.com/enfront/enfront-frontend:latest
+
+      - name: Tag image with GitHub SHA
+        run: docker tag enfront-frontend registry.digitalocean.com/enfront/enfront-frontend:${{ github.sha }}
+
+      - name: Push image to Digital Ocean Container Registry
+        run: docker push registry.digitalocean.com/enfront/enfront-frontend --all-tags
