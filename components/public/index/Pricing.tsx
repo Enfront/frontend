@@ -110,40 +110,47 @@ function Pricing(): JSX.Element {
         <div className="-mx-4 mt-16 grid max-w-2xl grid-cols-1 gap-y-10 sm:mx-auto lg:-mx-8 lg:max-w-none lg:grid-cols-3 xl:mx-0 xl:gap-x-8">
           <Plan
             name="Starter"
-            price="$14.99"
+            price="Free"
             description="All the basics for starting a new business."
             href="/register"
-            features={['1 shop', 'Unlimited products', 'Unlimited orders', 'Unlimited blacklist items', '2% Fees']}
+            features={[
+              '1 shop',
+              'Unlimited products',
+              'Unlimited orders',
+              'Unlimited blacklist items',
+              '0% PayPal fees',
+              '3% fees',
+            ]}
           />
 
           <Plan
             featured
             name="Basic"
-            price="$24.99"
-            description="When starter just isn't enough."
+            price="$14.99"
+            description="All the basics for starting a new business."
             href="/register"
             features={[
-              '3 shop',
-              '3 team members (WIP)',
+              '3 shops',
               'Unlimited products',
               'Unlimited orders',
               'Unlimited blacklist items',
-              '1% Fees',
+              '0% PayPal fees',
+              '2% fees',
             ]}
           />
 
           <Plan
             name="Business"
-            price="$54.99"
-            description="Tools for an established business."
+            price="$24.99"
+            description="When starter just isn't enough."
             href="/register"
             features={[
-              '5 shop',
-              '15 team members (WIP)',
+              '5 shops',
               'Unlimited products',
               'Unlimited orders',
               'Unlimited blacklist items',
-              '0.5% Fees',
+              '0% PayPal fees',
+              '1% fees',
             ]}
           />
         </div>

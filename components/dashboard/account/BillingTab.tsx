@@ -83,18 +83,24 @@ function BillingTab(): JSX.Element {
       plan_id: '',
       priceMonthly: 0.0,
       description: 'All the basics for starting a new business.',
-      includedFeatures: ['1 shop', '3 products', 'Unlimited orders', 'Unlimited blacklist items', '3.2% PayPal Fees'],
-      notIncludedFeatures: ['No Team Members (WIP)'],
+      includedFeatures: [
+        '1 shop',
+        'Unlimited products',
+        'Unlimited orders',
+        'Unlimited blacklist items',
+        '0% PayPal fees',
+        '3% fees',
+      ],
+      notIncludedFeatures: [],
     },
     {
       id: 1,
       name: 'Basic',
-      plan_id: 'prod_ME9suAR3Qq4Jsd',
+      plan_id: process.env.NEXT_PUBLIC_BASIC_SUB,
       priceMonthly: 14.99,
       description: "When starter just isn't enough.",
       includedFeatures: [
         '3 shops',
-        '3 team members (WIP)',
         'Unlimited products',
         'Unlimited orders',
         'Unlimited blacklist items',
@@ -106,12 +112,11 @@ function BillingTab(): JSX.Element {
     {
       id: 2,
       name: 'Business',
-      plan_id: 'prod_ME9saqIeGYzFtD',
+      plan_id: process.env.NEXT_PUBLIC_BUSINESS_SUB,
       priceMonthly: 24.99,
       description: 'Tools for an established business.',
       includedFeatures: [
         '5 shops',
-        '15 team members (WIP)',
         'Unlimited products',
         'Unlimited orders',
         'Unlimited blacklist items',
@@ -123,13 +128,12 @@ function BillingTab(): JSX.Element {
     {
       id: 3,
       name: 'Enterprise',
-      plan_id: 'prod_ME9tCBAuzBzKpO',
+      plan_id: process.env.NEXT_PUBLIC_ENTERPRISE_SUB,
       priceMonthly: 54.99,
       description: "You've reached the highest level of success.",
       includedFeatures: [
         'Unlimited shops',
         'Unlimited products',
-        'Unlimited team members (WIP)',
         'Unlimited orders',
         'Unlimited blacklist items',
         '0% PayPal fees',
@@ -139,7 +143,7 @@ function BillingTab(): JSX.Element {
     },
   ];
 
-  const createSubscription = async (planId: string): Promise<void> => {
+  const createSubscription = async (planId: string | undefined): Promise<void> => {
     setPatchPending(true);
 
     await axios
@@ -156,7 +160,7 @@ function BillingTab(): JSX.Element {
 
   const patchSubscription = async (
     planId: number,
-    planIdString: string,
+    planIdString: string | undefined,
     prorationDate?: number,
     acceptProration = false,
     reinstate = false,
@@ -173,7 +177,7 @@ function BillingTab(): JSX.Element {
         reinstate,
       })
       .then((response: AxiosResponse) => {
-        if (response.status === 202) {
+        if (response.status === 202 && planIdString) {
           confirmProration(
             response.data.data.proration_amount,
             response.data.data.proration_date,

@@ -410,7 +410,7 @@ export interface SubscriptionDetails {
 export interface SubscriptionTier {
   id: number;
   name: string;
-  plan_id: string;
+  plan_id: string | undefined;
   priceMonthly: number;
   description: string;
   includedFeatures: string[];
