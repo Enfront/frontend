@@ -27,7 +27,7 @@ function Hero(): JSX.Element {
         </Text>
 
         <div className="mt-10 flex justify-center gap-x-6">
-          <Link href="/pages/register" passHref>
+          <Link href="/register" passHref>
             <Button className="bg-slate-900 hover:bg-slate-800" size="md" radius="xl">
               Start for Free
             </Button>

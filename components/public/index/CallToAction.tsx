@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import Image from 'next/future/image';
 
 import { Button, Container, Text, Title } from '@mantine/core';
@@ -26,13 +27,16 @@ function CallToAction(): JSX.Element {
             We would love to have your business Enfront of customers. With only a few clicks that can happen.
           </Text>
 
-          <Button
-            className="mt-8 bg-white text-slate-900 hover:bg-blue-50 focus:outline-none focus-visible:outline-2
+          <Link href="/register" passHref>
+            <Button
+              className="mt-8 bg-white text-slate-900 hover:bg-blue-50 focus:outline-none focus-visible:outline-2
             focus-visible:outline-offset-2 focus-visible:outline-white active:bg-blue-200 active:text-slate-600"
-            radius="xl"
-          >
-            Register for Free
-          </Button>
+              component="a"
+              radius="xl"
+            >
+              Register for Free
+            </Button>
+          </Link>
         </div>
       </Container>
     </section>
