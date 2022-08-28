@@ -6,6 +6,7 @@ import axios, { AxiosResponse } from 'axios';
 import { getSymbolWithIsoCode } from 'jkshop-country-list/dist/countryFinder';
 import { format } from 'date-fns';
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import NumberFormat from 'react-number-format';
 
 import DashboardLayout from '../../components/layouts/DashboardLayout';
 import { ProtectedRoute } from '../../contexts/AuthContext';
@@ -38,7 +39,15 @@ function Index(): JSX.Element {
     {
       id: 2,
       name: 'Last 7 Days Gross Revenue',
-      stat: getSymbolWithIsoCode(selectedShop.currency) + (shopStats.past_profit / 100).toFixed(2),
+      // stat: getSymbolWithIsoCode(selectedShop.currency) + (shopStats.past_profit / 100).toFixed(2),
+      stat: (
+        <NumberFormat
+          value={(shopStats.past_profit / 100).toFixed(2)}
+          prefix={getSymbolWithIsoCode(selectedShop.currency)}
+          displayType="text"
+          thousandSeparator
+        />
+      ),
       icon: (
         <Box sx={{ color: theme.colorScheme === 'dark' ? theme.colors.dark[3] : theme.colors.gray[4] }}>
           <Calendar size={24} />
@@ -48,7 +57,15 @@ function Index(): JSX.Element {
     {
       id: 3,
       name: 'Gross Revenue',
-      stat: getSymbolWithIsoCode(selectedShop.currency) + (shopStats.total_profit / 100).toFixed(2),
+      // stat: getSymbolWithIsoCode(selectedShop.currency) + (shopStats.total_profit / 100).toFixed(2),
+      stat: (
+        <NumberFormat
+          value={(shopStats.total_profit / 100).toFixed(2)}
+          prefix={getSymbolWithIsoCode(selectedShop.currency)}
+          displayType="text"
+          thousandSeparator
+        />
+      ),
       icon: (
         <Box sx={{ color: theme.colorScheme === 'dark' ? theme.colors.dark[3] : theme.colors.gray[4] }}>
           <CalendarTime size={24} />

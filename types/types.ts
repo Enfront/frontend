@@ -395,7 +395,7 @@ export interface ShopStatus {
 export interface StatsCard {
   id: number;
   name: string;
-  stat: DashboardStats | string | number;
+  stat: DashboardStats | JSX.Element | string | number;
   icon: ReactNode;
 }
 
