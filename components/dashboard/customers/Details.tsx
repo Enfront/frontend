@@ -116,7 +116,7 @@ function Details({ customer, customerId, getCustomerInfo, getCustomerNotes, stat
     return (
       <form onSubmit={form.onSubmit((values: EditUserData) => editUser(values))}>
         <Stack>
-          <Group noWrap>
+          <Group grow noWrap>
             <TextInput label="First Name" placeholder="First Name" {...form.getInputProps('first_name')} />
             <TextInput label="Last Name" placeholder="Last Name" {...form.getInputProps('last_name')} />
           </Group>
