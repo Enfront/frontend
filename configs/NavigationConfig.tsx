@@ -24,8 +24,8 @@ export const dashboardNavTree: DashboardRoutes[] = [
   },
   {
     key: 'items',
-    path: '/dashboard/items',
-    title: 'Items',
+    path: '/dashboard/products',
+    title: 'Products',
     icon: <Tag size={21} />,
     color: 'teal',
     breadcrumb: false,

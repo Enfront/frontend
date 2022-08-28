@@ -21,7 +21,7 @@ function GeneralInformation({ description, form, setDescription, shopCurrency }:
   return (
     <>
       <Group grow>
-        <TextInput placeholder="Item name" label="Name" required {...form.getInputProps('name')} />
+        <TextInput placeholder="Product Name" label="Name" required {...form.getInputProps('name')} />
 
         <NumberInput
           label="Price"

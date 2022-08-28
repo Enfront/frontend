@@ -33,7 +33,7 @@ function Index(): JSX.Element {
   };
 
   const { selectedShop } = useShop();
-  const { itemId } = router.query;
+  const { productId } = router.query;
 
   const [images, setImages] = useState<ImageType[]>([]);
   const [viewedItem, setViewedItem] = useState<Item>(initialItem);
@@ -70,7 +70,7 @@ function Index(): JSX.Element {
     axios
       .delete(`${process.env.NEXT_PUBLIC_API_URL}/products/${viewedItem.ref_id}`)
       .then(() => {
-        router.push('/dashboard/items');
+        router.push('/dashboard/products');
       })
       .catch((error: AxiosError) => {
         // eslint-disable-next-line no-console
@@ -106,9 +106,9 @@ function Index(): JSX.Element {
   };
 
   const getViewedItem = async (): Promise<void> => {
-    if (itemId && itemId !== 'new') {
+    if (productId && productId !== 'new') {
       await axios
-        .get(`${process.env.NEXT_PUBLIC_API_URL}/products/${itemId}`)
+        .get(`${process.env.NEXT_PUBLIC_API_URL}/products/${productId}`)
         .then((response: AxiosResponse) => {
           setViewedItem(response.data.data);
           setDescription(response.data.data.description);
@@ -120,7 +120,7 @@ function Index(): JSX.Element {
           checkItemStatus(response.data.data);
         })
         .catch(() => {
-          router.push('/dashboard/items');
+          router.push('/dashboard/products');
         });
     } else {
       // Item is new so we turn visibility toggle off
@@ -148,7 +148,7 @@ function Index(): JSX.Element {
       formData.append('images', images[i].file as Blob, images[i].file?.name);
     }
 
-    if (itemId === 'new') {
+    if (productId === 'new') {
       await axios
         .post(`${process.env.NEXT_PUBLIC_API_URL}/products`, formData, {
           headers: {
@@ -160,11 +160,11 @@ function Index(): JSX.Element {
           setImages([]);
           form.reset();
 
-          router.push(`/dashboard/items/${response.data.data.ref_id}`);
+          router.push(`/dashboard/products/${response.data.data.ref_id}`);
 
           showNotification({
-            title: 'Item Saved',
-            message: 'Your item has been successfully saved.',
+            title: 'Product Saved',
+            message: 'Your product has been successfully saved.',
             color: 'green',
           });
         })
@@ -191,8 +191,8 @@ function Index(): JSX.Element {
             setImages([]);
 
             showNotification({
-              title: 'Item Saved',
-              message: 'Your item has been successfully saved.',
+              title: 'Product Saved',
+              message: 'Your product has been successfully saved.',
               color: 'green',
             });
           }
@@ -217,7 +217,7 @@ function Index(): JSX.Element {
     };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [itemId]);
+  }, [productId]);
 
   return (
     <DashboardLayout
@@ -239,15 +239,15 @@ function Index(): JSX.Element {
           >
             <Group position="apart" mb={32} noWrap>
               <Title className="truncate text-2xl" order={1}>
-                {viewedItem.name ? viewedItem.name : 'New Item'}
+                {viewedItem.name ? viewedItem.name : 'New Product'}
               </Title>
 
               <Group noWrap>
                 <Button onClick={openDeleteModal} variant="outline" color="red">
-                  Delete Item
+                  Delete Product
                 </Button>
 
-                <Button type="submit">Save Item</Button>
+                <Button type="submit">Save Product</Button>
               </Group>
             </Group>
 
@@ -274,7 +274,7 @@ function Index(): JSX.Element {
 
             <Stack py={32}>
               <Title className="text-xl" order={2}>
-                Item Images
+                Product Images
               </Title>
 
               <Images getViewedItem={getViewedItem} images={images} setImages={setImages} viewedItem={viewedItem} />
@@ -287,9 +287,9 @@ function Index(): JSX.Element {
             </Title>
 
             <Select
-              label="Item Status"
+              label="Product Status"
               placeholder="Statuses"
-              disabled={itemId === 'new' || viewedItem.stock === 0}
+              disabled={productId === 'new' || viewedItem.stock === 0}
               error={viewedItem.stock === 0 && 'Disabled due to stock levels.'}
               mt={16}
               data={[

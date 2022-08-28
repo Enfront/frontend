@@ -24,12 +24,12 @@ function Index(): JSX.Element {
   const [shownItems, setShownItems] = useState<Item[]>([]);
 
   const gotoItemDetails = (itemId: string): void => {
-    router.push(`/dashboard/items/${itemId}`);
+    router.push(`/dashboard/products/${itemId}`);
   };
 
   const gotoEditItem = (itemId: string): void => {
     router.push({
-      pathname: `/dashboard/items/${itemId}`,
+      pathname: `/dashboard/products/${itemId}`,
       query: { edit: true },
     });
   };
@@ -113,10 +113,10 @@ function Index(): JSX.Element {
       metaDescription="Welcome back, we&#39;re excited to help you with all your business needs."
     >
       <Group className="mb-12" position="apart">
-        <Title order={1}>All Items</Title>
+        <Title order={1}>All Products</Title>
 
-        <Link href="/dashboard/items/new" passHref>
-          <Button component="a">Create Item</Button>
+        <Link href="/dashboard/products/new" passHref>
+          <Button component="a">Create Product</Button>
         </Link>
       </Group>
 
@@ -130,7 +130,7 @@ function Index(): JSX.Element {
             className="w-4/12"
             onChange={(event: ChangeEvent<HTMLInputElement>) => searchItems(event)}
             placeholder="Search"
-            label="Search for items"
+            label="Search for products"
             icon={<Search size={16} />}
           />
         </div>
@@ -139,11 +139,11 @@ function Index(): JSX.Element {
       <Table verticalSpacing="md" highlightOnHover>
         <thead>
           <tr>
-            <th>Item</th>
+            <th>Product</th>
             <th>Price</th>
             <th>Stock</th>
             <th>Stock Status</th>
-            <th>Item Status</th>
+            <th>Product Status</th>
             <th />
           </tr>
         </thead>
