@@ -50,7 +50,7 @@ function DigitalKeys({ form, getViewedItem, shownKeys }: DigitalKeysProps): JSX.
     <>
       <Textarea
         label="Upload Keys"
-        placeholder="Manually type keys separated by commas, semi-colons, colons, vertical bars, or tabs."
+        placeholder="Manually type keys separated by commas, spaces, or new lines."
         minRows={8}
         maxRows={8}
         autosize
