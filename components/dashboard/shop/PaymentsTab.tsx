@@ -132,7 +132,7 @@ function PaymentsTab(): JSX.Element {
     <form onSubmit={form.onSubmit((values: ShopPaymentFormData) => onSubmitPaymentInfo(values))}>
       <Grid mt={24} align="center">
         <Grid.Col span={12}>
-          <Image src="/paypal_logo.png" height={38} width={150} alt="PayPal Logo" />
+          <Image src="/brands/paypal_logo.png" height={38} width={150} alt="PayPal Logo" />
         </Grid.Col>
 
         <Grid.Col span={6} pr={48}>
@@ -159,7 +159,7 @@ function PaymentsTab(): JSX.Element {
         </Grid.Col>
 
         <Grid.Col span={12}>
-          <Image src="/stripe_logo.png" height={43} width={112} alt="Stripe Logo" />
+          <Image src="/brands/stripe_logo.png" height={43} width={112} alt="Stripe Logo" />
         </Grid.Col>
 
         <Grid.Col span={6} pr={48}>
