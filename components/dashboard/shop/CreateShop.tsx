@@ -71,6 +71,7 @@ function CreateShop({ isVisible, setIsVisible }: CreateShopProps): JSX.Element {
     }
 
     const createShopFormData: CreateShopFormData = {
+      description: data.description,
       currency: data.currency,
       country: data.country,
       domain: shopDomain,
@@ -159,6 +160,7 @@ function CreateShop({ isVisible, setIsVisible }: CreateShopProps): JSX.Element {
               label="Describe Your Business"
               minRows={4}
               autosize
+              required
               {...form.getInputProps('description')}
             />
 
