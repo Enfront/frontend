@@ -165,7 +165,7 @@ export function AuthProvider({ children }: AuthProvider): JSX.Element {
       .post(`${process.env.NEXT_PUBLIC_API_URL}/users/reset`, {
         password: data.password,
         password_confirmation: data.passwordConfirmation,
-        ue: data.ue,
+        ref_id: data.ref_id,
         token: data.token,
         shop: true,
       })

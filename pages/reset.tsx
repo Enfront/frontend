@@ -26,8 +26,12 @@ function Reset(): JSX.Element {
   });
 
   const onSubmit = async (data: ResetPasswordData): Promise<void> => {
+    if (!router.query.ref_id && !router.query.token) {
+      return;
+    }
+
     const resetPasswordData: ResetPasswordData = {
-      ue: router.query.ue as string,
+      ref_id: router.query.ref_id as string,
       token: router.query.token as string,
       ...data,
     };
@@ -41,7 +45,7 @@ function Reset(): JSX.Element {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAuthenticated]);
+  }, [isAuthenticated, router.query]);
 
   return (
     <AuthLayout
@@ -82,7 +86,14 @@ function Reset(): JSX.Element {
           {...form.getInputProps('passwordConfirmation')}
         />
 
-        <Button className="w-full" variant="filled" radius="xl" type="submit" loading={isProcessing}>
+        <Button
+          className="w-full"
+          variant="filled"
+          radius="xl"
+          type="submit"
+          loading={isProcessing}
+          disabled={!router.query.ref_id && !router.query.token}
+        >
           Change Password
         </Button>
       </form>

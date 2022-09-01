@@ -316,7 +316,7 @@ export interface RegisterData {
 export interface ResetPasswordData {
   password: string;
   passwordConfirmation: string;
-  ue?: string;
+  ref_id?: string;
   token?: string;
 }
 
