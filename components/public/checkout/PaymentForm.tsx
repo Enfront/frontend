@@ -79,14 +79,13 @@ function PaymentForm({
   const [buttonRowColumns, setButtonRowColumns] = useState<number>(0);
 
   const setupUpStripeSdk = async (accountId: string): Promise<void> => {
-    setStripePromise(
-      loadStripe(
-        'pk_test_51KujSgGgc4vlkPQkNtccVaqmhgNq4yGp4U5T8MmyBvkVHCNzCSVz0erpaRuzRETE7Wa0fO6MUPa6ECztMOUOypJW00atxjOK2F',
-        {
+    if (process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) {
+      setStripePromise(
+        loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY, {
           stripeAccount: accountId,
-        },
-      ),
-    );
+        }),
+      );
+    }
   };
 
   const startStripeCheckout = async (): Promise<void> => {
