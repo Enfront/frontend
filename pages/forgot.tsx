@@ -58,9 +58,7 @@ function Forgot(): JSX.Element {
             Forgot your password?
           </Title>
 
-          <Text className="mt-2 text-sm text-gray-700">
-            Enter your email address and we will send you a link to reset your password.
-          </Text>
+          <Text className="mt-2 text-sm text-gray-700">Enter your email and we will send you a link to reset it.</Text>
         </div>
       </div>
 

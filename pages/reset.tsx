@@ -73,13 +73,7 @@ function Reset(): JSX.Element {
           </Text>
         )}
 
-        <PasswordInput
-          label="New Password"
-          placeholder="New Password"
-          type="email"
-          required
-          {...form.getInputProps('password')}
-        />
+        <PasswordInput label="New Password" placeholder="New Password" required {...form.getInputProps('password')} />
 
         <PasswordInput
           label="Confirm New Password"

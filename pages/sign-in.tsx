@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/future/image';
 import Link from 'next/link';
 
-import { Anchor, TextInput, PasswordInput, Title, Text, Button } from '@mantine/core';
+import { Anchor, TextInput, PasswordInput, Title, Text, Button, Stack } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 
@@ -84,12 +84,20 @@ function SignIn(): JSX.Element {
         <TextInput label="Email address" placeholder="Email" type="email" required {...form.getInputProps('email')} />
         <PasswordInput label="Password" placeholder="Password" required {...form.getInputProps('password')} />
 
-        <Button className="w-full" variant="filled" radius="xl" type="submit" loading={isProcessing}>
-          Sign in{' '}
-          <span className="ml-2" aria-hidden="true">
-            &rarr;
-          </span>
-        </Button>
+        <Stack>
+          <Button className="w-full" variant="filled" radius="xl" type="submit" loading={isProcessing}>
+            Sign in{' '}
+            <span className="ml-2" aria-hidden="true">
+              &rarr;
+            </span>
+          </Button>
+
+          <Link href="/forgot" passHref>
+            <Anchor className="m-auto" component="a" size="sm">
+              Forgot password
+            </Anchor>
+          </Link>
+        </Stack>
       </form>
     </AuthLayout>
   );

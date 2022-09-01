@@ -61,14 +61,14 @@ function Register(): JSX.Element {
 
         <div className="mt-8">
           <Title className="text-lg font-semibold text-gray-900" order={2}>
-            Sign in to your account
+            Create an account
           </Title>
 
           <Text className="mt-2 text-sm text-gray-700">
-            Don’t have an account?{' '}
-            <Link href="/register" passHref>
+            Already have an account?{' '}
+            <Link href="/sign-in" passHref>
               <Anchor component="a" size="sm">
-                Sign up
+                Sign in
               </Anchor>
             </Link>
           </Text>
