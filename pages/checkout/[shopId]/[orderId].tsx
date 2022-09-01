@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { Anchor, Avatar, Container, Grid, Group, Stack, Text, Title } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
 import { getSymbolWithIsoCode } from 'jkshop-country-list/dist/countryFinder';
+import { Tag } from 'tabler-icons-react';
 import axios, { AxiosResponse } from 'axios';
 
 import EmailForm from '../../../components/public/checkout/EmailForm';
@@ -180,7 +181,13 @@ function OrderId(): JSX.Element {
             {orderInfo.items.map((product: OrderItem) => (
               <Group position="apart" mb={16} key={product.ref_id}>
                 <Group>
-                  <Avatar src={`https://jkpay.s3.us-east-2.amazonaws.com${product.images[0].path}`} size="xl" />
+                  {product.images.length > 0 ? (
+                    <Avatar src={`${process.env.NEXT_PUBLIC_AWS_IMAGE_URL}${product.images[0].path}`} size="xl" />
+                  ) : (
+                    <Avatar color="brand" size="xl">
+                      <Tag size={42} />
+                    </Avatar>
+                  )}
 
                   <Stack spacing="xs">
                     <Text weight={500}>{product.name}</Text>
