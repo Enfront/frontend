@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
 import axios, { AxiosError, AxiosResponse } from 'axios';
-import { Button, Grid, Group, Select, Stack, Text, Title, useMantineTheme } from '@mantine/core';
+import { Button, Grid, Group, NumberInput, Select, Stack, Text, Title, useMantineTheme } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
 import { useModals } from '@mantine/modals';
 import { useForm } from '@mantine/form';
@@ -41,12 +41,14 @@ function Index(): JSX.Element {
   const [description, setDescription] = useState<string>('');
   const [disableVisibilityToggle, setDisableVisibilityToggle] = useState<boolean>(false);
 
-  const form = useForm({
+  const form = useForm<ItemFormData>({
     initialValues: {
       name: '',
       price: 0,
       keys: '',
       status: '0',
+      min_order_quantity: undefined,
+      max_order_quantity: undefined,
     },
   });
 
@@ -116,6 +118,8 @@ function Index(): JSX.Element {
 
           form.setFieldValue('name', response.data.data.name);
           form.setFieldValue('price', +response.data.data.price / 100);
+          form.setFieldValue('min_order_quantity', response.data.data.min_order_quantity);
+          form.setFieldValue('max_order_quantity', response.data.data.max_order_quantity);
 
           checkItemStatus(response.data.data);
         })
@@ -135,6 +139,14 @@ function Index(): JSX.Element {
     formData.append('type', '0');
     formData.append('price', (data.price * 100).toString());
     formData.append('status', data.status);
+
+    if (data.min_order_quantity) {
+      formData.append('min_order_quantity', data.min_order_quantity.toString());
+    }
+
+    if (data.max_order_quantity) {
+      formData.append('max_order_quantity', data.max_order_quantity.toString());
+    }
 
     if (selectedShop.ref_id !== '') {
       formData.append('shop', selectedShop.ref_id);
@@ -283,21 +295,42 @@ function Index(): JSX.Element {
 
           <Grid.Col span={3} pl={32}>
             <Title className="text-xl" order={2}>
-              Shop Details
+              Specifications
             </Title>
 
             <Select
-              label="Product Status"
+              label="Status"
               placeholder="Statuses"
               disabled={productId === 'new' || viewedItem.stock === 0}
               error={viewedItem.stock === 0 && 'Disabled due to stock levels.'}
               mt={16}
+              required
               data={[
                 { value: '1', label: 'Visible' },
                 { value: '0', label: 'Hidden' },
                 { value: '-2', label: 'Out of Stock' },
               ]}
               {...form.getInputProps('status')}
+            />
+
+            <NumberInput
+              label="Minimum Order Quantity"
+              min={1}
+              max={2147483647}
+              mt={8}
+              parser={(value) => value?.replace(/\$\s?|(,*)/g, '')}
+              formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+              {...form.getInputProps('min_order_quantity')}
+            />
+
+            <NumberInput
+              label="Maximum Order Quantity"
+              min={1}
+              max={2147483647}
+              mt={8}
+              parser={(value) => value?.replace(/\$\s?|(,*)/g, '')}
+              formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+              {...form.getInputProps('max_order_quantity')}
             />
           </Grid.Col>
         </Grid>

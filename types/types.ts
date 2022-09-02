@@ -143,12 +143,14 @@ export interface Item {
 export interface ItemFormData {
   name: string;
   price: number;
-  description?: string;
   status: string;
+  description?: string;
   keys?: string;
   images?: File;
   csv?: File;
   shop?: string;
+  min_order_quantity?: number;
+  max_order_quantity?: number;
 }
 
 export interface ItemImage {

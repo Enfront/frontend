@@ -4,10 +4,10 @@ import { UseFormReturnType } from '@mantine/form/lib/use-form';
 import { Trash } from 'tabler-icons-react';
 import axios from 'axios';
 
-import { ItemKey } from '../../../types/types';
+import { ItemFormData, ItemKey } from '../../../types/types';
 
 interface DigitalKeysProps {
-  form: UseFormReturnType<{ name: string; price: number; keys: string; status: string }>;
+  form: UseFormReturnType<ItemFormData>;
   getViewedItem: () => Promise<void>;
   shownKeys: ItemKey[];
 }
