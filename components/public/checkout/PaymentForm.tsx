@@ -51,19 +51,19 @@ function PaymentForm({
       name: 'Bitcoin',
       symbol: 'BTC',
       address: '',
-      logo: '/bitcoin.png',
+      logo: '/brands/bitcoin.png',
     },
     {
       name: 'Ethereum',
       symbol: 'ETH',
       address: '',
-      logo: '/ethereum.png',
+      logo: '/brands/ethereum.png',
     },
     {
       name: 'Litecoin',
       symbol: 'LTC',
       address: '',
-      logo: '/litecoin.jpg',
+      logo: '/brands/litecoin.jpg',
     },
   ]);
 
@@ -260,7 +260,7 @@ function PaymentForm({
 
             {showStripeButton && (
               <Button className={classes.stripeButton} onClick={() => startStripeCheckout()}>
-                <Image src="/stripe_logo_white.png" height={36} width={72} />
+                <Image src="/brands/stripe_logo_white.png" height={36} width={72} />
               </Button>
             )}
           </SimpleGrid>
