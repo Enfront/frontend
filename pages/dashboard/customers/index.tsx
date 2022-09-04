@@ -155,7 +155,7 @@ function Index(): JSX.Element {
           className="mt-12"
           page={page}
           onChange={changeCustomerPage}
-          total={Math.floor(customers.count / 10)}
+          total={Math.ceil(customers.count / 10)}
           position="right"
           withEdges
         />
