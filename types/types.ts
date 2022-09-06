@@ -2,7 +2,7 @@ import { ComponentPropsWithoutRef, ReactNode } from 'react';
 
 export interface AcceptedCryptoAddresses {
   name: string;
-  symbol: 'BTC' | 'ETH' | 'LTC' | 'LTCT';
+  symbol: 'BTC';
   address: string;
   logo: string;
 }
@@ -379,6 +379,7 @@ export interface ShopOwner {
 }
 
 export interface ShopPaymentFormData {
+  bitcoin_address: string;
   paypal_email: string;
 }
 

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 
-import { Button, createStyles, SimpleGrid, Stack, Text, Title } from '@mantine/core';
+import { Button, SimpleGrid, Stack, Text, Title } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
 import { PayPalButton } from '@repeatgg/react-paypal-button-v2';
 import { loadStripe, Stripe } from '@stripe/stripe-js';
@@ -22,19 +22,6 @@ interface PaymentFormProps {
   existingCryptoOrder: CoinPaymentsIpnData;
 }
 
-const useStyles = createStyles(() => ({
-  stripeButton: {
-    backgroundColor: '#6A5BFA',
-    display: 'block',
-    height: 45,
-    width: '100%',
-
-    '&:hover': {
-      backgroundColor: '#6355ea',
-    },
-  },
-}));
-
 function PaymentForm({
   buyerEmail,
   shopCurrency,
@@ -43,7 +30,6 @@ function PaymentForm({
   existingCryptoOrder,
 }: PaymentFormProps): JSX.Element {
   const router = useRouter();
-  const { classes } = useStyles();
   const { orderId, shopId } = router.query;
 
   const [acceptedCryptos, setAcceptedCryptos] = useState<AcceptedCryptoAddresses[]>([
@@ -52,18 +38,6 @@ function PaymentForm({
       symbol: 'BTC',
       address: '',
       logo: '/brands/bitcoin.png',
-    },
-    {
-      name: 'Ethereum',
-      symbol: 'ETH',
-      address: '',
-      logo: '/brands/ethereum.png',
-    },
-    {
-      name: 'Litecoin',
-      symbol: 'LTC',
-      address: '',
-      logo: '/brands/litecoin.jpg',
     },
   ]);
 
@@ -106,44 +80,31 @@ function PaymentForm({
   };
 
   useEffect(() => {
-    const checkStripeLogin = async (): Promise<void> => {
+    const checkConnectedProviders = async (): Promise<void> => {
       if (shopId !== undefined) {
         await axios
-          .get(`${process.env.NEXT_PUBLIC_API_URL}/payments/stripe/${shopId}`)
+          .get(`${process.env.NEXT_PUBLIC_API_URL}/payments/providers/${shopId}`)
           .then((response: AxiosResponse) => {
             if (response && response.status === 200) {
-              setButtonRowColumns((prev: number) => prev + 1);
-              setShowStripeButton(true);
-              setupUpStripeSdk(response.data.data.id);
-            }
-          })
-          .catch(() => {
-            setShowStripeButton(false);
-          });
-      }
-    };
+              setButtonRowColumns(Object.keys(response.data.data).length);
 
-    const checkPayPalLogin = async (): Promise<void> => {
-      if (shopId !== undefined) {
-        await axios
-          .get(`${process.env.NEXT_PUBLIC_API_URL}/payments/paypal/${shopId}`)
-          .then((response: AxiosResponse) => {
-            if (response.status === 204) {
-              setShowPayPal(false);
-            } else {
-              setShowPayPal(true);
-              setButtonRowColumns((prev: number) => prev + 1);
+              if (response.data.data.paypal_email) {
+                setShowPayPal(true);
+              }
+
+              if (response.data.data.stripe_id) {
+                setShowStripeButton(true);
+                setupUpStripeSdk(response.data.data.id);
+              }
+
+              // Not implemented yet
+              if (response.data.data.bitcoin_address) {
+                setShowCrypto(false);
+                setAcceptedCryptos([]);
+              }
             }
           });
       }
-    };
-
-    /**
-     * Not implemented yet
-     */
-    const getCryptoAddresses = async (): Promise<void> => {
-      setShowCrypto(false);
-      setAcceptedCryptos([]);
     };
 
     const checkCryptoStatus = (): void => {
@@ -163,9 +124,7 @@ function PaymentForm({
         });
     };
 
-    checkStripeLogin();
-    checkPayPalLogin();
-    getCryptoAddresses();
+    checkConnectedProviders();
     checkCryptoStatus();
     getCsrfToken();
 
@@ -259,7 +218,10 @@ function PaymentForm({
             )}
 
             {showStripeButton && (
-              <Button className={classes.stripeButton} onClick={() => startStripeCheckout()}>
+              <Button
+                className="block h-[42px] w-full bg-[#6A5BFA] hover:bg-[#6355ea]"
+                onClick={() => startStripeCheckout()}
+              >
                 <Image src="/brands/stripe_logo_white.png" height={36} width={72} />
               </Button>
             )}

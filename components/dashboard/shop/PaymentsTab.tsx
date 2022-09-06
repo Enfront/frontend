@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 
-import { Button, createStyles, Divider, Grid, InputWrapper, Text, TextInput } from '@mantine/core';
+import { Button, Divider, Grid, InputWrapper, Text, TextInput } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
 import { useForm } from '@mantine/form';
 import axios, { AxiosResponse } from 'axios';
@@ -9,20 +9,7 @@ import axios, { AxiosResponse } from 'axios';
 import { ShopPaymentFormData } from '../../../types/types';
 import useShop from '../../../contexts/ShopContext';
 
-const useStyles = createStyles(() => ({
-  stripeButton: {
-    backgroundColor: '#6A5BFA',
-    display: 'block',
-    width: '100%',
-
-    '&:hover': {
-      backgroundColor: '#6355ea',
-    },
-  },
-}));
-
 function PaymentsTab(): JSX.Element {
-  const { classes } = useStyles();
   const { selectedShop } = useShop();
 
   const [actionPending, setActionPending] = useState<boolean>(false);
@@ -30,6 +17,7 @@ function PaymentsTab(): JSX.Element {
 
   const form = useForm({
     initialValues: {
+      bitcoin_address: '',
       paypal_email: '',
     },
   });
@@ -38,7 +26,9 @@ function PaymentsTab(): JSX.Element {
     setActionPending(true);
 
     axios
-      .post(`${process.env.NEXT_PUBLIC_API_URL}/payments/stripe/${selectedShop.ref_id}`)
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/payments/providers/${selectedShop.ref_id}`, {
+        stripe: true,
+      })
       .then((response: AxiosResponse) => {
         const newWindow = window.open(response.data.data.url, '_self', 'noopener, noreferrer');
         if (newWindow) newWindow.opener = null;
@@ -59,7 +49,11 @@ function PaymentsTab(): JSX.Element {
     setActionPending(true);
 
     axios
-      .delete(`${process.env.NEXT_PUBLIC_API_URL}/payments/stripe/${selectedShop.ref_id}`)
+      .delete(`${process.env.NEXT_PUBLIC_API_URL}/payments/providers/${selectedShop.ref_id}`, {
+        data: {
+          provider: 1,
+        },
+      })
       .then(() => {
         setStripeConnected(false);
         setActionPending(false);
@@ -75,8 +69,9 @@ function PaymentsTab(): JSX.Element {
 
   const onSubmitPaymentInfo = (data: ShopPaymentFormData): void => {
     axios
-      .post(`${process.env.NEXT_PUBLIC_API_URL}/payments/paypal/${selectedShop.ref_id}`, {
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/payments/providers/${selectedShop.ref_id}`, {
         email: data.paypal_email,
+        bitcoin_address: data.bitcoin_address,
       })
       .then(() => {
         showNotification({
@@ -95,35 +90,24 @@ function PaymentsTab(): JSX.Element {
   };
 
   useEffect(() => {
-    const checkPayPalLogin = async (): Promise<void> => {
+    const checkConnectedProviders = async (): Promise<void> => {
       if (selectedShop.ref_id !== '') {
         await axios
-          .get(`${process.env.NEXT_PUBLIC_API_URL}/payments/paypal/${selectedShop.ref_id}`)
+          .get(`${process.env.NEXT_PUBLIC_API_URL}/payments/providers/${selectedShop.ref_id}`)
           .then((response: AxiosResponse) => {
             if (response && response.status === 200) {
-              form.setFieldValue('paypal_email', response.data.data.email);
+              form.setFieldValue('paypal_email', response.data.data.paypal_email);
+              form.setFieldValue('bitcoin_address', response.data.data.bitcoin_address);
+
+              if (response.data.data.stripe_id) {
+                setStripeConnected(true);
+              }
             }
           });
       }
     };
 
-    const checkStripeLogin = async (): Promise<void> => {
-      if (selectedShop.ref_id !== '') {
-        await axios
-          .get(`${process.env.NEXT_PUBLIC_API_URL}/payments/stripe/${selectedShop.ref_id}`)
-          .then((response: AxiosResponse) => {
-            if (response && response.status === 200) {
-              setStripeConnected(true);
-            }
-          })
-          .catch(() => {
-            setStripeConnected(false);
-          });
-      }
-    };
-
-    checkPayPalLogin();
-    checkStripeLogin();
+    checkConnectedProviders();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedShop]);
@@ -131,6 +115,37 @@ function PaymentsTab(): JSX.Element {
   return (
     <form onSubmit={form.onSubmit((values: ShopPaymentFormData) => onSubmitPaymentInfo(values))}>
       <Grid mt={24} align="center">
+        <Grid.Col span={12}>
+          <Image src="/brands/bitcoin_logo.png" height={43} width={150} alt="Bitcoin Logo" />
+        </Grid.Col>
+
+        <Grid.Col span={6} pr={48}>
+          <Text size="sm">
+            Bitcoin funds will not go directly to this address; instead Enfront will use it as a payout address. Once
+            ready, you can submit a payout request and we will then schedule one.
+          </Text>
+        </Grid.Col>
+
+        <Grid.Col span={4}>
+          <TextInput
+            placeholder="P2PKH, P2SH, Bech32"
+            label="Payout Address"
+            {...form.getInputProps('bitcoin_address')}
+          />
+        </Grid.Col>
+
+        <Grid.Col span={2}>
+          <InputWrapper label="&nbsp;">
+            <Button type="submit" fullWidth>
+              Save Bitcoin Address
+            </Button>
+          </InputWrapper>
+        </Grid.Col>
+
+        <Grid.Col span={12}>
+          <Divider my="xl" />
+        </Grid.Col>
+
         <Grid.Col span={12}>
           <Image src="/brands/paypal_logo.png" height={38} width={150} alt="PayPal Logo" />
         </Grid.Col>
@@ -143,13 +158,18 @@ function PaymentsTab(): JSX.Element {
         </Grid.Col>
 
         <Grid.Col span={4}>
-          <TextInput placeholder="PayPal Email" label="PayPal Email" {...form.getInputProps('paypal_email')} />
+          <TextInput
+            placeholder="PayPal Email"
+            label="PayPal Email"
+            type="email"
+            {...form.getInputProps('paypal_email')}
+          />
         </Grid.Col>
 
         <Grid.Col span={2}>
           <InputWrapper label="&nbsp;">
             <Button type="submit" fullWidth>
-              Save PayPal Info
+              Save PayPal Email
             </Button>
           </InputWrapper>
         </Grid.Col>
@@ -178,7 +198,7 @@ function PaymentsTab(): JSX.Element {
         <Grid.Col span={6}>
           {!stripeConnected ? (
             <Button
-              className={classes.stripeButton}
+              className="block w-full bg-[#6A5BFA] hover:bg-[#6355ea]"
               onClick={connectStripe}
               loading={actionPending}
               disabled={!selectedShop.country.stripe_available}
@@ -186,7 +206,11 @@ function PaymentsTab(): JSX.Element {
               Connect Stripe
             </Button>
           ) : (
-            <Button className={classes.stripeButton} onClick={disconnectStripe} loading={actionPending}>
+            <Button
+              className="block w-full bg-[#6A5BFA] hover:bg-[#6355ea]"
+              onClick={disconnectStripe}
+              loading={actionPending}
+            >
               Disconnect Stripe
             </Button>
           )}
