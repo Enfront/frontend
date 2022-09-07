@@ -94,13 +94,19 @@ function PaymentForm({
 
               if (response.data.data.stripe_id) {
                 setShowStripeButton(true);
-                setupUpStripeSdk(response.data.data.id);
+                setupUpStripeSdk(response.data.data.stripe_id);
               }
 
-              // Not implemented yet
               if (response.data.data.bitcoin_address) {
                 setShowCrypto(false);
-                setAcceptedCryptos([]);
+                setAcceptedCryptos([
+                  {
+                    name: 'Bitcoin',
+                    symbol: 'BTC',
+                    address: '',
+                    logo: '/brands/bitcoin.png',
+                  },
+                ]);
               }
             }
           });
@@ -146,7 +152,7 @@ function PaymentForm({
           <SimpleGrid cols={buttonRowColumns}>
             {showCrypto && (
               <Button
-                className="h-[45px]"
+                className="h-[42px]"
                 onClick={() => setIsCryptoPaymentVisible(true)}
                 rightIcon={<ChevronDown size={14} />}
                 variant="outline"
