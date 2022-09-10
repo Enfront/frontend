@@ -5,11 +5,11 @@ import { Avatar, Checkbox, ColorInput, Group, Select, Stack, Text, Textarea, Tex
 
 import useTheme from '../../../contexts/ThemeContext';
 import useShop from '../../../contexts/ShopContext';
-import { Item, ItemSelect, Setting, SettingsSchema, ThemeItemNew } from '../../../types/types';
+import { Product, ProductSelect, Setting, SettingsSchema, ThemeProductNew } from '../../../types/types';
 
 interface ThemesSideNavProps {
-  existingConfig: Record<string | number, ThemeItemNew | string | boolean | number>;
-  setExistingConfig: Dispatch<SetStateAction<Record<string | number, ThemeItemNew | string | boolean | number>>>;
+  existingConfig: Record<string | number, ThemeProductNew | string | boolean | number>;
+  setExistingConfig: Dispatch<SetStateAction<Record<string | number, ThemeProductNew | string | boolean | number>>>;
   settingsScheme: SettingsSchema[];
 }
 
@@ -17,14 +17,14 @@ function ThemesSideNav({ existingConfig, setExistingConfig, settingsScheme }: Th
   const { fakeToFrame, iframeLoaded, themePage, sendToFrame } = useTheme();
   const { selectedShop } = useShop();
 
-  const [items, setItems] = useState<ItemSelect[]>([]);
-  const [realItems, setRealItems] = useState<Item[]>([]);
-  const [selectedItem, setSelectedItem] = useState<Item[]>([]);
+  const [products, setProducts] = useState<ProductSelect[]>([]);
+  const [realProducts, setRealProducts] = useState<Product[]>([]);
+  const [selectedProduct, setSelectedProduct] = useState<Product[]>([]);
 
   // eslint-disable-next-line react/display-name
-  const SelectItem = forwardRef<HTMLDivElement, ItemSelect>(
+  const SelectComponent = forwardRef<HTMLDivElement, ProductSelect>(
     // eslint-disable-next-line react/prop-types
-    ({ image, label, refId, ...others }: ItemSelect, ref: ForwardedRef<HTMLDivElement>) => (
+    ({ image, label, refId, ...others }: ProductSelect, ref: ForwardedRef<HTMLDivElement>) => (
       // eslint-disable-next-line react/jsx-props-no-spreading
       <div ref={ref} {...others}>
         <Group noWrap>
@@ -41,14 +41,14 @@ function ThemesSideNav({ existingConfig, setExistingConfig, settingsScheme }: Th
     ),
   );
 
-  const getDefaultSettingValue = (setting: Setting): ThemeItemNew | string | boolean | number => {
+  const getDefaultSettingValue = (setting: Setting): ThemeProductNew | string | boolean | number => {
     // Part of config
     if (existingConfig && Object.prototype.hasOwnProperty.call(existingConfig, setting.id)) {
       if (setting.type === 'product') {
-        const themeItem = existingConfig[setting.id] as ThemeItemNew;
+        const themeProduct = existingConfig[setting.id] as ThemeProductNew;
 
-        if (themeItem) {
-          return themeItem.id;
+        if (themeProduct) {
+          return themeProduct.id;
         }
       }
 
@@ -204,11 +204,11 @@ function ThemesSideNav({ existingConfig, setExistingConfig, settingsScheme }: Th
         return (
           <Select
             label={setting.label}
-            data={items}
-            itemComponent={SelectItem}
+            data={products}
+            itemComponent={SelectComponent}
             onChange={(event: string) => changeProduct(event, setting)}
             maxDropdownHeight={400}
-            nothingFound="No items found"
+            nothingFound="No products found"
             defaultValue={getDefaultSettingValue(setting) as string}
             key={setting.id}
             searchable
@@ -239,21 +239,21 @@ function ThemesSideNav({ existingConfig, setExistingConfig, settingsScheme }: Th
     }
   };
 
-  const changeProduct = (itemRefId: string, setting: Setting): void => {
-    const fullItem = realItems.find((i: Item) => i.ref_id === itemRefId);
+  const changeProduct = (refId: string, setting: Setting): void => {
+    const fullProduct = realProducts.find((i: Product) => i.ref_id === refId);
 
-    if (fullItem) {
-      setSelectedItem({
-        ...selectedItem,
-        [setting.id]: fullItem,
+    if (fullProduct) {
+      setSelectedProduct({
+        ...selectedProduct,
+        [setting.id]: fullProduct,
       });
 
-      sendToFrame(fullItem, setting.id, setting.type, setting.attribute);
+      sendToFrame(fullProduct, setting.id, setting.type, setting.attribute);
 
       setExistingConfig({
         ...existingConfig,
         [setting.id]: {
-          id: fullItem.ref_id,
+          id: fullProduct.ref_id,
           item: true,
         },
       });
@@ -261,39 +261,39 @@ function ThemesSideNav({ existingConfig, setExistingConfig, settingsScheme }: Th
   };
 
   useEffect(() => {
-    const getItems = async (): Promise<void> => {
+    const getProducts = async (): Promise<void> => {
       if (selectedShop.ref_id) {
         await axios
           .get(`${process.env.NEXT_PUBLIC_API_URL}/products/shop/${selectedShop.ref_id}`)
           .then((response: AxiosResponse) => {
             if (response.data.data) {
-              const itemsArr: ItemSelect[] = [];
+              const productsArr: ProductSelect[] = [];
 
-              response.data.data.forEach((item: Item) => {
-                itemsArr.push({
-                  label: item.name,
-                  value: item.ref_id,
-                  image: `${process.env.NEXT_PUBLIC_AWS_IMAGE_URL}${item.images[0].path}`,
-                  refId: item.ref_id,
+              response.data.data.forEach((product: Product) => {
+                productsArr.push({
+                  label: product.name,
+                  value: product.ref_id,
+                  image: `${process.env.NEXT_PUBLIC_AWS_IMAGE_URL}${product.images[0].path}`,
+                  refId: product.ref_id,
                 });
               });
 
-              setItems(itemsArr);
-              setRealItems(response.data.data);
+              setProducts(productsArr);
+              setRealProducts(response.data.data);
             } else {
-              setItems([]);
+              setProducts([]);
             }
           })
           .catch(() => {
-            setItems([]);
+            setProducts([]);
           });
       }
     };
 
-    getItems();
+    getProducts();
 
     return (): void => {
-      setItems([]);
+      setProducts([]);
     };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -310,7 +310,7 @@ function ThemesSideNav({ existingConfig, setExistingConfig, settingsScheme }: Th
               setExistingConfig({ [setting.id]: defaultValue });
             } else if (!existingConfig[setting.id]) {
               setExistingConfig(
-                (existingSetState: Record<string | number, ThemeItemNew | string | boolean | number>) => ({
+                (existingSetState: Record<string | number, ThemeProductNew | string | boolean | number>) => ({
                   ...existingSetState,
                   [setting.id]: defaultValue,
                 }),

@@ -4,22 +4,22 @@ import { UseFormReturnType } from '@mantine/form/lib/use-form';
 import { Trash } from 'tabler-icons-react';
 import axios from 'axios';
 
-import { ItemFormData, ItemKey } from '../../../types/types';
+import { Item, ProductFormData } from '../../../types/types';
 
 interface DigitalKeysProps {
-  form: UseFormReturnType<ItemFormData>;
-  getViewedItem: () => Promise<void>;
-  shownKeys: ItemKey[];
+  form: UseFormReturnType<ProductFormData>;
+  getViewedProduct: () => Promise<void>;
+  shownKeys: Item[];
 }
 
-function DigitalKeys({ form, getViewedItem, shownKeys }: DigitalKeysProps): JSX.Element {
+function DigitalKeys({ form, getViewedProduct, shownKeys }: DigitalKeysProps): JSX.Element {
   const theme = useMantineTheme();
 
-  const deleteKey = (keyId: string): void => {
+  const deleteKey = (refId: string): void => {
     axios
-      .delete(`${process.env.NEXT_PUBLIC_API_URL}/products/digital/${keyId}`)
+      .delete(`${process.env.NEXT_PUBLIC_API_URL}/products/digital/${refId}`)
       .then(() => {
-        getViewedItem();
+        getViewedProduct();
       })
       .catch(() => {
         showNotification({
@@ -69,7 +69,7 @@ function DigitalKeys({ form, getViewedItem, shownKeys }: DigitalKeysProps): JSX.
               </tr>
             </thead>
             <tbody>
-              {shownKeys.map((key: ItemKey) => (
+              {shownKeys.map((key: Item) => (
                 <tr key={key.key}>
                   <td>{key.key}</td>
                   <td>{key.recipient_email === null ? 'Unsold' : key.recipient_email}</td>

@@ -7,16 +7,16 @@ import { showNotification } from '@mantine/notifications';
 import { Icon as TablerIcon, Photo, Trash, Upload, X } from 'tabler-icons-react';
 import axios from 'axios';
 
-import { ImageType, Item, ItemImage } from '../../../types/types';
+import { ImageType, Product, ProductImage } from '../../../types/types';
 
 interface ImagesProps {
-  getViewedItem: () => void;
+  getViewedProduct: () => void;
   images: ImageType[];
   setImages: Dispatch<SetStateAction<ImageType[]>>;
-  viewedItem: Item;
+  viewedProduct: Product;
 }
 
-function Images({ getViewedItem, images, setImages, viewedItem }: ImagesProps): JSX.Element {
+function Images({ getViewedProduct, images, setImages, viewedProduct }: ImagesProps): JSX.Element {
   const theme = useMantineTheme();
 
   const getBase64 = (file: File): Promise<string> => {
@@ -85,7 +85,7 @@ function Images({ getViewedItem, images, setImages, viewedItem }: ImagesProps): 
     axios
       .delete(`${process.env.NEXT_PUBLIC_API_URL}/files/${imageId}`)
       .then(() => {
-        getViewedItem();
+        getViewedProduct();
       })
       .catch(() => {
         showNotification({
@@ -137,16 +137,22 @@ function Images({ getViewedItem, images, setImages, viewedItem }: ImagesProps): 
                 </ActionIcon>
               </span>
 
-              <Image src={image.dataURL} height={256} width={256} objectFit="contain" alt={`Item image ${index + 1}`} />
+              <Image
+                src={image.dataURL}
+                height={256}
+                width={256}
+                objectFit="contain"
+                alt={`Product image ${index + 1}`}
+              />
             </Grid.Col>
           ))}
         </Grid>
       )}
 
-      {viewedItem.images.length > 0 && (
+      {viewedProduct.images.length > 0 && (
         <InputWrapper className="mb-8" label="Uploaded Images">
           <Grid>
-            {viewedItem.images.map((image: ItemImage, index: number) => (
+            {viewedProduct.images.map((image: ProductImage, index: number) => (
               <Grid.Col className="relative h-48" span={3} key={image.ref_id}>
                 <span
                   className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-white
@@ -162,7 +168,7 @@ function Images({ getViewedItem, images, setImages, viewedItem }: ImagesProps): 
                   width={188}
                   height={176}
                   objectFit="contain"
-                  alt={`Item image ${index + 1}`}
+                  alt={`Product image ${index + 1}`}
                 />
               </Grid.Col>
             ))}

@@ -128,49 +128,11 @@ export interface ImageType {
 }
 
 export interface Item {
-  description?: string;
-  images: ItemImage[];
-  keys: ItemKey[];
-  name: string;
-  price: number;
-  ref_id: string;
-  slug: string;
-  status: number;
-  stock: number;
-}
-
-// TODO: Check again
-export interface ItemFormData {
-  name: string;
-  price: number;
-  status: string;
-  description?: string;
-  keys?: string;
-  images?: File;
-  csv?: File;
-  shop?: string;
-  min_order_quantity?: number;
-  max_order_quantity?: number;
-}
-
-export interface ItemImage {
-  path: string;
-  ref_id: string;
-}
-
-export interface ItemKey {
   created_at: number;
   key: string;
   recipient_email?: string;
   ref_id: string;
   status: number;
-}
-
-export interface ItemSelect extends ComponentPropsWithoutRef<'div'> {
-  image: string;
-  label: string;
-  refId: string;
-  value: string;
 }
 
 export interface LoginData {
@@ -306,6 +268,43 @@ export interface PersonalInfoFormData {
   username: string;
 }
 
+export interface Product {
+  description?: string;
+  images: ProductImage[];
+  keys: Item[];
+  name: string;
+  price: number;
+  ref_id: string;
+  slug: string;
+  status: number;
+  stock: number;
+}
+
+export interface ProductFormData {
+  name: string;
+  price: number;
+  status: string;
+  description?: string;
+  keys?: string;
+  images?: File;
+  csv?: File;
+  shop?: string;
+  min_order_quantity?: number;
+  max_order_quantity?: number;
+}
+
+export interface ProductImage {
+  path: string;
+  ref_id: string;
+}
+
+export interface ProductSelect extends ComponentPropsWithoutRef<'div'> {
+  image: string;
+  label: string;
+  refId: string;
+  value: string;
+}
+
 export interface RegisterData {
   email: string;
   username: string;
@@ -320,12 +319,6 @@ export interface ResetPasswordData {
   passwordConfirmation: string;
   ref_id?: string;
   token?: string;
-}
-
-export interface ShopAdvertisement {
-  name: string;
-  url: string;
-  link: string;
 }
 
 export interface Setting {
@@ -427,22 +420,7 @@ export interface ThemeConfigFormData {
   config: string;
 }
 
-// TODO: Change id to ref_id and use OrderItem
-export interface ThemeItem {
-  available: boolean;
-  id: string;
-  images: {
-    id: number;
-    path: string;
-  };
-  item: boolean;
-  name: string;
-  price: number;
-  shop_id: string;
-  slug: string;
-}
-
-export interface ThemeItemNew {
+export interface ThemeProductNew {
   id: string;
   item: boolean;
 }

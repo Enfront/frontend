@@ -8,7 +8,7 @@ import useShop from '../../contexts/ShopContext';
 
 import ThemesHeader from '../dashboard/headers/ThemesHeader';
 import ThemesSideNav from '../dashboard/side-navs/ThemesSideNav';
-import { SettingsSchema, ThemeConfigFormData, ThemeItemNew } from '../../types/types';
+import { SettingsSchema, ThemeConfigFormData, ThemeProductNew } from '../../types/types';
 
 interface ThemeEditorLayoutProps {
   children: ReactNode;
@@ -24,7 +24,7 @@ function ThemeEditorLayout({ children }: ThemeEditorLayoutProps): JSX.Element {
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
   const [themeInEditorId, setThemeInEditorId] = useState<string | string[]>('');
   const [existingConfig, setExistingConfig] = useState<
-    Record<string | number, ThemeItemNew | string | boolean | number>
+    Record<string | number, ThemeProductNew | string | boolean | number>
   >({});
 
   const submitThemeConfig = async (publish: number): Promise<void> => {

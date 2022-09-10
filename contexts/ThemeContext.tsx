@@ -1,13 +1,13 @@
 import { ChangeEvent, createContext, ReactNode, useContext, useState } from 'react';
 
-import { Item } from '../types/types';
+import { Product } from '../types/types';
 
 interface ThemeExport {
   editorViewport: string;
   fakeToFrame(event: any, id: string, type: string, attribute: string): void;
   iframeLoaded: boolean;
   sendToFrame(
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | Item | string,
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | Product | string,
     id: string,
     type: string,
     attribute: string,
@@ -39,7 +39,7 @@ export function ThemeProvider({ children }: ThemeProvider): JSX.Element {
   const [themePage, setThemePage] = useState<string>('index');
 
   const sendToFrame = (
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | Item | string,
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | Product | string,
     id: string,
     type: string,
     attribute: string,

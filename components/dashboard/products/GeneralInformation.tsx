@@ -5,7 +5,7 @@ import { Group, InputWrapper, NumberInput, TextInput } from '@mantine/core';
 import { UseFormReturnType } from '@mantine/form/lib/use-form';
 import { getSymbolWithIsoCode } from 'jkshop-country-list/dist/countryFinder';
 
-import { ItemFormData } from '../../../types/types';
+import { ProductFormData } from '../../../types/types';
 
 const QuillNoSSRWrapper = dynamic(() => import('@mantine/rte'), {
   ssr: false,
@@ -14,7 +14,7 @@ const QuillNoSSRWrapper = dynamic(() => import('@mantine/rte'), {
 
 interface GeneralInformationProps {
   description: string;
-  form: UseFormReturnType<ItemFormData>;
+  form: UseFormReturnType<ProductFormData>;
   setDescription: Dispatch<SetStateAction<string>>;
   shopCurrency: string;
 }

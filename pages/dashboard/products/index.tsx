@@ -12,7 +12,7 @@ import { ActionIcon, Badge, Box, Button, Group, Table, Text, TextInput, Title, u
 import useShop from '../../../contexts/ShopContext';
 import { ProtectedRoute } from '../../../contexts/AuthContext';
 import DashboardLayout from '../../../components/layouts/DashboardLayout';
-import { Item } from '../../../types/types';
+import { Product } from '../../../types/types';
 
 function Index(): JSX.Element {
   const router = useRouter();
@@ -20,28 +20,28 @@ function Index(): JSX.Element {
 
   const { selectedShop } = useShop();
 
-  const [items, setItems] = useState<Item[]>([]);
-  const [shownItems, setShownItems] = useState<Item[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [shownProducts, setShownProducts] = useState<Product[]>([]);
 
-  const gotoItemDetails = (itemId: string): void => {
-    router.push(`/dashboard/products/${itemId}`);
+  const gotoProductDetails = (refId: string): void => {
+    router.push(`/dashboard/products/${refId}`);
   };
 
-  const gotoEditItem = (itemId: string): void => {
+  const gotoEditProduct = (refId: string): void => {
     router.push({
-      pathname: `/dashboard/products/${itemId}`,
+      pathname: `/dashboard/products/${refId}`,
       query: { edit: true },
     });
   };
 
-  const searchItems = (event: ChangeEvent<HTMLInputElement>): void => {
+  const searchProducts = (event: ChangeEvent<HTMLInputElement>): void => {
     const { value } = event.currentTarget;
-    const data = items.filter((object: Item) => {
+    const data = products.filter((object: Product) => {
       const stringSomething = Object.values(object).toString().toLowerCase();
       return stringSomething.includes(value.toLowerCase());
     });
 
-    setShownItems(data);
+    setShownProducts(data);
   };
 
   const getStockStatus = (stockCount: number): JSX.Element => {
@@ -68,7 +68,7 @@ function Index(): JSX.Element {
     );
   };
 
-  const getItemStatus = (status: number): JSX.Element => {
+  const getProductStatus = (status: number): JSX.Element => {
     if (status === 1) {
       return (
         <Badge color="green" radius="xs">
@@ -84,28 +84,28 @@ function Index(): JSX.Element {
     );
   };
 
-  const getItems = useCallback((): void => {
+  const getProducts = useCallback((): void => {
     if (selectedShop.ref_id) {
       axios
         .get(`${process.env.NEXT_PUBLIC_API_URL}/products/shop/${selectedShop.ref_id}`)
         .then((response: AxiosResponse) => {
-          setItems(response.data.data);
-          setShownItems(response.data.data);
+          setProducts(response.data.data);
+          setShownProducts(response.data.data);
         })
         .catch(() => {
-          setItems([]);
-          setShownItems([]);
+          setProducts([]);
+          setShownProducts([]);
         });
     }
   }, [selectedShop]);
 
   useEffect(() => {
-    getItems();
+    getProducts();
 
     return () => {
-      setShownItems([]);
+      setShownProducts([]);
     };
-  }, [getItems]);
+  }, [getProducts]);
 
   return (
     <DashboardLayout
@@ -128,7 +128,7 @@ function Index(): JSX.Element {
         <div className="mb-10 flex justify-between rounded-md p-4">
           <TextInput
             className="w-4/12"
-            onChange={(event: ChangeEvent<HTMLInputElement>) => searchItems(event)}
+            onChange={(event: ChangeEvent<HTMLInputElement>) => searchProducts(event)}
             placeholder="Search"
             label="Search for products"
             icon={<Search size={16} />}
@@ -148,19 +148,19 @@ function Index(): JSX.Element {
           </tr>
         </thead>
 
-        {shownItems && shownItems.length > 0 ? (
+        {shownProducts && shownProducts.length > 0 ? (
           <tbody>
-            {shownItems.map((item: Item) => (
-              <tr className="cursor-pointer" onClick={() => gotoItemDetails(item.ref_id)} key={item.ref_id}>
+            {shownProducts.map((product: Product) => (
+              <tr className="cursor-pointer" onClick={() => gotoProductDetails(product.ref_id)} key={product.ref_id}>
                 <td>
                   <div className="flex items-center">
                     <div className="relative h-10 w-10 flex-shrink-0">
-                      {item.images.length > 0 ? (
+                      {product.images.length > 0 ? (
                         <Image
                           className="block rounded object-cover"
-                          src={`${process.env.NEXT_PUBLIC_AWS_IMAGE_URL}${item.images[0].path}`}
+                          src={`${process.env.NEXT_PUBLIC_AWS_IMAGE_URL}${product.images[0].path}`}
                           layout="fill"
-                          alt={`${item.name} item image`}
+                          alt={`${product.name} product image`}
                         />
                       ) : (
                         <span className="block h-10 w-10 rounded bg-gray-400" />
@@ -168,10 +168,10 @@ function Index(): JSX.Element {
                     </div>
 
                     <div className="ml-4">
-                      <Title order={6}>{item.name}</Title>
+                      <Title order={6}>{product.name}</Title>
 
                       <Text color="dimmed" size="xs">
-                        {item.ref_id}
+                        {product.ref_id}
                       </Text>
                     </div>
                   </div>
@@ -179,21 +179,21 @@ function Index(): JSX.Element {
 
                 <td>
                   <NumberFormat
-                    value={(item.price / 100).toFixed(2)}
+                    value={(product.price / 100).toFixed(2)}
                     prefix={getSymbolWithIsoCode(selectedShop.currency)}
                     displayType="text"
                     thousandSeparator
                   />
                 </td>
 
-                <td>{item.stock}</td>
+                <td>{product.stock}</td>
 
-                <td>{getStockStatus(item.stock)}</td>
+                <td>{getStockStatus(product.stock)}</td>
 
-                <td>{getItemStatus(item.status)}</td>
+                <td>{getProductStatus(product.status)}</td>
 
                 <td>
-                  <ActionIcon onClick={() => gotoEditItem(item.ref_id)} size="sm" variant="transparent">
+                  <ActionIcon onClick={() => gotoEditProduct(product.ref_id)} size="sm" variant="transparent">
                     <Edit />
                   </ActionIcon>
                 </td>
@@ -205,7 +205,7 @@ function Index(): JSX.Element {
             <tr>
               <td colSpan={6}>
                 <Text align="center" color="dimmed" size="md">
-                  No items found
+                  No products found
                 </Text>
               </td>
             </tr>
