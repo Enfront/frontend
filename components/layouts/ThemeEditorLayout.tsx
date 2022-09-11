@@ -102,11 +102,13 @@ function ThemeEditorLayout({ children }: ThemeEditorLayoutProps): JSX.Element {
       navbar={
         <Navbar className="top-0 h-screen" m="md" hiddenBreakpoint="sm" hidden={!sidebarOpen} width={{ sm: 300 }}>
           <Navbar.Section component={ScrollArea} scrollbarSize={2} mt="xs" px="xs" grow offsetScrollbars>
-            <ThemesSideNav
-              existingConfig={existingConfig}
-              setExistingConfig={setExistingConfig}
-              settingsScheme={editorSettings}
-            />
+            {existingConfig && Object.keys(existingConfig).length !== 0 && (
+              <ThemesSideNav
+                existingConfig={existingConfig}
+                setExistingConfig={setExistingConfig}
+                settingsScheme={editorSettings}
+              />
+            )}
           </Navbar.Section>
         </Navbar>
       }

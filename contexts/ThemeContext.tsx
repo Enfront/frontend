@@ -64,16 +64,8 @@ export function ThemeProvider({ children }: ThemeProvider): JSX.Element {
     const iframe = document.getElementById('preview') as HTMLIFrameElement;
 
     if (iframe && iframe.contentWindow) {
-      if (type === 'checkbox') {
-        const message = { id, type, attribute, value: event };
-        iframe.contentWindow.postMessage(message, '*');
-      } else if (type === 'select' || type === 'product') {
-        const message = { id, type, attribute, value: event };
-        iframe.contentWindow.postMessage(message, '*');
-      } else {
-        const message = { id, type, attribute, value: event };
-        iframe.contentWindow.postMessage(message, '*');
-      }
+      const message = { id, type, attribute, value: event };
+      iframe.contentWindow.postMessage(message, '*');
     }
   };
 

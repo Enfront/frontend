@@ -292,10 +292,6 @@ function ThemesSideNav({ existingConfig, setExistingConfig, settingsScheme }: Th
 
     getProducts();
 
-    return (): void => {
-      setProducts([]);
-    };
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedShop]);
 
@@ -324,10 +320,6 @@ function ThemesSideNav({ existingConfig, setExistingConfig, settingsScheme }: Th
     };
 
     initializeSettings();
-
-    return (): void => {
-      setExistingConfig({});
-    };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [settingsScheme, iframeLoaded]);
