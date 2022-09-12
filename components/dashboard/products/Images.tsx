@@ -125,35 +125,29 @@ function Images({ getViewedProduct, images, setImages, viewedProduct }: ImagesPr
       </InputWrapper>
 
       {images.length > 0 && (
-        <Grid className="h-[256px]">
+        <Group>
           {images.map((image: ImageType, index: number) => (
-            <Grid.Col className="relative" span={3} key={image.dataURL}>
+            <div className="relative inline-block aspect-square h-48 overflow-hidden rounded" key={image.dataURL}>
               <span
                 className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-white
-                bg-opacity-90 text-center opacity-0 duration-300 hover:opacity-100"
+                  bg-opacity-90 text-center opacity-0 duration-300 hover:opacity-100"
               >
                 <ActionIcon variant="transparent" color="red" size="sm">
                   <Trash onClick={() => removeImageFromUpload(index)} aria-label="Remove image" />
                 </ActionIcon>
               </span>
 
-              <Image
-                src={image.dataURL}
-                height={256}
-                width={256}
-                objectFit="contain"
-                alt={`Product image ${index + 1}`}
-              />
-            </Grid.Col>
+              <Image src={image.dataURL} layout="fill" objectFit="cover" alt={`Product image ${index + 1}`} />
+            </div>
           ))}
-        </Grid>
+        </Group>
       )}
 
       {viewedProduct.images.length > 0 && (
         <InputWrapper className="mb-8" label="Uploaded Images">
-          <Grid>
+          <Group>
             {viewedProduct.images.map((image: ProductImage, index: number) => (
-              <Grid.Col className="relative h-48" span={3} key={image.ref_id}>
+              <div className="relative inline-block aspect-square h-48 overflow-hidden rounded" key={image.path}>
                 <span
                   className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-white
                   bg-opacity-90 text-center opacity-0 duration-300 hover:opacity-100"
@@ -165,14 +159,13 @@ function Images({ getViewedProduct, images, setImages, viewedProduct }: ImagesPr
 
                 <Image
                   src={`${process.env.NEXT_PUBLIC_AWS_IMAGE_URL}${image.path}`}
-                  width={188}
-                  height={176}
-                  objectFit="contain"
+                  layout="fill"
+                  objectFit="cover"
                   alt={`Product image ${index + 1}`}
                 />
-              </Grid.Col>
+              </div>
             ))}
-          </Grid>
+          </Group>
         </InputWrapper>
       )}
     </>
