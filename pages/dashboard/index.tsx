@@ -16,7 +16,7 @@ import { DashboardStats, StatsCard } from '../../types/types';
 function Index(): JSX.Element {
   const theme = useMantineTheme();
 
-  const { selectedShop } = useShop();
+  const { isProcessing, selectedShop } = useShop();
 
   const [shopStats, setShopStats] = useState<DashboardStats>({
     all_orders: 0,
@@ -82,14 +82,14 @@ function Index(): JSX.Element {
   });
 
   useEffect(() => {
-    if (selectedShop.ref_id !== '') {
+    if (selectedShop.ref_id !== '' && !isProcessing) {
       axios
         .get(`${process.env.NEXT_PUBLIC_API_URL}/orders/stats/shop/${selectedShop.ref_id}`)
         .then((response: AxiosResponse) => {
           setShopStats(response.data.data);
         });
     }
-  }, [selectedShop.ref_id]);
+  }, [isProcessing, selectedShop.ref_id]);
 
   return (
     <DashboardLayout

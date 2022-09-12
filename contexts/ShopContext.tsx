@@ -7,6 +7,7 @@ import { ShopData } from '../types/types';
 
 interface ShopExports {
   getUserShops(): Promise<void>;
+  isProcessing: boolean;
   setSelectedShopByIdOrData(shopToBeSelected: string | ShopData): void;
   selectedShop: ShopData;
   shopData: ShopData[];
@@ -48,10 +49,11 @@ const initialSelectedShop: ShopData = {
 };
 
 export const ShopContext = createContext<ShopExports>({
+  getUserShops: async () => undefined,
+  isProcessing: true,
   selectedShop: initialSelectedShop,
   shopData: [],
   shopProcessing: true,
-  getUserShops: async () => undefined,
   setSelectedShopByIdOrData: () => undefined,
 });
 
@@ -134,10 +136,11 @@ export function ShopProvider({ children }: ShopProvider): JSX.Element {
   return (
     <ShopContext.Provider
       value={{
+        getUserShops,
+        isProcessing,
         selectedShop,
         shopData,
         shopProcessing,
-        getUserShops,
         setSelectedShopByIdOrData,
       }}
     >
