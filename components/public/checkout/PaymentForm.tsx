@@ -7,28 +7,20 @@ import { showNotification } from '@mantine/notifications';
 import { PayPalButton } from '@repeatgg/react-paypal-button-v2';
 import { loadStripe, Stripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
-import { ChevronDown } from 'tabler-icons-react';
 import axios, { AxiosResponse } from 'axios';
 
-import { AcceptedCryptoAddresses, CoinPaymentsIpnData, PayPalOnApprove } from '../../../types/types';
+import { AcceptedCryptoAddresses, CryptoTxnInfo, PayPalOnApprove } from '../../../types/types';
 import CryptoModal from './CryptoModal';
 import StripeModal from './StripeModal';
 
 interface PaymentFormProps {
   buyerEmail: string;
-  shopCurrency: string;
-  isOrderComplete: boolean;
+  existingCryptoOrder: CryptoTxnInfo;
   getOrderInfo: () => void;
-  existingCryptoOrder: CoinPaymentsIpnData;
+  shopCurrency: string;
 }
 
-function PaymentForm({
-  buyerEmail,
-  shopCurrency,
-  isOrderComplete,
-  getOrderInfo,
-  existingCryptoOrder,
-}: PaymentFormProps): JSX.Element {
+function PaymentForm({ buyerEmail, getOrderInfo, existingCryptoOrder, shopCurrency }: PaymentFormProps): JSX.Element {
   const router = useRouter();
   const { orderId, shopId } = router.query;
 
@@ -98,7 +90,7 @@ function PaymentForm({
               }
 
               if (response.data.data.bitcoin_address) {
-                setShowCrypto(false);
+                setShowCrypto(true);
                 setAcceptedCryptos([
                   {
                     name: 'Bitcoin',
@@ -114,7 +106,7 @@ function PaymentForm({
     };
 
     const checkCryptoStatus = (): void => {
-      if (existingCryptoOrder && existingCryptoOrder.status === 1) {
+      if (existingCryptoOrder?.status === 'Processing') {
         setIsCryptoPaymentVisible(true);
         setCryptoInProgress(true);
       }
@@ -154,11 +146,10 @@ function PaymentForm({
               <Button
                 className="h-[42px]"
                 onClick={() => setIsCryptoPaymentVisible(true)}
-                rightIcon={<ChevronDown size={14} />}
                 variant="outline"
                 color="gray"
               >
-                Crypto Options
+                Cryptocurrency
               </Button>
             )}
 
@@ -186,28 +177,20 @@ function PaymentForm({
                       });
                   }}
                   onApprove={(data: PayPalOnApprove) => {
-                    // Capture the funds from the transaction
                     return fetch(`/api/v1/payments/paypal/${data.orderID}/${orderId}?email=${buyerEmail}`).then(
                       (response: Response) => {
                         getOrderInfo();
 
                         if (response.status === 403) {
-                          setShowPayPal(false);
-
                           showNotification({
                             title: `We're sorry.`,
-                            message: `Your PayPal account has been banned by this shop. Please use another
-                            payment method or contact the shop's staff to resolve this issue.`,
+                            message: `There was an issue with your payment. Please use another payment method or contact
+                            the shop's staff to resolve this issue.`,
                             color: 'red',
                             autoClose: false,
                           });
                         } else {
-                          showNotification({
-                            title: 'Your payment has been successful!',
-                            message: `Please check ${buyerEmail} to find your key! Thank you for your business!`,
-                            color: 'green',
-                            autoClose: false,
-                          });
+                          router.push(`/checkout/${shopId}/${orderId}/processing`);
                         }
                       },
                     );
@@ -251,8 +234,6 @@ function PaymentForm({
         shopCurrency={shopCurrency}
         isVisible={isCryptoPaymentVisible}
         setIsVisible={setIsCryptoPaymentVisible}
-        isOrderComplete={isOrderComplete}
-        getOrderInfo={getOrderInfo}
         existingCryptoOrder={existingCryptoOrder}
       />
     </>

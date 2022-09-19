@@ -34,7 +34,7 @@ function StripeModal({ getOrderInfo, isVisible, setIsVisible }: StripeModalProps
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: `${process.env.NEXT_PUBLIC_SITE_URL}/checkout/${shopId}/${orderId}`,
+        return_url: `${process.env.NEXT_PUBLIC_SITE_URL}/checkout/${shopId}/${orderId}/processing`,
       },
     });
 

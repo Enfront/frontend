@@ -25,28 +25,6 @@ export interface BlacklistOnSubmitData {
   value: string;
 }
 
-export interface CoinPaymentsIpnData {
-  txn_id: string;
-  status: number;
-  currency1: string;
-  currency2: string;
-  amount1: string;
-  amount2: string;
-  fee: string;
-  received_amount: string;
-  received_confirms: number;
-}
-
-export interface CoinPaymentsTxnInfo {
-  txn_id: string;
-  address: string;
-  amount: string;
-  currency: string;
-  confirms_needed: number;
-  qrcode_url: string;
-  timeout: number;
-}
-
 export interface CommentFormData {
   comment: string;
 }
@@ -60,6 +38,37 @@ export interface Country {
   continent: string;
   stripe_available: boolean;
   paypal_available: boolean;
+}
+
+export interface CryptoAdditionalData {
+  providedComment?: string;
+  consumedLightningAddress?: string;
+}
+
+export interface CryptoPayments {
+  id: string;
+  receivedDate: number;
+  value: string;
+  fee: string;
+  status: 'Invalid' | 'Processing' | 'Settled';
+  destination: string;
+}
+
+export interface CryptoTxnInfo {
+  paymentMethod: string;
+  cryptoCode: 'BTC';
+  destination: string;
+  paymentLink: string;
+  rate: string;
+  paymentMethodPaid: string;
+  totalPaid: string;
+  due: string;
+  amount: string;
+  networkFee: string;
+  payments: CryptoPayments[];
+  activated: boolean;
+  additionalData: CryptoAdditionalData;
+  status: 'New' | 'Processing' | 'Expired' | 'Invalid' | 'Settled';
 }
 
 export interface CreateShopFormData {
@@ -195,7 +204,7 @@ export interface OrderPagination {
 export interface OrderInfo {
   buyer: string;
   created_at: string;
-  crypto: CoinPaymentsIpnData;
+  crypto: CryptoTxnInfo;
   currency: string;
   current_status: number;
   email: string;

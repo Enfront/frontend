@@ -2,150 +2,114 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 
-import { ActionIcon, Avatar, Modal, Stack, Text, TextInput } from '@mantine/core';
-import { showNotification } from '@mantine/notifications';
+import { ActionIcon, Avatar, Box, Modal, Stack, Text, TextInput, Tooltip } from '@mantine/core';
+import { useClipboard } from '@mantine/hooks';
 import { ArrowNarrowLeft, ArrowNarrowRight, Check } from 'tabler-icons-react';
 import axios, { AxiosResponse } from 'axios';
 
-import { AcceptedCryptoAddresses, CoinPaymentsIpnData, CoinPaymentsTxnInfo } from '../../../types/types';
+import { AcceptedCryptoAddresses, CryptoTxnInfo } from '../../../types/types';
 
 interface CryptoModalProps {
   acceptedCryptos: AcceptedCryptoAddresses[];
   buyerEmail: string;
-  shopCurrency: string;
+  existingCryptoOrder: CryptoTxnInfo;
   isVisible: boolean;
+  shopCurrency: string;
   setIsVisible: (isVisible: boolean) => void;
-  isOrderComplete: boolean;
-  getOrderInfo: () => void;
-  existingCryptoOrder: CoinPaymentsIpnData;
 }
 
 function CryptoModal({
   acceptedCryptos,
   buyerEmail,
-  shopCurrency,
-  isVisible,
-  setIsVisible,
-  isOrderComplete,
-  getOrderInfo,
   existingCryptoOrder,
+  isVisible,
+  shopCurrency,
+  setIsVisible,
 }: CryptoModalProps): JSX.Element {
   const router = useRouter();
+  const clipboardAmount = useClipboard({ timeout: 500 });
+  const clipboardDestination = useClipboard({ timeout: 500 });
 
-  const { orderId } = router.query;
+  const { shopId, orderId } = router.query;
 
   const [step, setStep] = useState<number>(0);
-
-  const [coinPaymentsTxnDetails, setCoinPaymentsTxnDetails] = useState<CoinPaymentsTxnInfo>({
-    txn_id: '',
-    address: '',
+  const [cryptoTxnDetails, setCryptoTxnDetails] = useState<CryptoTxnInfo>({
+    activated: true,
+    additionalData: {},
     amount: '',
-    currency: 'BTC',
-    confirms_needed: 0,
-    qrcode_url: '',
-    timeout: 0,
+    cryptoCode: 'BTC',
+    destination: '',
+    due: '',
+    networkFee: '',
+    paymentLink: '',
+    paymentMethod: '',
+    paymentMethodPaid: '',
+    payments: [],
+    rate: '',
+    totalPaid: '',
+    status: 'Invalid',
   });
 
-  const [coinPaymentsIpnDetails, setCoinPaymentsIpnDetails] = useState<CoinPaymentsIpnData>({
-    txn_id: '',
-    status: 0,
-    currency1: '',
-    currency2: '',
-    amount1: '',
-    amount2: '',
-    fee: '',
-    received_amount: '',
-    received_confirms: 0,
-  });
-
-  const checkCoinPaymentsExistingOrder = async (crypto: 'BTC' | 'ETH' | 'LTC' | 'LTCT'): Promise<void> => {
-    await axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/payments/coinpayments/${orderId}`)
-      .then((response: AxiosResponse) => {
-        if (response.data.data && response.data.data.currency === crypto) {
-          setCoinPaymentsTxnDetails(response.data.data);
-          checkCoinPaymentsIpnStatus(response.data.data.txn_id);
-          setStep(1);
-        } else {
-          createCoinPaymentsOrder(crypto);
-        }
-      });
+  const pollCryptoIpn = (): void => {
+    const pollTimer = setInterval(async () => {
+      await axios
+        .get(`${process.env.NEXT_PUBLIC_API_URL}/payments/crypto/${orderId}`)
+        .then((response: AxiosResponse) => {
+          if (response.data.data?.status === 'InvoiceProcessing') {
+            setCryptoTxnDetails(response.data.data);
+            setStep(2);
+          } else if (response.data.data?.status === 'InvoiceSettled') {
+            clearInterval(pollTimer);
+            router.push(`/checkout/${shopId}/${orderId}/processing`);
+          }
+        });
+    }, 30000);
   };
 
-  const createCoinPaymentsOrder = async (crypto: 'BTC' | 'ETH' | 'LTC' | 'LTCT'): Promise<void> => {
-    setStep(1);
-    await axios
-      .post(`${process.env.NEXT_PUBLIC_API_URL}/payments/coinpayments`, {
-        order: orderId,
-        buyer_email: buyerEmail,
-        currency1: shopCurrency,
-        currency2: crypto,
-      })
-      .then((response: AxiosResponse) => {
-        if (response.status === 200) {
+  const createCryptoOrder = async (): Promise<void> => {
+    const cryptoStarted = checkForExistingCryptoInvoice(cryptoTxnDetails);
+
+    if (!cryptoStarted) {
+      await axios
+        .post(`${process.env.NEXT_PUBLIC_API_URL}/payments/crypto`, {
+          order_ref: orderId,
+          fiat_currency: shopCurrency,
+          email: buyerEmail,
+        })
+        .then((response: AxiosResponse) => {
+          setCryptoTxnDetails(response.data.data);
+          pollCryptoIpn();
           setStep(1);
-          setCoinPaymentsTxnDetails(response.data.data);
-          checkCoinPaymentsIpnStatus(response.data.data.txn_id);
-        }
-      });
+        });
+    }
   };
 
-  const checkCoinPaymentsIpnStatus = (txn_id: string): void => {
-    axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/payments/coinpayments/ipn/${txn_id}`)
-      .then((response: AxiosResponse) => {
-        if (!isOrderComplete) {
-          const timeout = setTimeout(() => {
-            if (response.data.data) {
-              if (response.data.data.status === 1) {
-                setStep(2);
-                checkCoinPaymentsIpnStatus(txn_id);
-              }
+  const checkForExistingCryptoInvoice = (existingInvoice: CryptoTxnInfo): boolean => {
+    switch (existingInvoice?.status) {
+      case 'New':
+        pollCryptoIpn();
+        setStep(1);
+        return true;
 
-              if (response.data.data.status === 2 || response.data.data.status >= 100) {
-                setIsVisible(false);
-                getOrderInfo();
+      case 'Processing':
+        pollCryptoIpn();
+        setStep(2);
+        return true;
 
-                showNotification({
-                  title: 'Your payment has been successful!',
-                  message: `Please check ${buyerEmail} to find your key! Thank you for your business!`,
-                  color: 'green',
-                  autoClose: false,
-                });
-
-                clearTimeout(timeout);
-              }
-
-              setCoinPaymentsIpnDetails(response.data.data);
-            }
-          }, 20000);
-        }
-      });
+      default:
+        return false;
+    }
   };
 
   useEffect(() => {
-    const checkForExistingIpn = async (): Promise<void> => {
+    const setData = (): void => {
       if (existingCryptoOrder) {
-        if (existingCryptoOrder.status === 1) {
-          setStep(2);
-          setCoinPaymentsIpnDetails(existingCryptoOrder);
-          checkCoinPaymentsIpnStatus(existingCryptoOrder.txn_id);
-        } else if (existingCryptoOrder.status === 2 || existingCryptoOrder.status >= 100) {
-          getOrderInfo();
-          setCoinPaymentsIpnDetails(existingCryptoOrder);
-
-          showNotification({
-            title: 'Your payment has been successful!',
-            message: `Please check ${buyerEmail} to find your key! Thank you for your business!`,
-            color: 'green',
-            autoClose: false,
-          });
-        }
+        setCryptoTxnDetails(existingCryptoOrder);
+        checkForExistingCryptoInvoice(existingCryptoOrder);
       }
     };
 
-    checkForExistingIpn();
-
+    setData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -153,7 +117,7 @@ function CryptoModal({
     <Modal
       opened={isVisible}
       onClose={() => setIsVisible(false)}
-      size={384}
+      size={394}
       title={
         <>
           {step === 1 && (
@@ -176,54 +140,57 @@ function CryptoModal({
           </Text>
 
           <Stack my={16}>
-            {acceptedCryptos.map((crypto: AcceptedCryptoAddresses) => {
-              if (crypto.address !== '')
-                return (
-                  <button
-                    className="flex w-full cursor-pointer items-center justify-between rounded-md border-0 bg-white
-                    p-3 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900"
-                    onClick={() => checkCoinPaymentsExistingOrder(crypto.symbol)}
-                    type="button"
-                    key={crypto.name}
-                  >
-                    <span className="flex items-center">
-                      <Image src={crypto.logo} width={21} height={21} layout="intrinsic" alt={crypto.name} />
-                      <span className="ml-4 truncate">{crypto.name}</span>
-                    </span>
+            {acceptedCryptos.map((crypto: AcceptedCryptoAddresses) => (
+              <button
+                className="flex w-full cursor-pointer items-center justify-between rounded-md border-0 bg-white
+                p-3 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                onClick={() => createCryptoOrder()}
+                type="button"
+                key={crypto.name}
+              >
+                <span className="flex items-center">
+                  <Image src={crypto.logo} width={21} height={21} layout="intrinsic" alt={crypto.name} />
+                  <span className="ml-4 truncate">{crypto.name}</span>
+                </span>
 
-                    <ArrowNarrowRight className="h-4 w-4" />
-                  </button>
-                );
-
-              return false;
-            })}
+                <ArrowNarrowRight className="h-4 w-4" />
+              </button>
+            ))}
           </Stack>
         </>
       )}
 
-      {step === 1 && coinPaymentsTxnDetails.address !== '' && (
+      {step === 1 && cryptoTxnDetails.destination !== '' && (
         <>
           <Text align="center" weight={500}>
-            Pay With {coinPaymentsTxnDetails.currency}
+            Pay With {cryptoTxnDetails.cryptoCode}
           </Text>
 
           <Text align="center" color="gray" size="sm" mt={8} mb={16}>
-            To complete your order please send the exact amount of {coinPaymentsTxnDetails.currency} to the address
-            below.
+            To complete your order please send the exact amount of {cryptoTxnDetails.cryptoCode} to the address below.
           </Text>
 
           <div className="flex justify-center">
             <Image
-              src={coinPaymentsTxnDetails.qrcode_url}
+              src={`https://chart.googleapis.com/chart?cht=qr&chs=200x200&chld=L|0&chl=${cryptoTxnDetails.paymentLink}`}
               layout="intrinsic"
               height="200"
               width="200"
-              alt={`Crypto QR code for transaction ${coinPaymentsTxnDetails.txn_id}`}
+              alt={`Crypto QR code for ${cryptoTxnDetails.cryptoCode} transaction.`}
             />
           </div>
 
-          <TextInput placeholder="Amount" label="Amount" value={coinPaymentsTxnDetails.amount} mt={16} disabled />
-          <TextInput placeholder="Address" label="Address" value={coinPaymentsTxnDetails.address} mt={8} disabled />
+          <Box onClick={() => clipboardAmount.copy(cryptoTxnDetails.amount)}>
+            <Tooltip className="block" label={clipboardAmount.copied ? 'Copied' : 'Click to copy'}>
+              <TextInput placeholder="Amount" label="Amount" value={cryptoTxnDetails.amount} mt={16} disabled />
+            </Tooltip>
+          </Box>
+
+          <Box onClick={() => clipboardDestination.copy(cryptoTxnDetails.destination)}>
+            <Tooltip className="block" label={clipboardDestination.copied ? 'Copied' : 'Click to copy'}>
+              <TextInput placeholder="Address" label="Address" value={cryptoTxnDetails.destination} mt={8} disabled />
+            </Tooltip>
+          </Box>
         </>
       )}
 
@@ -236,23 +203,24 @@ function CryptoModal({
           </div>
 
           <Text align="center" weight={500} mt={16}>
-            {coinPaymentsIpnDetails.currency2} Received
+            {cryptoTxnDetails.cryptoCode} Received
           </Text>
 
           <Text align="center" color="gray" size="sm" mt={8}>
-            We are currently waiting for your payment to be confirmed by the {coinPaymentsIpnDetails.currency2} network.
+            We are currently waiting for your payment to be confirmed by the {cryptoTxnDetails.cryptoCode} network. You
+            will be redirected once the payment is complete.
           </Text>
 
           <Text align="center" color="gray" size="sm" mt={8} mb={16}>
-            It currently has{' '}
+            We have received{' '}
             <Text className="inline-block" color="dark" weight={500}>
-              {coinPaymentsIpnDetails.received_confirms}
+              {cryptoTxnDetails.totalPaid}
             </Text>{' '}
-            of{' '}
+            {cryptoTxnDetails.cryptoCode} of{' '}
             <Text className="inline-block" color="dark" weight={500}>
-              {coinPaymentsTxnDetails.confirms_needed}
+              {cryptoTxnDetails.amount}
             </Text>{' '}
-            confirmations.
+            {cryptoTxnDetails.cryptoCode}
           </Text>
         </>
       )}
