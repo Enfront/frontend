@@ -1,7 +1,7 @@
 import { ComponentProps, Dispatch, SetStateAction } from 'react';
 import Image from 'next/image';
 
-import { ActionIcon, Grid, Group, InputWrapper, MantineTheme, Text, useMantineTheme } from '@mantine/core';
+import { ActionIcon, Group, InputWrapper, MantineTheme, Text, useMantineTheme } from '@mantine/core';
 import { Dropzone, DropzoneStatus, IMAGE_MIME_TYPE } from '@mantine/dropzone';
 import { showNotification } from '@mantine/notifications';
 import { Icon as TablerIcon, Photo, Trash, Upload, X } from 'tabler-icons-react';
