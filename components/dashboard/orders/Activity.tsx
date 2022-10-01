@@ -91,7 +91,7 @@ function Activity({ getOrderInfo, orderId, viewedOrder }: OrderActivityProps): J
       case -3:
         return 'Order Refunded';
       case -2:
-        return 'Payment Has Been Denied, Voided, or Canceled';
+        return 'Payment Has Been Canceled, Denied, or Voided';
       case -1:
         return 'Order Canceled - Due to No Payment';
       case 0:

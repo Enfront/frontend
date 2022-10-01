@@ -88,7 +88,7 @@ function Index(): JSX.Element {
           <BasicInfoTab />
         </Tabs.Tab>
 
-        <Tabs.Tab label="Payments">
+        <Tabs.Tab label="Payment Methods">
           {/* <PaymentsTab payPalAccessToken={payPalAccessToken} /> */}
           <PaymentsTab />
         </Tabs.Tab>
