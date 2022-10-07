@@ -67,7 +67,7 @@ function ThemeEditorLayout({ children }: ThemeEditorLayoutProps): JSX.Element {
         axios
           .get(`${process.env.NEXT_PUBLIC_API_URL}/themes/${themeId}/config/${selectedShop.ref_id}`)
           .then((response: AxiosResponse) => {
-            if (response.data.data !== undefined) {
+            if (response.data.data) {
               setExistingConfig(response.data.data);
             } else {
               setExistingConfig({});
@@ -102,13 +102,11 @@ function ThemeEditorLayout({ children }: ThemeEditorLayoutProps): JSX.Element {
       navbar={
         <Navbar className="top-0 h-screen" m="md" hiddenBreakpoint="sm" hidden={!sidebarOpen} width={{ sm: 300 }}>
           <Navbar.Section component={ScrollArea} scrollbarSize={2} mt="xs" px="xs" grow offsetScrollbars>
-            {existingConfig && Object.keys(existingConfig).length !== 0 && (
-              <ThemesSideNav
-                existingConfig={existingConfig}
-                setExistingConfig={setExistingConfig}
-                settingsScheme={editorSettings}
-              />
-            )}
+            <ThemesSideNav
+              existingConfig={existingConfig}
+              setExistingConfig={setExistingConfig}
+              settingsScheme={editorSettings}
+            />
           </Navbar.Section>
         </Navbar>
       }
