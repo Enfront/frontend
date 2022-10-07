@@ -11,7 +11,6 @@ import DashboardLayout from '../../../components/layouts/DashboardLayout';
 import BasicInfoTab from '../../../components/dashboard/shop/BasicInfoTab';
 import PaymentsTab from '../../../components/dashboard/shop/PaymentsTab';
 import BlacklistTab from '../../../components/dashboard/shop/BlacklistTab';
-import ThemesTab from '../../../components/dashboard/shop/ThemesTab';
 import DangerTab from '../../../components/dashboard/shop/DangerTab';
 // import { PayPalData } from '../../../types/types';
 
@@ -95,10 +94,6 @@ function Index(): JSX.Element {
 
         <Tabs.Tab label="Blacklists">
           <BlacklistTab openModal={openModal} setOpenModal={setOpenModal} />
-        </Tabs.Tab>
-
-        <Tabs.Tab label="Themes">
-          <ThemesTab />
         </Tabs.Tab>
 
         <Tabs.Tab label="Danger Zone" color="red">

@@ -6,10 +6,10 @@ import { Card, Text, Badge, Button, Group, Grid, Title } from '@mantine/core';
 import axios, { AxiosError, AxiosResponse } from 'axios';
 
 import useShop from '../../../contexts/ShopContext';
-import ChangeTheme from '../themes/ChangeTheme';
+import ChangeTheme from './ChangeTheme';
 import { ThemeTemplate } from '../../../types/types';
 
-function ThemesTab(): JSX.Element {
+function ThemeSettings(): JSX.Element {
   const router = useRouter();
 
   const { getUserShops, selectedShop } = useShop();
@@ -68,7 +68,7 @@ function ThemesTab(): JSX.Element {
         {templates.map((template: ThemeTemplate) => {
           return (
             <Grid.Col span={4} key={template.ref_id}>
-              <Card shadow="sm" p="lg">
+              <Card shadow="xs" p="lg" withBorder>
                 <Group position="apart">
                   <Title className="text-xl" order={2}>
                     {template.name}
@@ -114,4 +114,4 @@ function ThemesTab(): JSX.Element {
   );
 }
 
-export default ThemesTab;
+export default ThemeSettings;
