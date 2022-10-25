@@ -170,36 +170,41 @@ function OrderId(): JSX.Element {
               {orderId}
             </Title>
 
-            <Menu
-              control={
+            <Menu shadow="md" width={200}>
+              <Menu.Target>
                 <Button className="pr-3" variant="outline" rightIcon={<ChevronDown size={14} />}>
                   Actions
                 </Button>
-              }
-            >
-              <Menu.Label>BlacklistItem</Menu.Label>
+              </Menu.Target>
 
-              {viewedOrder.paypal_email && (
+              <Menu.Dropdown>
+                <Menu.Label>BlacklistItem</Menu.Label>
+
+                {viewedOrder.paypal_email && (
+                  <Menu.Item
+                    onClick={() => addToBlacklist('paypal_email', viewedOrder.paypal_email)}
+                    icon={<BrandPaypal size={14} />}
+                  >
+                    Ban PayPal Email
+                  </Menu.Item>
+                )}
+
                 <Menu.Item
-                  onClick={() => addToBlacklist('paypal_email', viewedOrder.paypal_email)}
-                  icon={<BrandPaypal size={14} />}
+                  onClick={() => addToBlacklist('ip_address', customerData.ip_address)}
+                  icon={<Ban size={14} />}
                 >
-                  Ban PayPal Email
+                  Ban IP Address
                 </Menu.Item>
-              )}
 
-              <Menu.Item onClick={() => addToBlacklist('ip_address', customerData.ip_address)} icon={<Ban size={14} />}>
-                Ban IP Address
-              </Menu.Item>
-
-              {viewedOrder.customer.user && (
-                <Menu.Item
-                  onClick={() => addToBlacklist('user', viewedOrder.customer.user.ref_id)}
-                  icon={<UserOff size={14} />}
-                >
-                  Ban User
-                </Menu.Item>
-              )}
+                {viewedOrder.customer.user && (
+                  <Menu.Item
+                    onClick={() => addToBlacklist('user', viewedOrder.customer.user.ref_id)}
+                    icon={<UserOff size={14} />}
+                  >
+                    Ban User
+                  </Menu.Item>
+                )}
+              </Menu.Dropdown>
             </Menu>
           </Group>
 

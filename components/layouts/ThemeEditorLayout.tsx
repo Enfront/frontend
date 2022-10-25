@@ -86,7 +86,6 @@ function ThemeEditorLayout({ children }: ThemeEditorLayoutProps): JSX.Element {
 
   return (
     <AppShell
-      fixed
       padding={32}
       navbarOffsetBreakpoint="sm"
       header={

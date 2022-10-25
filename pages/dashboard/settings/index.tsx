@@ -25,7 +25,7 @@ function Index(): JSX.Element {
   // const { selectedShop } = useShop();
 
   const [openModal, setOpenModal] = useState<boolean>(false);
-  const [selectedTab, setSelectedTab] = useState<number>(0);
+  const [selectedTab, setSelectedTab] = useState<string | null>('');
 
   // Only if we need to save PayPal info
   // const {
@@ -79,26 +79,35 @@ function Index(): JSX.Element {
           Shop Settings
         </Title>
 
-        {selectedTab === 2 && <Button onClick={() => setOpenModal(true)}>Add BlacklistItem Item</Button>}
+        {selectedTab === 'blacklists' && <Button onClick={() => setOpenModal(true)}>Add BlacklistItem Item</Button>}
       </Group>
 
-      <Tabs active={selectedTab} onTabChange={setSelectedTab}>
-        <Tabs.Tab label="General Information">
+      <Tabs defaultValue="general" onTabChange={setSelectedTab}>
+        <Tabs.List>
+          <Tabs.Tab value="general">General Information</Tabs.Tab>
+          <Tabs.Tab value="payments">Payment Methods</Tabs.Tab>
+          <Tabs.Tab value="blacklists">Blacklists</Tabs.Tab>
+
+          <Tabs.Tab value="danger" color="red">
+            Danger Zone
+          </Tabs.Tab>
+        </Tabs.List>
+
+        <Tabs.Panel value="general">
           <BasicInfoTab />
-        </Tabs.Tab>
+        </Tabs.Panel>
 
-        <Tabs.Tab label="Payment Methods">
-          {/* <PaymentsTab payPalAccessToken={payPalAccessToken} /> */}
+        <Tabs.Panel value="payments">
           <PaymentsTab />
-        </Tabs.Tab>
+        </Tabs.Panel>
 
-        <Tabs.Tab label="Blacklists">
+        <Tabs.Panel value="blacklists">
           <BlacklistTab openModal={openModal} setOpenModal={setOpenModal} />
-        </Tabs.Tab>
+        </Tabs.Panel>
 
-        <Tabs.Tab label="Danger Zone" color="red">
+        <Tabs.Panel value="danger">
           <DangerTab />
-        </Tabs.Tab>
+        </Tabs.Panel>
       </Tabs>
     </DashboardLayout>
   );

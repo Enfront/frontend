@@ -1,10 +1,10 @@
-import { ComponentProps, Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import Image from 'next/image';
 
-import { ActionIcon, Group, InputWrapper, MantineTheme, Text, useMantineTheme } from '@mantine/core';
-import { Dropzone, DropzoneStatus, IMAGE_MIME_TYPE } from '@mantine/dropzone';
+import { ActionIcon, Group, Input, Text, useMantineTheme } from '@mantine/core';
+import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone';
 import { showNotification } from '@mantine/notifications';
-import { Icon as TablerIcon, Photo, Trash, Upload, X } from 'tabler-icons-react';
+import { Photo, Trash, Upload, X } from 'tabler-icons-react';
 import axios from 'axios';
 
 import { ImageType, Product, ProductImage } from '../../../types/types';
@@ -47,34 +47,6 @@ function Images({ getViewedProduct, images, setImages, viewedProduct }: ImagesPr
     });
   };
 
-  const getIconColor = (fileStatus: DropzoneStatus, iconTheme: MantineTheme): string => {
-    if (fileStatus.accepted) {
-      return iconTheme.colors.blue[theme.colorScheme === 'dark' ? 4 : 6];
-    }
-
-    if (fileStatus.rejected) {
-      return theme.colors.red[theme.colorScheme === 'dark' ? 4 : 6];
-    }
-
-    if (theme.colorScheme === 'dark') {
-      return theme.colors.dark[0];
-    }
-
-    return theme.colors.gray[7];
-  };
-
-  const ImageUploadIcon = ({ status, ...props }: ComponentProps<TablerIcon> & { status: DropzoneStatus }) => {
-    if (status.accepted) {
-      return <Upload {...props} />;
-    }
-
-    if (status.rejected) {
-      return <X {...props} />;
-    }
-
-    return <Photo {...props} />;
-  };
-
   const removeImageFromUpload = (index: number): void => {
     const reducedImages = [...images];
     reducedImages.splice(index, 1);
@@ -98,7 +70,7 @@ function Images({ getViewedProduct, images, setImages, viewedProduct }: ImagesPr
 
   return (
     <>
-      <InputWrapper label="Upload Images">
+      <Input.Wrapper label="Upload Images">
         <Dropzone
           className="disabled:opacity-50"
           onDrop={(files) => getListFiles(files)}
@@ -106,23 +78,34 @@ function Images({ getViewedProduct, images, setImages, viewedProduct }: ImagesPr
           accept={IMAGE_MIME_TYPE}
           disabled={images.length >= 8}
         >
-          {(status: DropzoneStatus) => (
-            <Group position="center" spacing="xl" style={{ minHeight: 220, pointerEvents: 'none' }}>
-              <ImageUploadIcon status={status} size={80} style={{ color: getIconColor(status, theme) }} />
+          <Group position="center" spacing="xl" style={{ minHeight: 220, pointerEvents: 'none' }}>
+            <Dropzone.Accept>
+              <Upload size={80} style={{ color: theme.colors.blue[theme.colorScheme === 'dark' ? 4 : 6] }} />
+            </Dropzone.Accept>
 
-              <div>
-                <Text size="xl" inline>
-                  Drag images here or click to select files
-                </Text>
+            <Dropzone.Reject>
+              <X size={80} style={{ color: theme.colors.red[theme.colorScheme === 'dark' ? 4 : 6] }} />
+            </Dropzone.Reject>
 
-                <Text size="sm" color="dimmed" inline mt={7}>
-                  Upload up to 8 images, each file should not exceed 5mb
-                </Text>
-              </div>
-            </Group>
-          )}
+            <Dropzone.Idle>
+              <Photo
+                size={80}
+                style={{ color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.gray[7] }}
+              />
+            </Dropzone.Idle>
+
+            <div>
+              <Text size="xl" inline>
+                Drag images here or click to select files
+              </Text>
+
+              <Text size="sm" color="dimmed" inline mt={7}>
+                Upload up to 8 images, each file should not exceed 5mb
+              </Text>
+            </div>
+          </Group>
         </Dropzone>
-      </InputWrapper>
+      </Input.Wrapper>
 
       {images.length > 0 && (
         <Group>
@@ -144,7 +127,7 @@ function Images({ getViewedProduct, images, setImages, viewedProduct }: ImagesPr
       )}
 
       {viewedProduct.images.length > 0 && (
-        <InputWrapper className="mb-8" label="Uploaded Images">
+        <Input.Wrapper className="mb-8" label="Uploaded Images">
           <Group>
             {viewedProduct.images.map((image: ProductImage, index: number) => (
               <div className="relative inline-block aspect-square h-48 overflow-hidden rounded" key={image.path}>
@@ -166,7 +149,7 @@ function Images({ getViewedProduct, images, setImages, viewedProduct }: ImagesPr
               </div>
             ))}
           </Group>
-        </InputWrapper>
+        </Input.Wrapper>
       )}
     </>
   );

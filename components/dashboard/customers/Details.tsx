@@ -197,20 +197,22 @@ function Details({ customer, customerId, getCustomerInfo, getCustomerNotes, stat
           </Stack>
         </Group>
 
-        <Menu
-          control={
+        <Menu position="bottom-end" shadow="md" width={200}>
+          <Menu.Target>
             <Button className="pr-3" variant="outline" rightIcon={<ChevronDown size={14} />}>
               Actions
             </Button>
-          }
-        >
-          <Menu.Item onClick={openNoteModal} icon={<Note size={14} />}>
-            Add Note
-          </Menu.Item>
+          </Menu.Target>
 
-          <Menu.Item onClick={openEditModal} icon={<Pencil size={14} />}>
-            Edit Customer
-          </Menu.Item>
+          <Menu.Dropdown>
+            <Menu.Item onClick={openNoteModal} icon={<Note size={14} />}>
+              Add Note
+            </Menu.Item>
+
+            <Menu.Item onClick={openEditModal} icon={<Pencil size={14} />}>
+              Edit Customer
+            </Menu.Item>
+          </Menu.Dropdown>
         </Menu>
       </Group>
 

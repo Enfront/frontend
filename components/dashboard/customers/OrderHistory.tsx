@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from 'react';
 import { useRouter } from 'next/router';
 
-import { Avatar, AvatarsGroup, Badge, Pagination, Stack, Table, Text, Title } from '@mantine/core';
+import { Avatar, Badge, Pagination, Stack, Table, Text, Title } from '@mantine/core';
 import { format, parseISO } from 'date-fns';
 import NumberFormat from 'react-number-format';
 import { getSymbolWithIsoCode } from 'jkshop-country-list/dist/countryFinder';
@@ -114,16 +114,17 @@ function OrderHistory({ orders, setPage, totalOrdersCount }: OrderHistoryProps):
               <tr className="cursor-pointer" onClick={() => gotoOrder(order.ref_id)} key={order.ref_id}>
                 <td>{order.ref_id}</td>
                 <td>
-                  <AvatarsGroup radius="sm" limit={3}>
+                  <Avatar.Group>
                     {order.items.map((item: OrderItem) => (
                       <Avatar
                         className="outline outline-1 outline-offset-[-2px] outline-gray-300"
                         src={`${process.env.NEXT_PUBLIC_AWS_IMAGE_URL}${item.images[0].path}`}
                         size="lg"
+                        radius="sm"
                         key={item.ref_id}
                       />
                     ))}
-                  </AvatarsGroup>
+                  </Avatar.Group>
                 </td>
                 <td>{format(parseISO(order.created_at), 'MMMM do, yyyy H:mma')}</td>
                 <td>

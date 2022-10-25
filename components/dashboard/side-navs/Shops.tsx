@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 
-import { Avatar, Box, Button, Divider, Group, Menu, Text, UnstyledButton, useMantineTheme } from '@mantine/core';
+import { Avatar, Box, Button, Group, Menu, Text, UnstyledButton, useMantineTheme } from '@mantine/core';
 import { ChevronRight } from 'tabler-icons-react';
 
 import useShop from '../../../contexts/ShopContext';
@@ -61,26 +61,30 @@ function Shops(): JSX.Element {
   return (
     <>
       {shopData ? (
-        <Menu control={ShopButton} gutter={16} placement="center" size="lg" sx={{ width: '100%' }}>
-          {shopData.map((shop: ShopData) => (
-            <Menu.Item onClick={() => selectShop(shop.ref_id)} key={shop.ref_id}>
-              <Group>
-                <Box sx={{ flex: 1 }}>
-                  <Text size="sm" weight={500}>
-                    {shop.name}
-                  </Text>
+        <Menu position="top" shadow="md" width={267}>
+          <Menu.Target>{ShopButton}</Menu.Target>
 
-                  <Text color="dimmed" size="xs">
-                    {shop.email}
-                  </Text>
-                </Box>
-              </Group>
-            </Menu.Item>
-          ))}
+          <Menu.Dropdown>
+            {shopData.map((shop: ShopData) => (
+              <Menu.Item onClick={() => selectShop(shop.ref_id)} key={shop.ref_id}>
+                <Group>
+                  <Box sx={{ flex: 1 }}>
+                    <Text size="sm" weight={500}>
+                      {shop.name}
+                    </Text>
 
-          <Divider />
+                    <Text color="dimmed" size="xs">
+                      {shop.email}
+                    </Text>
+                  </Box>
+                </Group>
+              </Menu.Item>
+            ))}
 
-          <Menu.Item onClick={() => setCreateShopOpen(true)}>Create New Shop</Menu.Item>
+            <Menu.Divider />
+
+            <Menu.Item onClick={() => setCreateShopOpen(true)}>Create New Shop</Menu.Item>
+          </Menu.Dropdown>
         </Menu>
       ) : (
         <Button onClick={() => setCreateShopOpen(true)} fullWidth>

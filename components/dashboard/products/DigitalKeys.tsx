@@ -1,6 +1,6 @@
 import { ActionIcon, ScrollArea, Table, Textarea, useMantineTheme } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
-import { UseFormReturnType } from '@mantine/form/lib/use-form';
+import { UseFormReturnType } from '@mantine/form';
 import { Trash } from 'tabler-icons-react';
 import axios from 'axios';
 

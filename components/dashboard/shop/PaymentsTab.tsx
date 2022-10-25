@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 
-import { Button, Divider, Grid, InputWrapper, Text, TextInput } from '@mantine/core';
+import { Button, Divider, Grid, Input, Text, TextInput } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
 import { useForm } from '@mantine/form';
 import axios, { AxiosResponse } from 'axios';
@@ -168,11 +168,11 @@ function PaymentsTab(): JSX.Element {
         </Grid.Col>
 
         <Grid.Col span={2}>
-          <InputWrapper label="&nbsp;">
+          <Input.Wrapper label="&nbsp;">
             <Button type="submit" fullWidth>
               Save PayPal Email
             </Button>
-          </InputWrapper>
+          </Input.Wrapper>
         </Grid.Col>
 
         <Grid.Col span={12}>

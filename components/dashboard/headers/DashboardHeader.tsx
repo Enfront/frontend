@@ -4,7 +4,6 @@ import {
   ActionIcon,
   Avatar,
   Burger,
-  Divider,
   Group,
   MediaQuery,
   Menu,
@@ -47,18 +46,24 @@ function DashboardHeader({ sidebarOpen, setSidebarOpen }: DashboardHeaderProps):
           {colorScheme === 'dark' ? <Sun size={16} /> : <MoonStars size={16} />}
         </ActionIcon>
 
-        <Menu control={<Avatar className="mr-2 cursor-pointer" color="blue" radius="xl" size="md" alt="No image" />}>
-          {accountNavigationConfig.map((item: AccountRoutes) => (
-            <Menu.Item component={NextLink} href={item.path} icon={<Settings size={14} />} key={item.key}>
-              {item.title}
+        <Menu position="bottom-end" shadow="md" width={200}>
+          <Menu.Target>
+            <Avatar className="mr-2 cursor-pointer" color="blue" radius="xl" size="md" alt="No image" />
+          </Menu.Target>
+
+          <Menu.Dropdown>
+            {accountNavigationConfig.map((item: AccountRoutes) => (
+              <Menu.Item component={NextLink} href={item.path} icon={<Settings size={14} />} key={item.key}>
+                {item.title}
+              </Menu.Item>
+            ))}
+
+            <Menu.Divider />
+
+            <Menu.Item onClick={() => logout()} icon={<Logout size={14} />}>
+              Logout
             </Menu.Item>
-          ))}
-
-          <Divider />
-
-          <Menu.Item onClick={() => logout()} icon={<Logout size={14} />}>
-            Logout
-          </Menu.Item>
+          </Menu.Dropdown>
         </Menu>
       </Group>
     </Group>

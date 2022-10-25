@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import { Tabs, Title } from '@mantine/core';
 
 import DashboardLayout from '../../../components/layouts/DashboardLayout';
@@ -7,8 +5,6 @@ import PersonalInformationTab from '../../../components/dashboard/account/Person
 import BillingTab from '../../../components/dashboard/account/BillingTab';
 
 function Index(): JSX.Element {
-  const [selectedTab, setSelectedTab] = useState<number>(0);
-
   return (
     <DashboardLayout
       tabTitle="Dashboard - Enfront"
@@ -18,14 +14,19 @@ function Index(): JSX.Element {
         Account Settings
       </Title>
 
-      <Tabs active={selectedTab} onTabChange={setSelectedTab}>
-        <Tabs.Tab label="Personal Information">
-          <PersonalInformationTab />
-        </Tabs.Tab>
+      <Tabs defaultValue="personal">
+        <Tabs.List>
+          <Tabs.Tab value="personal">Personal Information</Tabs.Tab>
+          <Tabs.Tab value="billing">Billing</Tabs.Tab>
+        </Tabs.List>
 
-        <Tabs.Tab label="Billing">
+        <Tabs.Panel value="personal">
+          <PersonalInformationTab />
+        </Tabs.Panel>
+
+        <Tabs.Panel value="billing">
           <BillingTab />
-        </Tabs.Tab>
+        </Tabs.Panel>
       </Tabs>
     </DashboardLayout>
   );

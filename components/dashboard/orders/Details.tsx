@@ -2,7 +2,7 @@ import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 
-import { Anchor, Badge, Group, Popover, Text, Title, useMantineTheme } from '@mantine/core';
+import { Anchor, Badge, Group, Popover, Stack, Text, Title, useMantineTheme } from '@mantine/core';
 import {
   AccessPoint,
   BrandPaypal,
@@ -104,13 +104,12 @@ function Details({ commentCount, customerData, viewedOrder }: OrderDetailsProps)
   };
 
   return (
-    <Group
+    <Stack
       className={`${
         theme.colorScheme === 'dark' ? 'divide-[#373A40]' : 'divide-[#dee2e6]'
       } divide-x-0 divide-y divide-solid`}
-      direction="column"
     >
-      <Group spacing="xs" direction="column">
+      <Stack spacing="xs">
         <Group mt={16}>
           <AccessPoint className="h-5 w-5 text-gray-400" />
           {getOrderCurrentStatus(viewedOrder.current_status)}
@@ -144,15 +143,14 @@ function Details({ commentCount, customerData, viewedOrder }: OrderDetailsProps)
             </Text>
           )}
         </Group>
-      </Group>
+      </Stack>
 
-      <Group
+      <Stack
         className={`${
           theme.colorScheme === 'dark' ? 'divide-[#373A40]' : 'divide-[#dee2e6]'
         } divide-x-0 divide-y divide-solid`}
-        direction="column"
       >
-        <Group spacing="xs" direction="column" pt={16}>
+        <Stack spacing="xs" pt={16}>
           <Title className="text-xl" order={2}>
             Customer Details
           </Title>
@@ -190,10 +188,10 @@ function Details({ commentCount, customerData, viewedOrder }: OrderDetailsProps)
               <Text size="sm">{viewedOrder.paypal_email}</Text>
             </Group>
           )}
-        </Group>
+        </Stack>
 
         {customerData && customerData.ip_address !== '' && (
-          <Group spacing="xs" direction="column" pt={16}>
+          <Stack spacing="xs" pt={16}>
             <Title className="text-xl" order={2}>
               Customer Device Details
             </Title>
@@ -216,29 +214,30 @@ function Details({ commentCount, customerData, viewedOrder }: OrderDetailsProps)
                 <MapPin className="h-5 w-5 text-gray-400" />
 
                 <Popover
+                  onChange={() => setOpened(false)}
                   opened={opened}
-                  onClose={() => setOpened(false)}
                   position="bottom"
-                  placement="center"
-                  withArrow
                   trapFocus={false}
                   closeOnEscape={false}
                   transition="pop-top-left"
-                  styles={{ body: { pointerEvents: 'none' } }}
-                  target={
+                  withArrow
+                >
+                  <Popover.Target>
                     <Text onMouseEnter={() => setOpened(true)} onMouseLeave={() => setOpened(false)} size="sm">
                       {customerData.city}, {customerData.country}
                     </Text>
-                  }
-                >
-                  <DeviceMap latitude={customerData.latitude} longitude={customerData.longitude} />
+                  </Popover.Target>
+
+                  <Popover.Dropdown>
+                    <DeviceMap latitude={customerData.latitude} longitude={customerData.longitude} />
+                  </Popover.Dropdown>
                 </Popover>
               </Group>
             )}
-          </Group>
+          </Stack>
         )}
-      </Group>
-    </Group>
+      </Stack>
+    </Stack>
   );
 }
 

@@ -37,7 +37,6 @@ function DashboardLayout({ children, metaDescription, tabTitle }: LayoutProps): 
       </Head>
 
       <AppShell
-        fixed
         padding={32}
         navbarOffsetBreakpoint="sm"
         header={

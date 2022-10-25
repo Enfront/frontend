@@ -1,8 +1,8 @@
 import { Dispatch, SetStateAction } from 'react';
 import dynamic from 'next/dynamic';
 
-import { Group, InputWrapper, NumberInput, TextInput } from '@mantine/core';
-import { UseFormReturnType } from '@mantine/form/lib/use-form';
+import { Group, Input, NumberInput, TextInput } from '@mantine/core';
+import { UseFormReturnType } from '@mantine/form';
 import { getSymbolWithIsoCode } from 'jkshop-country-list/dist/countryFinder';
 
 import { ProductFormData } from '../../../types/types';
@@ -45,14 +45,14 @@ function GeneralInformation({ description, form, setDescription, shopCurrency }:
         />
       </Group>
 
-      <InputWrapper id="description" label="Description">
+      <Input.Wrapper id="description" label="Description">
         <QuillNoSSRWrapper
           id="description"
           className="h-72 overflow-y-auto"
           value={description}
           onChange={setDescription}
         />
-      </InputWrapper>
+      </Input.Wrapper>
     </>
   );
 }
