@@ -309,52 +309,54 @@ function BillingTab(): JSX.Element {
   };
 
   const getSubscriptionDetails = async (): Promise<void> => {
-    await axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/subscriptions/${userDetails.ref_id}/${selectedShop.ref_id}`)
-      .then((response: AxiosResponse) => {
-        if (response.status !== 204) {
-          setSubscriptionDetails(response.data.data);
+    if (userDetails.ref_id !== '' && selectedShop.ref_id !== '') {
+      await axios
+        .get(`${process.env.NEXT_PUBLIC_API_URL}/subscriptions/${userDetails.ref_id}/${selectedShop.ref_id}`)
+        .then((response: AxiosResponse) => {
+          if (response.status !== 204) {
+            setSubscriptionDetails(response.data.data);
 
-          setStats([
-            {
-              id: 1,
-              name: 'Current Monthly Fees',
-              stat: `$${(response.data.data.total_fees / 100).toFixed(2)}`,
-              icon: (
-                <Box sx={{ color: theme.colorScheme === 'dark' ? theme.colors.dark[3] : theme.colors.gray[4] }}>
-                  <Receipt2 size={24} />
-                </Box>
-              ),
-            },
-            {
-              id: 2,
-              name: 'Next Payment Due',
-              stat:
-                response.data.data.current_period_end && !response.data.data.cancel_at_period_end
-                  ? `$${tiers[selectedShop.owner.subscription_tier].priceMonthly.toFixed(2)}`
-                  : '$0.00',
-              icon: (
-                <Box sx={{ color: theme.colorScheme === 'dark' ? theme.colors.dark[3] : theme.colors.gray[4] }}>
-                  <FileInvoice size={24} />
-                </Box>
-              ),
-            },
-            {
-              id: 3,
-              name: 'Next Payment Due Date',
-              stat:
-                response.data.data.current_period_end && !response.data.data.cancel_at_period_end
-                  ? format(fromUnixTime(response.data.data.current_period_end), 'MMMM do, yyyy')
-                  : 'N/A',
-              icon: (
-                <Box sx={{ color: theme.colorScheme === 'dark' ? theme.colors.dark[3] : theme.colors.gray[4] }}>
-                  <Calendar size={24} />
-                </Box>
-              ),
-            },
-          ]);
-        }
-      });
+            setStats([
+              {
+                id: 1,
+                name: 'Current Monthly Fees',
+                stat: `$${(response.data.data.total_fees / 100).toFixed(2)}`,
+                icon: (
+                  <Box sx={{ color: theme.colorScheme === 'dark' ? theme.colors.dark[3] : theme.colors.gray[4] }}>
+                    <Receipt2 size={24} />
+                  </Box>
+                ),
+              },
+              {
+                id: 2,
+                name: 'Next Payment Due',
+                stat:
+                  response.data.data.current_period_end && !response.data.data.cancel_at_period_end
+                    ? `$${tiers[selectedShop.owner.subscription_tier].priceMonthly.toFixed(2)}`
+                    : '$0.00',
+                icon: (
+                  <Box sx={{ color: theme.colorScheme === 'dark' ? theme.colors.dark[3] : theme.colors.gray[4] }}>
+                    <FileInvoice size={24} />
+                  </Box>
+                ),
+              },
+              {
+                id: 3,
+                name: 'Next Payment Due Date',
+                stat:
+                  response.data.data.current_period_end && !response.data.data.cancel_at_period_end
+                    ? format(fromUnixTime(response.data.data.current_period_end), 'MMMM do, yyyy')
+                    : 'N/A',
+                icon: (
+                  <Box sx={{ color: theme.colorScheme === 'dark' ? theme.colors.dark[3] : theme.colors.gray[4] }}>
+                    <Calendar size={24} />
+                  </Box>
+                ),
+              },
+            ]);
+          }
+        });
+    }
   };
 
   useEffect(() => {
