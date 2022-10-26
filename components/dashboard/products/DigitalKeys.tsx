@@ -1,7 +1,9 @@
-import { ActionIcon, ScrollArea, Table, Textarea, useMantineTheme } from '@mantine/core';
+import { useState } from 'react';
+
+import { Button, Checkbox, Group, ScrollArea, Table, Textarea, useMantineTheme } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
 import { UseFormReturnType } from '@mantine/form';
-import { Trash } from 'tabler-icons-react';
+import { format, parseISO } from 'date-fns';
 import axios from 'axios';
 
 import { Item, ProductFormData } from '../../../types/types';
@@ -15,35 +17,41 @@ interface DigitalKeysProps {
 function DigitalKeys({ form, getViewedProduct, shownKeys }: DigitalKeysProps): JSX.Element {
   const theme = useMantineTheme();
 
-  const deleteKey = (refId: string): void => {
-    axios
-      .delete(`${process.env.NEXT_PUBLIC_API_URL}/products/digital/${refId}`)
-      .then(() => {
-        getViewedProduct();
-      })
-      .catch(() => {
-        showNotification({
-          title: 'Key Could Not Be Deleted!',
-          message: 'There was an issue deleting your key.',
-          color: 'red',
-        });
-      });
+  const [selection, setSelection] = useState<string[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const toggleRow = (id: string) => {
+    setSelection((current: string[]) =>
+      current.includes(id) ? current.filter((item: string) => item !== id) : [...current, id],
+    );
   };
 
-  const getKeyStatus = (keyStatus: number): JSX.Element => {
-    if (keyStatus === 0) {
-      return (
-        <span className="inline-flex items-center rounded bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800">
-          Listed
-        </span>
-      );
-    }
-
-    return (
-      <span className="inline-flex items-center rounded bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">
-        Purchased
-      </span>
+  const toggleAll = () => {
+    setSelection((current: string[]) =>
+      current.length === shownKeys.length ? [] : shownKeys.map((item: Item) => item.ref_id),
     );
+  };
+
+  const deleteKeys = (): void => {
+    setLoading(true);
+
+    selection.forEach((refId: string) => {
+      axios
+        .delete(`${process.env.NEXT_PUBLIC_API_URL}/products/digital/${refId}`)
+        .then(() => {
+          getViewedProduct();
+        })
+        .catch(() => {
+          showNotification({
+            title: 'Key Could Not Be Deleted!',
+            message: 'There was an issue deleting your key.',
+            color: 'red',
+          });
+        });
+    });
+
+    setSelection([]);
+    setLoading(false);
   };
 
   return (
@@ -58,38 +66,55 @@ function DigitalKeys({ form, getViewedProduct, shownKeys }: DigitalKeysProps): J
       />
 
       {shownKeys.length > 0 && (
-        <ScrollArea className="h-96" offsetScrollbars>
-          <Table verticalSpacing="md" highlightOnHover>
-            <thead className={`sticky top-0 z-50 ${theme.colorScheme === 'dark' ? `bg-[#1a1b1e]` : 'bg-white'}`}>
-              <tr>
-                <th>Key</th>
-                <th>Recipient Email</th>
-                <th>Status</th>
-                <th />
-              </tr>
-            </thead>
-            <tbody>
-              {shownKeys.map((key: Item) => (
-                <tr key={key.key}>
-                  <td>{key.key}</td>
-                  <td>{key.recipient_email === null ? 'Unsold' : key.recipient_email}</td>
-                  <td>{getKeyStatus(key.status)}</td>
-                  <td>
-                    {key.recipient_email !== '' ? (
-                      <ActionIcon onClick={() => deleteKey(key.ref_id)} color="red" size="sm">
-                        <Trash />
-                      </ActionIcon>
-                    ) : (
-                      <ActionIcon size="sm" disabled>
-                        <Trash />
-                      </ActionIcon>
-                    )}
-                  </td>
+        <>
+          <ScrollArea className="h-96" offsetScrollbars>
+            <Table verticalSpacing="md" highlightOnHover>
+              <thead className={`sticky top-0 z-50 ${theme.colorScheme === 'dark' ? `bg-[#1a1b1e]` : 'bg-white'}`}>
+                <tr>
+                  <th>
+                    <Checkbox
+                      onChange={toggleAll}
+                      checked={selection.length === shownKeys.length}
+                      indeterminate={selection.length > 0 && selection.length !== shownKeys.length}
+                      transitionDuration={0}
+                    />
+                  </th>
+                  <th>Created At</th>
+                  <th>Key</th>
+                  <th>Status</th>
+                  <th />
                 </tr>
-              ))}
-            </tbody>
-          </Table>
-        </ScrollArea>
+              </thead>
+              <tbody>
+                {shownKeys.map((key: Item) => (
+                  <tr key={key.key}>
+                    <td>
+                      <Checkbox
+                        checked={selection.includes(key.ref_id)}
+                        onChange={() => toggleRow(key.ref_id)}
+                        disabled={key.recipient_email != null}
+                        transitionDuration={0}
+                      />
+                    </td>
+                    <td>{format(parseISO(key.created_at.toString()), 'MMMM do, yyyy HH:mm')}</td>
+                    <td>{key.key}</td>
+                    <td>
+                      <span className="inline-flex items-center rounded bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800">
+                        Listed
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </ScrollArea>
+
+          <Group position="right">
+            <Button onClick={() => deleteKeys()} loading={loading} disabled={selection.length === 0}>
+              Delete Selected Key(s)
+            </Button>
+          </Group>
+        </>
       )}
     </>
   );
