@@ -57,8 +57,8 @@ function DigitalKeys({ form, getViewedProduct, shownKeys }: DigitalKeysProps): J
   return (
     <>
       <Textarea
-        label="Upload Keys"
-        placeholder="Manually type keys separated by commas, spaces, or new lines."
+        label="Upload Items"
+        placeholder="Manually type items separated by commas, spaces, or new lines."
         minRows={8}
         maxRows={8}
         autosize
@@ -80,7 +80,7 @@ function DigitalKeys({ form, getViewedProduct, shownKeys }: DigitalKeysProps): J
                     />
                   </th>
                   <th>Created At</th>
-                  <th>Key</th>
+                  <th>Item</th>
                   <th>Status</th>
                   <th />
                 </tr>
@@ -111,7 +111,7 @@ function DigitalKeys({ form, getViewedProduct, shownKeys }: DigitalKeysProps): J
 
           <Group position="right">
             <Button onClick={() => deleteKeys()} loading={loading} disabled={selection.length === 0}>
-              Delete Selected Key(s)
+              Delete Selected Item(s)
             </Button>
           </Group>
         </>
