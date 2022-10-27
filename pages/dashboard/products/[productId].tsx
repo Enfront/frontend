@@ -137,7 +137,7 @@ function Index(): JSX.Element {
     formData.append('name', data.name);
     formData.append('description', description);
     formData.append('type', '0');
-    formData.append('price', (data.price * 100).toString());
+    formData.append('price', Math.round(data.price * 100).toString());
     formData.append('status', data.status);
 
     if (data.min_order_quantity) {
