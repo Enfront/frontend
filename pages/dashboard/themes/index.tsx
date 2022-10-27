@@ -11,7 +11,9 @@ function Index(): JSX.Element {
       tabTitle="Dashboard - Enfront"
       metaDescription="Welcome back, we&#39;re excited to help you with all your business needs."
     >
-      <Title order={1}>Theme Settings</Title>
+      <Title className="text-2xl" order={1} mb={24}>
+        Theme Settings
+      </Title>
       <ThemeSettings />
     </DashboardLayout>
   );

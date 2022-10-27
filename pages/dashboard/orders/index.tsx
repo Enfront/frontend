@@ -152,7 +152,7 @@ function Index(): JSX.Element {
       tabTitle="Dashboard - Enfront"
       metaDescription="Welcome back, we&#39;re excited to help you with all your business needs."
     >
-      <Title className="mb-12" order={1}>
+      <Title className="text-2xl" order={1} mb={24}>
         All Orders
       </Title>
 

@@ -74,8 +74,8 @@ function Index(): JSX.Element {
       tabTitle="Dashboard - Enfront"
       metaDescription="Welcome back, we&#39;re excited to help you with all your business needs."
     >
-      <Group position="apart" mb={48}>
-        <Title className="text-3xl" order={1}>
+      <Group position="apart" mb={24}>
+        <Title className="text-2xl" order={1}>
           Shop Settings
         </Title>
 

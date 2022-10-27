@@ -112,8 +112,10 @@ function Index(): JSX.Element {
       tabTitle="Dashboard - Enfront"
       metaDescription="Welcome back, we&#39;re excited to help you with all your business needs."
     >
-      <Group className="mb-12" position="apart">
-        <Title order={1}>All Products</Title>
+      <Group position="apart" mb={24}>
+        <Title className="text-2xl" order={1}>
+          All Products
+        </Title>
 
         <Link href="/dashboard/products/new" passHref>
           <Button component="a">Create Product</Button>

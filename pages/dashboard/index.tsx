@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { Box, Group, Paper, SimpleGrid, Text, Title, useMantineTheme } from '@mantine/core';
 import { Calendar, CalendarTime, Receipt } from 'tabler-icons-react';
@@ -9,7 +9,7 @@ import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YA
 import NumberFormat from 'react-number-format';
 
 import DashboardLayout from '../../components/layouts/DashboardLayout';
-import { ProtectedRoute } from '../../contexts/AuthContext';
+import useAuth, { ProtectedRoute } from '../../contexts/AuthContext';
 import useShop from '../../contexts/ShopContext';
 import { DashboardStats, StatsCard } from '../../types/types';
 
@@ -17,7 +17,9 @@ function Index(): JSX.Element {
   const theme = useMantineTheme();
 
   const { isProcessing, selectedShop } = useShop();
+  const { userDetails } = useAuth();
 
+  const welcomeMessage = useRef('');
   const [shopStats, setShopStats] = useState<DashboardStats>({
     all_orders: 0,
     past_orders: [],
@@ -82,13 +84,40 @@ function Index(): JSX.Element {
   });
 
   useEffect(() => {
-    if (selectedShop.ref_id !== '' && !isProcessing) {
-      axios
-        .get(`${process.env.NEXT_PUBLIC_API_URL}/orders/stats/shop/${selectedShop.ref_id}`)
-        .then((response: AxiosResponse) => {
-          setShopStats(response.data.data);
-        });
-    }
+    const getShopStats = async (): Promise<void> => {
+      if (selectedShop.ref_id !== '' && !isProcessing) {
+        axios
+          .get(`${process.env.NEXT_PUBLIC_API_URL}/orders/stats/shop/${selectedShop.ref_id}`)
+          .then((response: AxiosResponse) => {
+            setShopStats(response.data.data);
+          });
+      }
+    };
+
+    const getUsersTime = async (): Promise<void> => {
+      const usersTime = new Date().toLocaleTimeString('en-GB', { hour12: false, hour: '2-digit', minute: '2-digit' });
+
+      switch (true) {
+        case usersTime >= '00:00' && usersTime <= '11:59':
+          welcomeMessage.current = 'Good Morning';
+          break;
+
+        case usersTime >= '12:00' && usersTime <= '16:59':
+          welcomeMessage.current = 'Good Afternoon';
+          break;
+
+        case usersTime >= '17:00' && usersTime <= '23:59':
+          welcomeMessage.current = 'Good Evening';
+          break;
+
+        default:
+          welcomeMessage.current = 'Welcome back';
+          break;
+      }
+    };
+
+    getShopStats();
+    getUsersTime();
   }, [isProcessing, selectedShop.ref_id]);
 
   return (
@@ -96,9 +125,13 @@ function Index(): JSX.Element {
       tabTitle="Dashboard - Enfront"
       metaDescription="Welcome back, we&#39;re excited to help you with all your business needs."
     >
-      <Title order={1} mb={16}>
-        Welcome back!
+      <Title className="text-2xl" order={1} mb={4} weight={600}>
+        {welcomeMessage.current}, {userDetails.username}
       </Title>
+
+      <Text size="sm" mb={32}>
+        Here&apos;s what is happening with your shop today!
+      </Text>
 
       <SimpleGrid
         cols={3}
@@ -125,7 +158,7 @@ function Index(): JSX.Element {
       </SimpleGrid>
 
       <div className="my-16" style={{ height: '450px' }}>
-        <Title order={2} mb={16}>
+        <Title className="text-xl" order={2} mb={16}>
           Orders
         </Title>
 
