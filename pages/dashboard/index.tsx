@@ -98,16 +98,16 @@ function Index(): JSX.Element {
       const usersTime = new Date().toLocaleTimeString('en-GB', { hour12: false, hour: '2-digit', minute: '2-digit' });
 
       switch (true) {
-        case usersTime >= '00:00' && usersTime <= '11:59':
+        case (usersTime >= '00:00' && usersTime <= '04:59') || (usersTime >= '18:00' && usersTime <= '23:59'):
+          welcomeMessage.current = 'Good Evening';
+          break;
+
+        case usersTime >= '05:00' && usersTime <= '11:59':
           welcomeMessage.current = 'Good Morning';
           break;
 
-        case usersTime >= '12:00' && usersTime <= '16:59':
+        case usersTime >= '12:00' && usersTime <= '17:59':
           welcomeMessage.current = 'Good Afternoon';
-          break;
-
-        case usersTime >= '17:00' && usersTime <= '23:59':
-          welcomeMessage.current = 'Good Evening';
           break;
 
         default:
