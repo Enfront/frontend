@@ -291,8 +291,8 @@ function Index(): JSX.Element {
                       )}
                     </div>
 
-                    <div style={{ flex: 1 }}>
-                      <Text size="sm" weight={500}>
+                    <div className="flex-1">
+                      <Text className="max-w-[190px] truncate" size="sm" weight={500}>
                         {product.name}
                       </Text>
 
