@@ -117,6 +117,10 @@ export interface CustomerPagination {
   results: User[];
 }
 
+export interface DashboardProduct extends Product {
+  orders: number;
+}
+
 export interface DashboardStats {
   all_orders: number;
   past_orders: number[];
@@ -260,6 +264,23 @@ export interface OrderStatusItemKey {
   recipient_email: string;
   ref_id: string;
   status: number;
+}
+
+export interface PayoutFormData {
+  shop: string;
+  amount: number;
+  destination: string;
+  currency: 'BTC' | string;
+}
+
+export interface PayoutHistory {
+  amount: number;
+  created_at: string;
+  currency: string;
+  destination: string;
+  ref_id: string;
+  status: number;
+  updated_at: string;
 }
 
 export interface PayPalOnApprove {

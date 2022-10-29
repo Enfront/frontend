@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
-import { Badge, Box, Group, Pagination, Table, Text, TextInput, Title, useMantineTheme } from '@mantine/core';
+import { Badge, Box, Pagination, Table, Text, TextInput, Title, useMantineTheme } from '@mantine/core';
 import { Search } from 'tabler-icons-react';
 import axios, { AxiosResponse } from 'axios';
 import { format, parseISO } from 'date-fns';
