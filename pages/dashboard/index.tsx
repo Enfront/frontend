@@ -338,7 +338,7 @@ function Index(): JSX.Element {
                       <td>{order.customer.user.email}</td>
                     )}
 
-                    {!order.customer && !order.email && <td>Email Not Provided</td>}
+                    {!order.customer.user.email && !order.email && <td>Email Not Provided</td>}
 
                     <td>{format(parseISO(order.created_at), 'MMMM do, yyyy H:mma')}</td>
                     <td>
@@ -369,12 +369,12 @@ function Index(): JSX.Element {
                   <Group className="cursor-pointer">
                     <Avatar color="blue" radius="xl" />
 
-                    <div style={{ flex: 1 }}>
-                      <Text size="sm" weight={500}>
+                    <div className="flex-1">
+                      <Text className="max-w-[175px] truncate" size="sm" weight={500}>
                         {item.user.username ?? 'Anonymous'}
                       </Text>
 
-                      <Text color="dimmed" size="xs">
+                      <Text className="max-w-[175px] truncate" color="dimmed" size="xs">
                         {item.user.email}
                       </Text>
                     </div>
