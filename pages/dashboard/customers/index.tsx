@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
-import { Box, Group, Stack, TextInput, Title, useMantineTheme } from '@mantine/core';
+import { Group, Stack, TextInput, Title } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { Search } from 'tabler-icons-react';
 import axios, { AxiosResponse } from 'axios';
@@ -14,7 +14,6 @@ import { Customer, CustomerPagination } from '../../../types/types';
 
 function Index(): JSX.Element {
   const router = useRouter();
-  const theme = useMantineTheme();
   const isDesktop = useMediaQuery('(min-width: 900px)');
 
   const { selectedShop } = useShop();
