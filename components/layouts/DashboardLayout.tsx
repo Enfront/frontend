@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 
 import { AppShell, Container, Header, Navbar } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
 
 import navigationConfig, { DashboardRoutes } from '../../configs/NavigationConfig';
 import utils from '../../utils/utils';
@@ -19,6 +20,7 @@ interface LayoutProps {
 
 function DashboardLayout({ children, metaDescription, tabTitle }: LayoutProps): JSX.Element {
   const router = useRouter();
+  const isDesktop = useMediaQuery('(min-width: 900px)');
 
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
 
@@ -56,7 +58,7 @@ function DashboardLayout({ children, metaDescription, tabTitle }: LayoutProps): 
           </Navbar>
         }
       >
-        <Container size="xl">{children}</Container>
+        {isDesktop ? <Container size="xl">{children}</Container> : <>{children}</>}
       </AppShell>
     </>
   );

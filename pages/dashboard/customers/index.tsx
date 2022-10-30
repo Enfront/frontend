@@ -1,11 +1,12 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
-import { Badge, Box, Pagination, Table, Text, TextInput, Title, useMantineTheme } from '@mantine/core';
+import { Box, Group, Stack, TextInput, Title, useMantineTheme } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
 import { Search } from 'tabler-icons-react';
 import axios, { AxiosResponse } from 'axios';
-import { format, parseISO } from 'date-fns';
 
+import CustomerList from '../../../components/dashboard/customers/CustomerList';
 import DashboardLayout from '../../../components/layouts/DashboardLayout';
 import useShop from '../../../contexts/ShopContext';
 import { ProtectedRoute } from '../../../contexts/AuthContext';
@@ -14,8 +15,11 @@ import { Customer, CustomerPagination } from '../../../types/types';
 function Index(): JSX.Element {
   const router = useRouter();
   const theme = useMantineTheme();
+  const isDesktop = useMediaQuery('(min-width: 900px)');
 
   const { selectedShop } = useShop();
+
+  const [page, setPage] = useState<number>(router.query.page ? parseInt(router.query.page as string, 10) : 1);
 
   const [customers, setCustomers] = useState<CustomerPagination>({
     count: 0,
@@ -40,8 +44,6 @@ function Index(): JSX.Element {
     },
   ]);
 
-  const [page, setPage] = useState(router.query.page ? parseInt(router.query.page as string, 10) : 1);
-
   const searchCustomers = (event: ChangeEvent<HTMLInputElement>): void => {
     axios
       .get(`${process.env.NEXT_PUBLIC_API_URL}/customers/shop/${selectedShop.ref_id}?q=${event.target.value}`)
@@ -49,16 +51,6 @@ function Index(): JSX.Element {
         setCustomers(response.data.data);
         setShownCustomers(response.data.data.results);
       });
-  };
-
-  const changeCustomerPage = (pageNumber: number): void => {
-    router.query.page = pageNumber.toString();
-    router.push(router);
-    setPage(pageNumber);
-  };
-
-  const gotoCustomerDetails = (customerId: string): void => {
-    router.push(`/dashboard/customers/${customerId}`);
   };
 
   useEffect(() => {
@@ -81,85 +73,42 @@ function Index(): JSX.Element {
       tabTitle="Dashboard - Enfront"
       metaDescription="Welcome back, we&#39;re excited to help you with all your business needs."
     >
-      <Title className="text-2xl" order={1} mb={24}>
-        All Customers
-      </Title>
+      {isDesktop ? (
+        <Group position="apart" mb={48}>
+          <Title className="text-2xl" order={1}>
+            All Customers
+          </Title>
 
-      <Box
-        sx={{
-          backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
-        }}
-      >
-        <div className="mb-10 flex justify-between rounded-md p-4">
           <TextInput
-            className="w-4/12"
             onChange={(event: ChangeEvent<HTMLInputElement>) => searchCustomers(event)}
-            placeholder="Search"
-            label="Search for a customer"
+            placeholder="Search for a customer"
+            aria-label="Search for a specific customer"
             icon={<Search size={16} />}
           />
-        </div>
-      </Box>
+        </Group>
+      ) : (
+        <Stack mb={24}>
+          <Title className="text-2xl" order={1}>
+            All Customers
+          </Title>
 
-      <Table verticalSpacing="md" highlightOnHover>
-        <thead>
-          <tr>
-            <th>Date Added</th>
-            <th>Email</th>
-            <th>Completed Orders</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        {shownCustomers.length > 0 ? (
-          <tbody>
-            {shownCustomers.map((customer: Customer) => (
-              <tr
-                className="cursor-pointer"
-                onClick={() => gotoCustomerDetails(customer.user.ref_id)}
-                key={customer.user.ref_id}
-              >
-                <td>
-                  {customer.user.created_at ? format(parseISO(customer.user.created_at), 'MMMM do, yyyy H:mma') : ''}
-                </td>
-                <td>{customer.user.email}</td>
-                <td>{customer.completed_order_count}</td>
-                <td>
-                  {customer.user.is_active ? (
-                    <Badge color="green" radius="xs">
-                      Registered
-                    </Badge>
-                  ) : (
-                    <Badge color="yellow" radius="xs">
-                      Anonymous
-                    </Badge>
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        ) : (
-          <tbody>
-            <tr>
-              <td colSpan={5}>
-                <Text align="center" color="dimmed" size="md">
-                  No customers found
-                </Text>
-              </td>
-            </tr>
-          </tbody>
-        )}
-      </Table>
-
-      {customers.count >= 10 && (
-        <Pagination
-          className="mt-12"
-          page={page}
-          onChange={changeCustomerPage}
-          total={Math.ceil(customers.count / 10)}
-          position="right"
-          withEdges
-        />
+          <TextInput
+            onChange={(event: ChangeEvent<HTMLInputElement>) => searchCustomers(event)}
+            placeholder="Search for a customer"
+            aria-label="Search for a specific customer"
+            icon={<Search size={16} />}
+          />
+        </Stack>
       )}
+
+      <CustomerList
+        customers={customers}
+        isDesktop={isDesktop}
+        page={page}
+        router={router}
+        setPage={setPage}
+        shownCustomers={shownCustomers}
+      />
     </DashboardLayout>
   );
 }

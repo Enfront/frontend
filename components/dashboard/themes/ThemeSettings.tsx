@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
-import { Card, Text, Badge, Button, Group, Grid, Title } from '@mantine/core';
+import { Badge, Button, Group, Grid, Paper, Text, Title } from '@mantine/core';
 import axios, { AxiosError, AxiosResponse } from 'axios';
 
 import useShop from '../../../contexts/ShopContext';
@@ -64,11 +64,11 @@ function ThemeSettings(): JSX.Element {
 
   return (
     <>
-      <Grid mt={24}>
+      <Grid>
         {templates.map((template: ThemeTemplate) => {
           return (
-            <Grid.Col span={4} key={template.ref_id}>
-              <Card shadow="xs" p="lg" withBorder>
+            <Grid.Col span={12} md={4} key={template.ref_id}>
+              <Paper shadow="xs" p="lg" withBorder>
                 <Group position="apart">
                   <Title className="text-xl" order={2}>
                     {template.name}
@@ -98,7 +98,7 @@ function ThemeSettings(): JSX.Element {
                     </Button>
                   </Link>
                 </Group>
-              </Card>
+              </Paper>
             </Grid.Col>
           );
         })}
