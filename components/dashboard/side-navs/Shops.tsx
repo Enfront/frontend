@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 
-import { Avatar, Box, Button, Group, Menu, Text, UnstyledButton, useMantineTheme } from '@mantine/core';
+import { Avatar, Box, Button, Group, Menu, Stack, Text, UnstyledButton, useMantineTheme } from '@mantine/core';
 import { ChevronRight } from 'tabler-icons-react';
 
 import useShop from '../../../contexts/ShopContext';
@@ -39,18 +39,20 @@ function Shops(): JSX.Element {
           },
         }}
       >
-        <Group>
-          <Avatar color="blue" radius="xl" />
+        <Group position="apart" noWrap>
+          <Group className="max-w-[85%]" spacing="xs" noWrap>
+            <Avatar color="blue" radius="xl" />
 
-          <Box sx={{ flex: 1 }}>
-            <Text size="sm" weight={500}>
-              {selectedShop.name}
-            </Text>
+            <Stack className="max-w-[85%]" spacing={0}>
+              <Text className="truncate" size="sm" weight={500}>
+                {selectedShop.name}
+              </Text>
 
-            <Text color="dimmed" size="xs">
-              {selectedShop.email}
-            </Text>
-          </Box>
+              <Text className="truncate" color="dimmed" size="xs">
+                {selectedShop.email}
+              </Text>
+            </Stack>
+          </Group>
 
           <ChevronRight size={18} />
         </Group>
@@ -67,17 +69,15 @@ function Shops(): JSX.Element {
           <Menu.Dropdown>
             {shopData.map((shop: ShopData) => (
               <Menu.Item onClick={() => selectShop(shop.ref_id)} key={shop.ref_id}>
-                <Group>
-                  <Box sx={{ flex: 1 }}>
-                    <Text size="sm" weight={500}>
-                      {shop.name}
-                    </Text>
+                <Stack spacing={0}>
+                  <Text size="sm" weight={500}>
+                    {shop.name}
+                  </Text>
 
-                    <Text color="dimmed" size="xs">
-                      {shop.email}
-                    </Text>
-                  </Box>
-                </Group>
+                  <Text color="dimmed" size="xs">
+                    {shop.email}
+                  </Text>
+                </Stack>
               </Menu.Item>
             ))}
 
