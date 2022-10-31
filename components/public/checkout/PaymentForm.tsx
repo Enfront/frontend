@@ -143,12 +143,7 @@ function PaymentForm({ buyerEmail, getOrderInfo, existingCryptoOrder, shopCurren
 
           <SimpleGrid cols={buttonRowColumns}>
             {showCrypto && (
-              <Button
-                className="h-[42px]"
-                onClick={() => setIsCryptoPaymentVisible(true)}
-                variant="outline"
-                color="gray"
-              >
+              <Button className="h-[42px]" onClick={() => setIsCryptoPaymentVisible(true)} variant="outline">
                 Cryptocurrency
               </Button>
             )}

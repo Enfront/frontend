@@ -114,38 +114,37 @@ function PaymentsTab(): JSX.Element {
 
   return (
     <form onSubmit={form.onSubmit((values: ShopPaymentFormData) => onSubmitPaymentInfo(values))}>
-      <Grid mt={24} align="center">
-        {/* <Grid.Col span={12}> */}
-        {/*  <Image src="/brands/bitcoin_logo.png" height={43} width={150} alt="Bitcoin Logo" /> */}
-        {/* </Grid.Col> */}
+      <Grid mt={24} align="end">
+        <Grid.Col span={12}>
+          <Image src="/brands/bitcoin_logo.png" height={43} width={150} alt="Bitcoin Logo" />
+        </Grid.Col>
 
-        {/* <Grid.Col span={6} pr={48}> */}
-        {/*  <Text size="sm"> */}
-        {/*    Bitcoin funds will not go directly to this address; instead Enfront will use it as a payout address. Once */}
-        {/*    ready, you can submit a payout request and we will then schedule one. */}
-        {/*  </Text> */}
-        {/* </Grid.Col> */}
+        <Grid.Col span={6} pr={48}>
+          <Text size="sm">
+            Bitcoin funds will not go directly to this address; instead, Enfront will use it as a payout address.
+            Payouts will be made to this address every Sunday.
+          </Text>
+        </Grid.Col>
 
-        {/* <Grid.Col span={4}> */}
-        {/*  <TextInput */}
-        {/*    placeholder="P2PKH, P2SH, Bech32" */}
-        {/*    label="Payout Address" */}
-        {/*    {...form.getInputProps('bitcoin_address')} */}
-        {/*    disabled */}
-        {/*  /> */}
-        {/* </Grid.Col> */}
+        <Grid.Col span={4}>
+          <TextInput
+            placeholder="P2PKH, P2SH, Bech32"
+            label="Payout Address"
+            {...form.getInputProps('bitcoin_address')}
+          />
+        </Grid.Col>
 
-        {/* <Grid.Col span={2}> */}
-        {/*  <InputWrapper label="&nbsp;"> */}
-        {/*    <Button type="submit" fullWidth> */}
-        {/*      Save Bitcoin Address */}
-        {/*    </Button> */}
-        {/*  </InputWrapper> */}
-        {/* </Grid.Col> */}
+        <Grid.Col span={2}>
+          <Input.Wrapper>
+            <Button type="submit" fullWidth>
+              Save Bitcoin Address
+            </Button>
+          </Input.Wrapper>
+        </Grid.Col>
 
-        {/* <Grid.Col span={12}> */}
-        {/*  <Divider my="xl" /> */}
-        {/* </Grid.Col> */}
+        <Grid.Col span={12}>
+          <Divider my="xl" />
+        </Grid.Col>
 
         <Grid.Col span={12}>
           <Image src="/brands/paypal_logo.png" height={38} width={150} alt="PayPal Logo" />

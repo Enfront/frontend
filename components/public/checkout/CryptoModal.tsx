@@ -180,17 +180,17 @@ function CryptoModal({
             />
           </div>
 
-          <Box onClick={() => clipboardAmount.copy(cryptoTxnDetails.amount)}>
-            <Tooltip className="block" label={clipboardAmount.copied ? 'Copied' : 'Click to copy'}>
+          <Tooltip className="block" label={clipboardAmount.copied ? 'Copied' : 'Click to copy'} offset={-20}>
+            <Box onClick={() => clipboardAmount.copy(cryptoTxnDetails.amount)}>
               <TextInput placeholder="Amount" label="Amount" value={cryptoTxnDetails.amount} mt={16} disabled />
-            </Tooltip>
-          </Box>
+            </Box>
+          </Tooltip>
 
-          <Box onClick={() => clipboardDestination.copy(cryptoTxnDetails.destination)}>
-            <Tooltip className="block" label={clipboardDestination.copied ? 'Copied' : 'Click to copy'}>
+          <Tooltip label={clipboardDestination.copied ? 'Copied' : 'Click to copy'} offset={-20}>
+            <Box onClick={() => clipboardDestination.copy(cryptoTxnDetails.destination)}>
               <TextInput placeholder="Address" label="Address" value={cryptoTxnDetails.destination} mt={8} disabled />
-            </Tooltip>
-          </Box>
+            </Box>
+          </Tooltip>
         </>
       )}
 

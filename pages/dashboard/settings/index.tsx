@@ -9,6 +9,7 @@ import BasicInfoTab from '../../../components/dashboard/shop/BasicInfoTab';
 import PaymentsTab from '../../../components/dashboard/shop/PaymentsTab';
 import BlacklistTab from '../../../components/dashboard/shop/BlacklistTab';
 import DangerTab from '../../../components/dashboard/shop/DangerTab';
+import PayoutsTab from '../../../components/dashboard/shop/PayoutsTab';
 
 function Index(): JSX.Element {
   const [openModal, setOpenModal] = useState<boolean>(false);
@@ -31,6 +32,7 @@ function Index(): JSX.Element {
         <Tabs.List>
           <Tabs.Tab value="general">General Information</Tabs.Tab>
           <Tabs.Tab value="payments">Payment Methods</Tabs.Tab>
+          <Tabs.Tab value="payouts">Crypto Payouts</Tabs.Tab>
           <Tabs.Tab value="blacklists">Blacklists</Tabs.Tab>
 
           <Tabs.Tab value="danger" color="red">
@@ -44,6 +46,10 @@ function Index(): JSX.Element {
 
         <Tabs.Panel value="payments">
           <PaymentsTab />
+        </Tabs.Panel>
+
+        <Tabs.Panel value="payouts">
+          <PayoutsTab />
         </Tabs.Panel>
 
         <Tabs.Panel value="blacklists">
