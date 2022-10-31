@@ -33,6 +33,7 @@ export const initialViewedOrder: Order = {
   currency: '',
   current_status: 0,
   email: '',
+  gateway: '',
   geo_data: {
     browser: '',
     city: '',

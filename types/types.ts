@@ -168,6 +168,7 @@ export interface Order {
   currency: string;
   current_status: number;
   email: string;
+  gateway: string;
   geo_data: OrderGeoData;
   paypal_email: string;
   items: OrderItem[];

@@ -3,19 +3,22 @@ import dynamic from 'next/dynamic';
 import Link from 'next/link';
 
 import { Anchor, Badge, Group, Popover, Stack, Text, Title, useMantineTheme } from '@mantine/core';
+import { format, parseISO } from 'date-fns';
 import {
   AccessPoint,
   BrandPaypal,
+  BrandStripe,
   Calendar,
+  CurrencyBitcoin,
   DeviceDesktop,
   Lock,
   Mail,
   MapPin,
   Message,
+  Receipt2,
   Signature,
   User,
 } from 'tabler-icons-react';
-import { format, parseISO } from 'date-fns';
 
 import { Order, OrderGeoData } from '../../../types/types';
 
@@ -31,6 +34,19 @@ function Details({ commentCount, customerData, viewedOrder }: OrderDetailsProps)
   const theme = useMantineTheme();
 
   const [opened, setOpened] = useState<boolean>(false);
+
+  const getOrderGatewayIcon = (gateway: string): JSX.Element => {
+    switch (gateway) {
+      case 'paypal':
+        return <BrandPaypal className="h-5 w-5 text-gray-400" />;
+      case 'stripe':
+        return <BrandStripe className="h-5 w-5 text-gray-400" />;
+      case 'bitcoin':
+        return <CurrencyBitcoin className="h-5 w-5 text-gray-400" />;
+      default:
+        return <Receipt2 className="h-5 w-5 text-gray-400" />;
+    }
+  };
 
   const getOrderCurrentStatus = (currentStatus: number): JSX.Element => {
     switch (currentStatus) {
@@ -114,6 +130,16 @@ function Details({ commentCount, customerData, viewedOrder }: OrderDetailsProps)
           <AccessPoint className="h-5 w-5 text-gray-400" />
           {getOrderCurrentStatus(viewedOrder.current_status)}
         </Group>
+
+        {viewedOrder.gateway && (
+          <Group mt={8}>
+            {getOrderGatewayIcon(viewedOrder.gateway)}
+
+            <Text size="sm" transform="capitalize">
+              Paid with {viewedOrder.gateway}
+            </Text>
+          </Group>
+        )}
 
         <Group mt={8}>
           <Message className="h-5 w-5 text-gray-400" />
