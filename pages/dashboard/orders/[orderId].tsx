@@ -121,19 +121,30 @@ function OrderId(): JSX.Element {
 
   const getOrderInfo = useCallback(async (): Promise<void> => {
     if (orderId != null) {
-      await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/orders/${orderId}`).then((response: AxiosResponse) => {
-        response.data.data.items.forEach((item: OrderItem) => {
-          if (item.current_status >= 1) {
-            setFulfilledOrder(true);
-          } else {
-            setUnfulfilledOrder(true);
-          }
-        });
+      await axios
+        .get(`${process.env.NEXT_PUBLIC_API_URL}/orders/${orderId}`)
+        .then((response: AxiosResponse) => {
+          response.data.data.items.forEach((item: OrderItem) => {
+            if (item.current_status >= 1) {
+              setFulfilledOrder(true);
+            } else {
+              setUnfulfilledOrder(true);
+            }
+          });
 
-        countComments(response.data.data.statuses);
-        setCustomerData(response.data.data.geo_data);
-        setViewedOrder(response.data.data);
-      });
+          countComments(response.data.data.statuses);
+          setCustomerData(response.data.data.geo_data);
+          setViewedOrder(response.data.data);
+        })
+        .catch(() => {
+          router.push('/dashboard/orders');
+
+          showNotification({
+            title: 'Order Not Found',
+            message: 'There was an issue trying to find the order you were looking for.',
+            color: 'red',
+          });
+        });
     }
   }, [orderId]);
 

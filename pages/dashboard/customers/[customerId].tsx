@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
 import { Box, Divider, Stack, useMantineTheme } from '@mantine/core';
+import { showNotification } from '@mantine/notifications';
 import { Calendar, Coin, Receipt, Receipt2 } from 'tabler-icons-react';
 import axios, { AxiosResponse } from 'axios';
 import { format, parseISO } from 'date-fns';
@@ -100,6 +101,15 @@ function Index(): JSX.Element {
               ),
             },
           ]);
+        })
+        .catch(() => {
+          router.push('/dashboard/customers');
+
+          showNotification({
+            title: 'Customer Not Found',
+            message: 'There was an issue trying to find the customer you were looking for.',
+            color: 'red',
+          });
         });
     }
   };

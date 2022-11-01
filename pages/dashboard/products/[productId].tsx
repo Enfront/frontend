@@ -124,7 +124,13 @@ function Index(): JSX.Element {
           checkProductStatus(response.data.data);
         })
         .catch(() => {
-          router.push('/dashboard/products');
+          router.push('/dashboard/customers');
+
+          showNotification({
+            title: 'Customer Not Found',
+            message: 'There was an issue trying to find the customer you were looking for.',
+            color: 'red',
+          });
         });
     } else {
       // Product is new so we turn visibility toggle off
