@@ -55,10 +55,12 @@ function CryptoModal({
       await axios
         .get(`${process.env.NEXT_PUBLIC_API_URL}/payments/crypto/${orderId}`)
         .then((response: AxiosResponse) => {
-          if (response.data.data?.status === 'InvoiceProcessing') {
+          const status = response.data.data?.status;
+
+          if (status === 'InvoiceProcessing' || status === 'InvoiceReceivedPayment') {
             setCryptoTxnDetails(response.data.data);
             setStep(2);
-          } else if (response.data.data?.status === 'InvoiceSettled') {
+          } else if (status === 'InvoiceSettled') {
             clearInterval(pollTimer);
             router.push(`/checkout/${shopId}/${orderId}/processing`);
           }
