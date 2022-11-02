@@ -157,7 +157,15 @@ function ProductList({ isDesktop, router, shownProducts, selectedShop }: Product
       ) : (
         <>
           {shownProducts.map((product: Product) => (
-            <Paper p={16} radius="md" shadow="sm" mb={16} key={product.ref_id} withBorder>
+            <Paper
+              onClick={() => gotoProductDetails(product.ref_id)}
+              p={16}
+              radius="md"
+              shadow="sm"
+              mb={16}
+              key={product.ref_id}
+              withBorder
+            >
               <Group align="flex-start" spacing={8} noWrap>
                 <div className="relative h-10 w-10 flex-shrink-0">
                   {product.images.length > 0 ? (

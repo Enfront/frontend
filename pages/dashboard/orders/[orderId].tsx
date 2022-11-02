@@ -146,6 +146,8 @@ function OrderId(): JSX.Element {
           });
         });
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [orderId]);
 
   useEffect(() => {

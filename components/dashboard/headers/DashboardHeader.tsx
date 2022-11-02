@@ -1,18 +1,10 @@
-import Image from 'next/image';
+import Image from 'next/future/image';
 
-import {
-  ActionIcon,
-  Avatar,
-  Burger,
-  Group,
-  MediaQuery,
-  Menu,
-  useMantineColorScheme,
-  useMantineTheme,
-} from '@mantine/core';
+import { Avatar, Burger, Group, Menu, useMantineColorScheme, useMantineTheme } from '@mantine/core';
 import { NextLink } from '@mantine/next';
 import { Logout, MoonStars, Settings, Sun } from 'tabler-icons-react';
 
+import { useMediaQuery } from '@mantine/hooks';
 import accountNavigationConfig, { AccountRoutes } from '../../../configs/AccountNavigationConfig';
 import useAuth from '../../../contexts/AuthContext';
 
@@ -23,39 +15,45 @@ interface DashboardHeaderProps {
 
 function DashboardHeader({ sidebarOpen, setSidebarOpen }: DashboardHeaderProps): JSX.Element {
   const theme = useMantineTheme();
+  const isDesktop = useMediaQuery('(min-width: 900px)');
 
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const { logout } = useAuth();
 
   return (
-    <Group sx={{ height: '100%' }} px={20} position="apart">
-      <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
+    <Group className="h-full" align="center" px={0} spacing={0} position="apart">
+      {!isDesktop && (
         <Burger
           color={theme.colors.gray[6]}
           opened={sidebarOpen}
           onClick={() => setSidebarOpen(!sidebarOpen)}
-          mr="xl"
           size="sm"
         />
-      </MediaQuery>
+      )}
 
-      <Image src="/logo.png" width="132" height="37" alt="Enfront logo" />
+      <Image src="/logo.png" width={isDesktop ? '132' : '98'} height={isDesktop ? '37' : '28'} alt="Enfront logo" />
 
-      <Group>
-        <ActionIcon variant="default" onClick={() => toggleColorScheme()} size={30}>
-          {colorScheme === 'dark' ? <Sun size={16} /> : <MoonStars size={16} />}
-        </ActionIcon>
-
-        <Menu position="bottom-end" shadow="md" width={200}>
+      <Group noWrap>
+        <Menu position="bottom-end" shadow="md" width={isDesktop ? 200 : '100%'}>
           <Menu.Target>
             <Avatar className="mr-2 cursor-pointer" color="blue" radius="xl" size="md" alt="No image" />
           </Menu.Target>
 
           <Menu.Dropdown>
             {accountNavigationConfig.map((item: AccountRoutes) => (
-              <Menu.Item component={NextLink} href={item.path} icon={<Settings size={14} />} key={item.key}>
-                {item.title}
-              </Menu.Item>
+              <>
+                <Menu.Item component={NextLink} href={item.path} icon={<Settings size={14} />} key={item.key}>
+                  {item.title}
+                </Menu.Item>
+
+                <Menu.Item
+                  onClick={() => toggleColorScheme()}
+                  icon={colorScheme === 'dark' ? <Sun size={16} /> : <MoonStars size={16} />}
+                  key="logout"
+                >
+                  Change Theme
+                </Menu.Item>
+              </>
             ))}
 
             <Menu.Divider />

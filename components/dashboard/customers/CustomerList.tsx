@@ -94,7 +94,7 @@ function CustomerList({ customers, isDesktop, page, router, setPage, shownCustom
               <Group align="flex-start" spacing={8} mb={16} noWrap>
                 <Avatar color="brand" />
 
-                <Stack spacing={2}>
+                <Stack className="max-w-min overflow-hidden" spacing={2}>
                   <Text size="xs" weight={500} lineClamp={1}>
                     {customer.user.email ?? 'Anonymous'}
                   </Text>

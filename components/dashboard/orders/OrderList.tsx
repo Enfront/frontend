@@ -118,6 +118,7 @@ function OrderList({
               <th>ID</th>
               <th>Customer</th>
               <th>Order Date</th>
+              <th>Gateway</th>
               <th>Total</th>
               <th>Status</th>
             </tr>
@@ -136,6 +137,10 @@ function OrderList({
                   {!order.customer && !order.email && <td>Email Not Provided</td>}
 
                   <td>{format(parseISO(order.created_at), 'MMMM do, yyyy H:mma')}</td>
+
+                  <td>
+                    <Text transform="capitalize">{order.gateway ?? 'None'}</Text>
+                  </td>
 
                   <td>
                     <NumberFormat
@@ -186,7 +191,7 @@ function OrderList({
 
               <Divider my="sm" />
 
-              <Group position="apart" mb={8}>
+              <Group position="apart" mb={8} noWrap>
                 <Text color="dimmed" size="xs">
                   Total
                 </Text>
@@ -201,13 +206,23 @@ function OrderList({
                 </Text>
               </Group>
 
-              <Group position="apart" mb={8}>
+              <Group position="apart" mb={8} noWrap>
+                <Text color="dimmed" size="xs">
+                  Gateway
+                </Text>
+
+                <Text size="xs" weight={500} transform="capitalize">
+                  {order.gateway ?? 'None'}
+                </Text>
+              </Group>
+
+              <Group position="apart" mb={8} noWrap>
                 <Text color="dimmed" size="xs">
                   Created
                 </Text>
 
-                <Text size="xs" weight={500} mb={8}>
-                  {format(parseISO(order.created_at), 'MMMM do, yyyy H:mma')}
+                <Text size="xs" weight={500}>
+                  {format(parseISO(order.created_at), 'MMM do, H:mma')}
                 </Text>
               </Group>
 
