@@ -7,7 +7,7 @@ import { AppShell, Header, Navbar, ScrollArea } from '@mantine/core';
 import useShop from '../../contexts/ShopContext';
 
 import ThemesHeader from '../dashboard/headers/ThemesHeader';
-import ThemesSideNav from '../dashboard/side-navs/ThemesSideNav';
+import ThemesSidenav from '../dashboard/sidenavs/ThemesSidenav';
 import { SettingsSchema, ThemeConfigFormData, ThemeProductNew } from '../../types/types';
 
 interface ThemeEditorLayoutProps {
@@ -101,7 +101,7 @@ function ThemeEditorLayout({ children }: ThemeEditorLayoutProps): JSX.Element {
       navbar={
         <Navbar className="top-0 h-screen" m="md" hiddenBreakpoint="sm" hidden={!sidebarOpen} width={{ sm: 300 }}>
           <Navbar.Section component={ScrollArea} scrollbarSize={2} mt="xs" px="xs" grow offsetScrollbars>
-            <ThemesSideNav
+            <ThemesSidenav
               existingConfig={existingConfig}
               setExistingConfig={setExistingConfig}
               settingsScheme={editorSettings}

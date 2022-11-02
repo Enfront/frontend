@@ -5,11 +5,11 @@ import { Button, Group, Tabs, Title } from '@mantine/core';
 import { ProtectedRoute } from '../../../contexts/AuthContext';
 
 import DashboardLayout from '../../../components/layouts/DashboardLayout';
-import BasicInfoTab from '../../../components/dashboard/shop/BasicInfoTab';
-import PaymentsTab from '../../../components/dashboard/shop/PaymentsTab';
-import BlacklistTab from '../../../components/dashboard/shop/BlacklistTab';
-import DangerTab from '../../../components/dashboard/shop/DangerTab';
-import PayoutsTab from '../../../components/dashboard/shop/PayoutsTab';
+import BasicInfoTab from '../../../components/dashboard/settings/BasicInfoTab';
+import PaymentsTab from '../../../components/dashboard/settings/PaymentsTab';
+import BlacklistTab from '../../../components/dashboard/settings/BlacklistTab';
+import DangerTab from '../../../components/dashboard/settings/DangerTab';
+import PayoutsTab from '../../../components/dashboard/settings/PayoutsTab';
 
 function Index(): JSX.Element {
   const [openModal, setOpenModal] = useState<boolean>(false);

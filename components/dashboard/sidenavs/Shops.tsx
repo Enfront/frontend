@@ -5,7 +5,7 @@ import { Avatar, Box, Button, Group, Menu, Stack, Text, UnstyledButton, useManti
 import { ChevronRight } from 'tabler-icons-react';
 
 import useShop from '../../../contexts/ShopContext';
-import CreateShop from '../shop/CreateShop';
+import CreateShop from '../settings/CreateShop';
 import { ShopData } from '../../../types/types';
 
 function Shops(): JSX.Element {

@@ -9,8 +9,8 @@ import navigationConfig, { DashboardRoutes } from '../../configs/NavigationConfi
 import utils from '../../utils/utils';
 
 import DashboardHeader from '../dashboard/headers/DashboardHeader';
-import Links from '../dashboard/side-navs/Links';
-import Shops from '../dashboard/side-navs/Shops';
+import Links from '../dashboard/sidenavs/Links';
+import Shops from '../dashboard/sidenavs/Shops';
 
 interface LayoutProps {
   children: ReactNode;

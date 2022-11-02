@@ -13,7 +13,7 @@ interface ThemesSideNavProps {
   settingsScheme: SettingsSchema[];
 }
 
-function ThemesSideNav({ existingConfig, setExistingConfig, settingsScheme }: ThemesSideNavProps): JSX.Element {
+function ThemesSidenav({ existingConfig, setExistingConfig, settingsScheme }: ThemesSideNavProps): JSX.Element {
   const { fakeToFrame, iframeLoaded, themePage, sendToFrame } = useTheme();
   const { selectedShop } = useShop();
 
@@ -346,4 +346,4 @@ function ThemesSideNav({ existingConfig, setExistingConfig, settingsScheme }: Th
   );
 }
 
-export default ThemesSideNav;
+export default ThemesSidenav;
