@@ -41,7 +41,7 @@ function Shops(): JSX.Element {
       >
         <Group position="apart" noWrap>
           <Group className="max-w-[85%]" spacing="xs" noWrap>
-            <Avatar color="blue" radius="xl" />
+            <Avatar color="brand" radius="xl" />
 
             <Stack className="max-w-[85%]" spacing={0}>
               <Text className="truncate" size="sm" weight={500}>

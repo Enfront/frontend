@@ -36,7 +36,7 @@ function DashboardHeader({ sidebarOpen, setSidebarOpen }: DashboardHeaderProps):
       <Group noWrap>
         <Menu position="bottom-end" shadow="md" width={isDesktop ? 200 : '100%'}>
           <Menu.Target>
-            <Avatar className="mr-2 cursor-pointer" color="blue" radius="xl" size="md" alt="No image" />
+            <Avatar className="mr-2 cursor-pointer" color="brand" radius="xl" size="md" alt="No image" />
           </Menu.Target>
 
           <Menu.Dropdown>
