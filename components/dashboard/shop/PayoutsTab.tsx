@@ -112,44 +112,47 @@ function PayoutsTab(): JSX.Element {
         </Paper>
       </SimpleGrid>
 
-      <Title className="text-xl" order={2} mb={16}>
-        Past Payouts
-      </Title>
-
-      <Table verticalSpacing="md" striped highlightOnHover>
-        <thead>
-          <tr>
-            <th>Request Date</th>
-            <th>Currency</th>
-            <th>Destination</th>
-            <th>Amount</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {payoutHistory &&
-            payoutHistory.map((payout: PayoutHistory) => (
-              <tr key={payout.ref_id}>
-                <td>{format(parseISO(payout.created_at), 'MMM do, yyyy H:mma')}</td>
-                <td>{payout.currency}</td>
-                <td>{payout.destination}</td>
-                <td>{payout.amount.toLocaleString('fullwide', { useGrouping: true, maximumSignificantDigits: 8 })}</td>
-                <td>{getPayoutCurrentStatus(payout.status)}</td>
-              </tr>
-            ))}
-        </tbody>
-      </Table>
-
       {payoutHistory && payoutHistory.length > 0 && (
-        <Pagination
-          className="mt-12"
-          page={page}
-          onChange={changeHistoryPage}
-          total={Math.ceil(payoutHistoryCount / 10)}
-          position="right"
-          withEdges
-        />
+        <>
+          <Title className="text-xl" order={2} mb={16}>
+            Past Payouts
+          </Title>
+
+          <Table verticalSpacing="md" striped highlightOnHover>
+            <thead>
+              <tr>
+                <th>Request Date</th>
+                <th>Currency</th>
+                <th>Destination</th>
+                <th>Amount</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {payoutHistory.map((payout: PayoutHistory) => (
+                <tr key={payout.ref_id}>
+                  <td>{format(parseISO(payout.created_at), 'MMM do, yyyy H:mma')}</td>
+                  <td>{payout.currency}</td>
+                  <td>{payout.destination}</td>
+                  <td>
+                    {payout.amount.toLocaleString('fullwide', { useGrouping: true, maximumSignificantDigits: 8 })}
+                  </td>
+                  <td>{getPayoutCurrentStatus(payout.status)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+
+          <Pagination
+            className="mt-12"
+            page={page}
+            onChange={changeHistoryPage}
+            total={Math.ceil(payoutHistoryCount / 10)}
+            position="right"
+            withEdges
+          />
+        </>
       )}
     </>
   );

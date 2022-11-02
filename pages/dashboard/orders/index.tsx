@@ -11,6 +11,7 @@ import DashboardLayout from '../../../components/layouts/DashboardLayout';
 import useShop from '../../../contexts/ShopContext';
 import { ProtectedRoute } from '../../../contexts/AuthContext';
 import { Order, OrderPagination } from '../../../types/types';
+import EmptyMessage from '../../../components/dashboard/EmptyMessage';
 
 function Index(): JSX.Element {
   const router = useRouter();
@@ -71,43 +72,53 @@ function Index(): JSX.Element {
       tabTitle="Dashboard - Enfront"
       metaDescription="Welcome back, we&#39;re excited to help you with all your business needs."
     >
-      {isDesktop ? (
-        <Group position="apart" mb={48}>
-          <Title className="text-2xl" order={1}>
-            All Orders
-          </Title>
+      {shownOrders.length > 0 ? (
+        <>
+          {isDesktop ? (
+            <Group position="apart" mb={48}>
+              <Title className="text-2xl" order={1}>
+                All Orders
+              </Title>
 
-          <TextInput
-            onChange={(event: ChangeEvent<HTMLInputElement>) => searchOrders(event)}
-            placeholder="Search for an order"
-            aria-label="Search for a specific order"
-            icon={<Search size={16} />}
+              <TextInput
+                onChange={(event: ChangeEvent<HTMLInputElement>) => searchOrders(event)}
+                placeholder="Search for an order"
+                aria-label="Search for a specific order"
+                icon={<Search size={16} />}
+              />
+            </Group>
+          ) : (
+            <Stack mb={24}>
+              <Title className="text-2xl" order={1}>
+                All Orders
+              </Title>
+
+              <TextInput
+                onChange={(event: ChangeEvent<HTMLInputElement>) => searchOrders(event)}
+                placeholder="Search for an order"
+                aria-label="Search for a specific order"
+                icon={<Search size={16} />}
+              />
+            </Stack>
+          )}
+
+          <OrderList
+            isDesktop={isDesktop}
+            orders={orders}
+            page={page}
+            router={router}
+            selectedShop={selectedShop}
+            setPage={setPage}
+            shownOrders={shownOrders}
           />
-        </Group>
+        </>
       ) : (
-        <Stack mb={24}>
-          <Title className="text-2xl" order={1}>
-            All Orders
-          </Title>
-
-          <TextInput
-            onChange={(event: ChangeEvent<HTMLInputElement>) => searchOrders(event)}
-            placeholder="Search for an order"
-            aria-label="Search for a specific order"
-            icon={<Search size={16} />}
-          />
-        </Stack>
+        <EmptyMessage
+          title="You Have No Orders"
+          description="When you do, they will show up here."
+          url="/dashboard/products/new"
+        />
       )}
-
-      <OrderList
-        isDesktop={isDesktop}
-        orders={orders}
-        page={page}
-        router={router}
-        selectedShop={selectedShop}
-        setPage={setPage}
-        shownOrders={shownOrders}
-      />
     </DashboardLayout>
   );
 }

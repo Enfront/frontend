@@ -58,7 +58,13 @@ function DashboardLayout({ children, metaDescription, tabTitle }: LayoutProps): 
           </Navbar>
         }
       >
-        {isDesktop ? <Container size="xl">{children}</Container> : <>{children}</>}
+        {isDesktop ? (
+          <Container className="h-full" size="xl">
+            {children}
+          </Container>
+        ) : (
+          <>{children}</>
+        )}
       </AppShell>
     </>
   );

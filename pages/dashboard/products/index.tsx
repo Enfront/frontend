@@ -7,10 +7,11 @@ import { Search } from 'tabler-icons-react';
 import { Button, Group, Stack, TextInput, Title } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 
+import DashboardLayout from '../../../components/layouts/DashboardLayout';
 import ProductList from '../../../components/dashboard/products/ProductList';
+import EmptyMessage from '../../../components/dashboard/EmptyMessage';
 import useShop from '../../../contexts/ShopContext';
 import { ProtectedRoute } from '../../../contexts/AuthContext';
-import DashboardLayout from '../../../components/layouts/DashboardLayout';
 import { Product } from '../../../types/types';
 
 function Index(): JSX.Element {
@@ -60,45 +61,61 @@ function Index(): JSX.Element {
       tabTitle="Dashboard - Enfront"
       metaDescription="Welcome back, we&#39;re excited to help you with all your business needs."
     >
-      {isDesktop ? (
-        <Group position="apart" mb={48}>
-          <Title className="text-2xl" order={1}>
-            All Products
-          </Title>
+      {shownProducts.length > 0 ? (
+        <>
+          {isDesktop ? (
+            <Group position="apart" mb={48}>
+              <Title className="text-2xl" order={1}>
+                All Products
+              </Title>
 
-          <Group>
-            <TextInput
-              onChange={(event: ChangeEvent<HTMLInputElement>) => searchProducts(event)}
-              placeholder="Search for a product"
-              aria-label="Search for a specific product"
-              icon={<Search size={16} />}
-            />
+              <Group>
+                <TextInput
+                  onChange={(event: ChangeEvent<HTMLInputElement>) => searchProducts(event)}
+                  placeholder="Search for a product"
+                  aria-label="Search for a specific product"
+                  icon={<Search size={16} />}
+                />
 
-            <Link href="/dashboard/products/new" passHref>
-              <Button component="a">Create Product</Button>
-            </Link>
-          </Group>
-        </Group>
-      ) : (
-        <Stack mb={24}>
-          <Title className="text-2xl" order={1}>
-            All Products
-          </Title>
+                <Link href="/dashboard/products/new" passHref>
+                  <Button component="a">Create Product</Button>
+                </Link>
+              </Group>
+            </Group>
+          ) : (
+            <Stack mb={24}>
+              <Title className="text-2xl" order={1}>
+                All Products
+              </Title>
 
-          <TextInput
-            onChange={(event: ChangeEvent<HTMLInputElement>) => searchProducts(event)}
-            placeholder="Search for a product"
-            aria-label="Search for a specific product"
-            icon={<Search size={16} />}
+              <TextInput
+                onChange={(event: ChangeEvent<HTMLInputElement>) => searchProducts(event)}
+                placeholder="Search for a product"
+                aria-label="Search for a specific product"
+                icon={<Search size={16} />}
+              />
+
+              <Link href="/dashboard/products/new" passHref>
+                <Button component="a">Create Product</Button>
+              </Link>
+            </Stack>
+          )}
+
+          <ProductList
+            isDesktop={isDesktop}
+            router={router}
+            selectedShop={selectedShop}
+            shownProducts={shownProducts}
           />
-
-          <Link href="/dashboard/products/new" passHref>
-            <Button component="a">Create Product</Button>
-          </Link>
-        </Stack>
+        </>
+      ) : (
+        <EmptyMessage
+          title="You Have No Products"
+          description="Create a product to get started!"
+          buttonText="Create Product"
+          url="/dashboard/products/new"
+        />
       )}
-
-      <ProductList isDesktop={isDesktop} router={router} selectedShop={selectedShop} shownProducts={shownProducts} />
     </DashboardLayout>
   );
 }

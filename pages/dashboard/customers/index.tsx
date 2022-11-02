@@ -11,6 +11,7 @@ import DashboardLayout from '../../../components/layouts/DashboardLayout';
 import useShop from '../../../contexts/ShopContext';
 import { ProtectedRoute } from '../../../contexts/AuthContext';
 import { Customer, CustomerPagination } from '../../../types/types';
+import EmptyMessage from '../../../components/dashboard/EmptyMessage';
 
 function Index(): JSX.Element {
   const router = useRouter();
@@ -72,42 +73,52 @@ function Index(): JSX.Element {
       tabTitle="Dashboard - Enfront"
       metaDescription="Welcome back, we&#39;re excited to help you with all your business needs."
     >
-      {isDesktop ? (
-        <Group position="apart" mb={48}>
-          <Title className="text-2xl" order={1}>
-            All Customers
-          </Title>
+      {shownCustomers.length > 0 ? (
+        <>
+          {isDesktop ? (
+            <Group position="apart" mb={48}>
+              <Title className="text-2xl" order={1}>
+                All Customers
+              </Title>
 
-          <TextInput
-            onChange={(event: ChangeEvent<HTMLInputElement>) => searchCustomers(event)}
-            placeholder="Search for a customer"
-            aria-label="Search for a specific customer"
-            icon={<Search size={16} />}
+              <TextInput
+                onChange={(event: ChangeEvent<HTMLInputElement>) => searchCustomers(event)}
+                placeholder="Search for a customer"
+                aria-label="Search for a specific customer"
+                icon={<Search size={16} />}
+              />
+            </Group>
+          ) : (
+            <Stack mb={24}>
+              <Title className="text-2xl" order={1}>
+                All Customers
+              </Title>
+
+              <TextInput
+                onChange={(event: ChangeEvent<HTMLInputElement>) => searchCustomers(event)}
+                placeholder="Search for a customer"
+                aria-label="Search for a specific customer"
+                icon={<Search size={16} />}
+              />
+            </Stack>
+          )}
+
+          <CustomerList
+            customers={customers}
+            isDesktop={isDesktop}
+            page={page}
+            router={router}
+            setPage={setPage}
+            shownCustomers={shownCustomers}
           />
-        </Group>
+        </>
       ) : (
-        <Stack mb={24}>
-          <Title className="text-2xl" order={1}>
-            All Customers
-          </Title>
-
-          <TextInput
-            onChange={(event: ChangeEvent<HTMLInputElement>) => searchCustomers(event)}
-            placeholder="Search for a customer"
-            aria-label="Search for a specific customer"
-            icon={<Search size={16} />}
-          />
-        </Stack>
+        <EmptyMessage
+          title="You Have No Customers"
+          description="When you do, they will show up here."
+          url="/dashboard/products/new"
+        />
       )}
-
-      <CustomerList
-        customers={customers}
-        isDesktop={isDesktop}
-        page={page}
-        router={router}
-        setPage={setPage}
-        shownCustomers={shownCustomers}
-      />
     </DashboardLayout>
   );
 }
