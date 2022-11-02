@@ -5,8 +5,8 @@ import PublicLayout from '../../components/layouts/PublicLayout';
 function AcceptableUse(): JSX.Element {
   return (
     <PublicLayout
-      pageTitle="Enfront - Acceptable Use"
-      metaDescription="Enfront takes ecommerce to the next level by offering a vast amount of innovative tools designed
+      pageTitle="Acceptable Use | Enfront"
+      metaDescription="Enfront takes e-commerce to the next level by offering a vast amount of innovative tools designed
       to simplify, optimize, and accelerate the process."
     >
       <Container px="xs" py={112}>

@@ -239,7 +239,7 @@ function Index(): JSX.Element {
 
   return (
     <DashboardLayout
-      tabTitle="Dashboard - Enfront"
+      tabTitle="Product Details | Enfront"
       metaDescription="Welcome back, we&#39;re excited to help you with all your business needs."
     >
       <form onSubmit={form.onSubmit((values: ProductFormData) => onSubmit(values))}>

@@ -7,8 +7,8 @@ import PublicLayout from '../../components/layouts/PublicLayout';
 function Privacy(): JSX.Element {
   return (
     <PublicLayout
-      pageTitle="Enfront - Privacy Policy"
-      metaDescription="Enfront takes ecommerce to the next level by offering a vast amount of innovative tools designed
+      pageTitle="Privacy Policy | Enfront"
+      metaDescription="Enfront takes e-commerce to the next level by offering a vast amount of innovative tools designed
       to simplify, optimize, and accelerate the process."
     >
       <Container px="xs" py={112}>

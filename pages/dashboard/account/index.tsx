@@ -8,7 +8,7 @@ import { ProtectedRoute } from '../../../contexts/AuthContext';
 function Index(): JSX.Element {
   return (
     <DashboardLayout
-      tabTitle="Dashboard - Enfront"
+      tabTitle="Dashboard | Enfront"
       metaDescription="Welcome back, we&#39;re excited to help you with all your business needs."
     >
       <Title className="mb-12" order={1}>

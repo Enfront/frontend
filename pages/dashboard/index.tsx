@@ -205,7 +205,7 @@ function Index(): JSX.Element {
 
   return (
     <DashboardLayout
-      tabTitle="Dashboard - Enfront"
+      tabTitle="Dashboard | Enfront"
       metaDescription="Welcome back, we&#39;re excited to help you with all your business needs."
     >
       <Title className="text-2xl" order={1} mb={4} weight={600}>

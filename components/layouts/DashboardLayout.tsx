@@ -31,6 +31,7 @@ function DashboardLayout({ children, metaDescription, tabTitle }: LayoutProps): 
       <Head>
         <title>{tabTitle}</title>
         <meta name="description" content={metaDescription} />
+        <meta name="robots" content="noindex" />
 
         <link rel="apple-touch-icon" sizes="180x180" href="/favicon_io/apple-touch-icon.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon_io/favicon-32x32.png" />

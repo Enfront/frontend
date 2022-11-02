@@ -69,7 +69,7 @@ function Index(): JSX.Element {
 
   return (
     <DashboardLayout
-      tabTitle="Dashboard - Enfront"
+      tabTitle="Orders | Enfront"
       metaDescription="Welcome back, we&#39;re excited to help you with all your business needs."
     >
       {shownOrders.length > 0 ? (

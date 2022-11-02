@@ -10,7 +10,7 @@ function Index(): JSX.Element {
   return (
     <PublicLayout
       pageTitle="Enfront"
-      metaDescription="Enfront takes ecommerce to the next level by offering a vast amount of innovative tools designed
+      metaDescription="Enfront takes e-commerce to the next level by offering a vast amount of innovative tools designed
       to simplify, optimize, and accelerate the process."
     >
       <Hero />

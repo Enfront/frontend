@@ -17,7 +17,7 @@ function Index(): JSX.Element {
 
   return (
     <DashboardLayout
-      tabTitle="Dashboard - Enfront"
+      tabTitle="Shop Settings | Enfront"
       metaDescription="Welcome back, we&#39;re excited to help you with all your business needs."
     >
       <Group position="apart" mb={24}>

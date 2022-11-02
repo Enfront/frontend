@@ -7,8 +7,8 @@ import PublicLayout from '../../components/layouts/PublicLayout';
 function Index(): JSX.Element {
   return (
     <PublicLayout
-      pageTitle="Enfront - Terms of Service"
-      metaDescription="Enfront takes ecommerce to the next level by offering a vast amount of innovative tools designed
+      pageTitle="Terms of Service | Enfront"
+      metaDescription="Enfront takes e-commerce to the next level by offering a vast amount of innovative tools designed
       to simplify, optimize, and accelerate the process."
     >
       <Container px="xs" py={112}>

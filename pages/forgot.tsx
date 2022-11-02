@@ -44,8 +44,8 @@ function Forgot(): JSX.Element {
 
   return (
     <AuthLayout
-      pageTitle="Forgot Password - Enfront"
-      metaDescription="Enfront takes ecommerce to the next level by offering a vast amount of innovative tools designed
+      pageTitle="Forgot Password | Enfront"
+      metaDescription="Enfront takes e-commerce to the next level by offering a vast amount of innovative tools designed
       to simplify, optimize, and accelerate the process."
     >
       <div className="flex flex-col">

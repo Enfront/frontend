@@ -17,7 +17,10 @@ function ThemeId(): JSX.Element {
   const { editorViewport, setIframeLoaded, themePage } = useTheme();
 
   return (
-    <ThemeEditorLayout>
+    <ThemeEditorLayout
+      tabTitle="Theme Editor | Enfront"
+      metaDescription="Welcome back, we&#39;re excited to help you with all your business needs."
+    >
       {selectedShop.ref_id !== '' && themeId && (
         <Stack className="h-full" align="center" justify="center">
           <iframe

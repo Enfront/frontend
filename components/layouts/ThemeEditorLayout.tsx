@@ -1,5 +1,6 @@
 import { ReactNode, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { AppShell, Header, Navbar, ScrollArea } from '@mantine/core';
@@ -12,9 +13,11 @@ import { SettingsSchema, ThemeConfigFormData, ThemeProductNew } from '../../type
 
 interface ThemeEditorLayoutProps {
   children: ReactNode;
+  metaDescription: string;
+  tabTitle: string;
 }
 
-function ThemeEditorLayout({ children }: ThemeEditorLayoutProps): JSX.Element {
+function ThemeEditorLayout({ children, metaDescription, tabTitle }: ThemeEditorLayoutProps): JSX.Element {
   const router = useRouter();
 
   const { themeId } = router.query;
@@ -85,33 +88,46 @@ function ThemeEditorLayout({ children }: ThemeEditorLayoutProps): JSX.Element {
   }, [selectedShop, themeId]);
 
   return (
-    <AppShell
-      padding={32}
-      navbarOffsetBreakpoint="sm"
-      header={
-        <Header className="left-[300px]" height={70} p="md">
-          <ThemesHeader
-            sidebarOpen={sidebarOpen}
-            setSidebarOpen={setSidebarOpen}
-            submitThemeConfig={submitThemeConfig}
-            themeInEditor={themeInEditorId}
-          />
-        </Header>
-      }
-      navbar={
-        <Navbar className="top-0 h-screen" m="md" hiddenBreakpoint="sm" hidden={!sidebarOpen} width={{ sm: 300 }}>
-          <Navbar.Section component={ScrollArea} scrollbarSize={2} mt="xs" px="xs" grow offsetScrollbars>
-            <ThemesSidenav
-              existingConfig={existingConfig}
-              setExistingConfig={setExistingConfig}
-              settingsScheme={editorSettings}
+    <>
+      <Head>
+        <title>{tabTitle}</title>
+        <meta name="description" content={metaDescription} />
+        <meta name="robots" content="noindex" />
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon_io/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon_io/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon_io/favicon-16x16.png" />
+        <link rel="manifest" href="/favicon_io/site.webmanifest" />
+      </Head>
+
+      <AppShell
+        padding={32}
+        navbarOffsetBreakpoint="sm"
+        header={
+          <Header className="left-[300px]" height={70} p="md">
+            <ThemesHeader
+              sidebarOpen={sidebarOpen}
+              setSidebarOpen={setSidebarOpen}
+              submitThemeConfig={submitThemeConfig}
+              themeInEditor={themeInEditorId}
             />
-          </Navbar.Section>
-        </Navbar>
-      }
-    >
-      {children}
-    </AppShell>
+          </Header>
+        }
+        navbar={
+          <Navbar className="top-0 h-screen" m="md" hiddenBreakpoint="sm" hidden={!sidebarOpen} width={{ sm: 300 }}>
+            <Navbar.Section component={ScrollArea} scrollbarSize={2} mt="xs" px="xs" grow offsetScrollbars>
+              <ThemesSidenav
+                existingConfig={existingConfig}
+                setExistingConfig={setExistingConfig}
+                settingsScheme={editorSettings}
+              />
+            </Navbar.Section>
+          </Navbar>
+        }
+      >
+        {children}
+      </AppShell>
+    </>
   );
 }
 
