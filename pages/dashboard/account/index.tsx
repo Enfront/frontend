@@ -3,6 +3,7 @@ import { Tabs, Title } from '@mantine/core';
 import DashboardLayout from '../../../components/layouts/DashboardLayout';
 import PersonalInformationTab from '../../../components/dashboard/account/PersonalInformationTab';
 import BillingTab from '../../../components/dashboard/account/BillingTab';
+import { ProtectedRoute } from '../../../contexts/AuthContext';
 
 function Index(): JSX.Element {
   return (
@@ -32,4 +33,4 @@ function Index(): JSX.Element {
   );
 }
 
-export default Index;
+export default ProtectedRoute(Index);
