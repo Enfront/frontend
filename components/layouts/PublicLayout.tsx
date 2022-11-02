@@ -19,7 +19,7 @@ function PublicLayout({ children, pageTitle, metaDescription }: LayoutProps): JS
 
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://enfront.io/" />
-        <meta property="og:title" content="Enfront" />
+        <meta property="og:title" content="E-Commerce Made Simple for Small Businesses" />
         <meta property="og:image" content="https://enfront.io/social-logo.png" />
         <meta
           property="og:description"
@@ -29,7 +29,7 @@ function PublicLayout({ children, pageTitle, metaDescription }: LayoutProps): JS
 
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:url" content="https://enfront.io/" />
-        <meta property="twitter:title" content="Enfront" />
+        <meta property="twitter:title" content="E-Commerce Made Simple for Small Businesses" />
         <meta property="twitter:image" content="https://enfront.io/social-logo.png" />
         <meta
           property="twitter:description"
