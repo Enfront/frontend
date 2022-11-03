@@ -27,8 +27,8 @@ function GeneralInformation({ description, form, setDescription, shopCurrency }:
 
         <NumberInput
           label="Price"
-          defaultValue={0.49}
-          min={0.49}
+          defaultValue={0.5}
+          min={0.5}
           step={0.01}
           max={100000}
           precision={2}
