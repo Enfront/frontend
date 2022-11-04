@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { showNotification } from '@mantine/notifications';
 import axios, { AxiosError, AxiosResponse } from 'axios';
 
+import LoadingAnimation from '../components/dashboard/LoadingAnimation';
 import axiosConfig from '../axiosConfig';
 import { LoginData, RegisterData, ResetPasswordData, User } from '../types/types';
 
@@ -265,7 +266,7 @@ export const ProtectedRoute = (WrappedComponent: (props: never) => JSX.Element):
     const router = useRouter();
 
     if (isProcessing && !isAuthenticated) {
-      return <h1>Loading...</h1>;
+      return <LoadingAnimation />;
     }
 
     if (!isProcessing && !isAuthenticated) {

@@ -8,3 +8,37 @@
 .grecaptcha-badge {
   visibility: hidden;
 }
+
+.loader {
+  align-items: center;
+  background-color: #1A1B1E;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  line-height: 2rem;
+  overflow: hidden;
+  width: 100vw;
+  z-index: 9999;
+
+  .loader__text {
+    color: #fff;
+    display: inline-block;
+    font-size: 1.5rem;
+    letter-spacing: 5px;
+    max-width: 500px;
+    text-align: center;
+    text-transform: uppercase;
+
+    @for $i from 0 through 6 {
+      &:nth-child(#{$i + 1}) {
+        animation: blur-text 1.5s (#{$i/5})+s infinite linear alternate;
+        filter: blur(0px);
+      }
+    }
+  }
+}
+
+@keyframes blur-text {
+  0% {filter: blur(0px);}
+  100% {filter: blur(4px);}
+}
