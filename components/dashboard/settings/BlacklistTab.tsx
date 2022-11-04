@@ -23,18 +23,18 @@ function BlackListTab({ openModal, setOpenModal }: BlacklistProps): JSX.Element 
 
   const { selectedShop } = useShop();
 
+  const [page, setPage] = useState<number>(router.query.page ? parseInt(router.query.page as string, 10) : 1);
   const [blacklist, setBlacklist] = useState<BlacklistPagination>({
     count: 0,
     next: '',
     previous: '',
     results: [],
   });
-  const [page, setPage] = useState<number>(router.query.page ? parseInt(router.query.page as string, 10) : 1);
 
   const getBlackList = (): void => {
     if (selectedShop.ref_id !== '') {
       axios
-        .get(`${process.env.NEXT_PUBLIC_API_URL}/blacklists/${selectedShop.ref_id}`)
+        .get(`${process.env.NEXT_PUBLIC_API_URL}/blacklists/${selectedShop.ref_id}?page=${page}`)
         .then((response: AxiosResponse) => {
           setBlacklist(response.data.data);
         })
@@ -121,7 +121,7 @@ function BlackListTab({ openModal, setOpenModal }: BlacklistProps): JSX.Element 
     getBlackList();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedShop]);
+  }, [selectedShop, page]);
 
   return (
     <>
