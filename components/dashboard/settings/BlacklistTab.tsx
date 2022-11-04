@@ -1,13 +1,16 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 
-import { ActionIcon, Grid, ScrollArea, Table, Text, Title } from '@mantine/core';
+import { ActionIcon, Badge, Divider, Group, Pagination, Paper, Stack, Table, Text } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
+import { useMediaQuery } from '@mantine/hooks';
 import { Trash } from 'tabler-icons-react';
 import axios, { AxiosResponse } from 'axios';
+import { format, parseISO } from 'date-fns';
 
-import useShop from '../../../contexts/ShopContext';
 import CreateBlacklistItem from './CreateBacklistItem';
-import { BlacklistItem } from '../../../types/types';
+import useShop from '../../../contexts/ShopContext';
+import { BlacklistItem, BlacklistPagination } from '../../../types/types';
 
 interface BlacklistProps {
   openModal: boolean;
@@ -15,24 +18,25 @@ interface BlacklistProps {
 }
 
 function BlackListTab({ openModal, setOpenModal }: BlacklistProps): JSX.Element {
+  const router = useRouter();
+  const isDesktop = useMediaQuery('(min-width: 900px)');
+
   const { selectedShop } = useShop();
 
-  const [ipBlacklist, setIpBlacklist] = useState<BlacklistItem[]>([]);
-  const [userBlacklist, setUserBlacklist] = useState<BlacklistItem[]>([]);
-  const [countryBlacklist, setCountryBlacklist] = useState<BlacklistItem[]>([]);
-  const [payPalEmailBlacklist, setPayPalEmailBlacklist] = useState<BlacklistItem[]>([]);
+  const [blacklist, setBlacklist] = useState<BlacklistPagination>({
+    count: 0,
+    next: '',
+    previous: '',
+    results: [],
+  });
+  const [page, setPage] = useState<number>(router.query.page ? parseInt(router.query.page as string, 10) : 1);
 
   const getBlackList = (): void => {
     if (selectedShop.ref_id !== '') {
       axios
         .get(`${process.env.NEXT_PUBLIC_API_URL}/blacklists/${selectedShop.ref_id}`)
         .then((response: AxiosResponse) => {
-          if (response.data.data) {
-            setIpBlacklist(response.data.data.filter((data: BlacklistItem) => data.ip_address));
-            setUserBlacklist(response.data.data.filter((data: BlacklistItem) => data.email));
-            setCountryBlacklist(response.data.data.filter((data: BlacklistItem) => data.country));
-            setPayPalEmailBlacklist(response.data.data.filter((data: BlacklistItem) => data.paypal_email));
-          }
+          setBlacklist(response.data.data);
         })
         .catch(() => {
           showNotification({
@@ -67,6 +71,52 @@ function BlackListTab({ openModal, setOpenModal }: BlacklistProps): JSX.Element 
       });
   };
 
+  const changeBlacklistPage = (pageNumber: number): void => {
+    router.query.page = pageNumber.toString();
+    router.push(router);
+    setPage(pageNumber);
+  };
+
+  const getBlacklistType = (blacklistItem: BlacklistItem, classes?: string): JSX.Element => {
+    if (blacklistItem.email) {
+      return (
+        <Badge className={classes} color="blue" radius="xs">
+          Email
+        </Badge>
+      );
+    }
+
+    if (blacklistItem.paypal_email) {
+      return (
+        <Badge className={classes} color="indigo" radius="xs">
+          Paypal Email
+        </Badge>
+      );
+    }
+
+    if (blacklistItem.ip_address) {
+      return (
+        <Badge className={classes} color="yellow" radius="xs">
+          IP Address
+        </Badge>
+      );
+    }
+
+    if (blacklistItem.country) {
+      return (
+        <Badge className={classes} color="orange" radius="xs">
+          Country
+        </Badge>
+      );
+    }
+
+    return (
+      <Badge className={classes} color="red" radius="xs">
+        Unknown
+      </Badge>
+    );
+  };
+
   useEffect(() => {
     getBlackList();
 
@@ -75,175 +125,90 @@ function BlackListTab({ openModal, setOpenModal }: BlacklistProps): JSX.Element 
 
   return (
     <>
-      <Grid gutter="xl" mt={24}>
-        <Grid.Col span={6}>
-          <Title className="text-xl" order={2}>
-            IP Addresses
-          </Title>
+      {isDesktop ? (
+        <Table verticalSpacing="md" highlightOnHover mt={24}>
+          <thead>
+            <tr>
+              <th>Value</th>
+              <th>Note</th>
+              <th>Type</th>
+              <th />
+            </tr>
+          </thead>
 
-          <ScrollArea className="h-80" offsetScrollbars>
-            <Table verticalSpacing="md" highlightOnHover>
-              <thead>
-                <tr>
-                  <th>Value</th>
-                  <th />
-                </tr>
-              </thead>
+          <tbody>
+            {blacklist.results.map((blacklistItem: BlacklistItem) => (
+              <tr key={blacklistItem.ref_id}>
+                <td>
+                  {blacklistItem.email ||
+                    blacklistItem.paypal_email ||
+                    blacklistItem.ip_address ||
+                    blacklistItem.country}
+                </td>
 
-              {ipBlacklist.length > 0 ? (
-                <tbody>
-                  {ipBlacklist.map((list: BlacklistItem) => (
-                    <tr className="cursor-pointer" key={list.ref_id}>
-                      <td>{list.ip_address}</td>
-                      <td>
-                        <ActionIcon onClick={() => deleteBlacklistItem(list.ref_id)} color="red" size="sm">
-                          <Trash />
-                        </ActionIcon>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              ) : (
-                <tbody>
-                  <tr>
-                    <td colSpan={6}>
-                      <Text align="center" color="dimmed" size="md">
-                        No ip addresses blacklisted
-                      </Text>
-                    </td>
-                  </tr>
-                </tbody>
+                <td>
+                  <Text>{blacklistItem.note ?? ''}</Text>
+                </td>
+
+                <td>{getBlacklistType(blacklistItem)}</td>
+
+                <td>
+                  <ActionIcon onClick={() => deleteBlacklistItem(blacklistItem.ref_id)} color="red" size="sm">
+                    <Trash />
+                  </ActionIcon>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      ) : (
+        <>
+          {blacklist.results.map((blacklistItem: BlacklistItem) => (
+            <Paper p={16} radius="md" shadow="sm" mb={16} key={blacklistItem.ref_id} withBorder>
+              <Stack spacing={2}>
+                <Text size="xs" weight={500} lineClamp={1}>
+                  {blacklistItem.paypal_email ||
+                    blacklistItem.email ||
+                    blacklistItem.ip_address ||
+                    blacklistItem.country}
+                </Text>
+
+                <Text color="dimmed" size="xs" lineClamp={1}>
+                  {format(parseISO(blacklistItem.created_at), 'MMM do, p')}
+                </Text>
+              </Stack>
+
+              <Divider my="sm" />
+
+              {blacklistItem.note && (
+                <Group position="apart" mb={8} noWrap>
+                  <Text color="dimmed" size="xs">
+                    Note
+                  </Text>
+
+                  <Text size="xs" weight={500} transform="capitalize">
+                    {blacklistItem.note}
+                  </Text>
+                </Group>
               )}
-            </Table>
-          </ScrollArea>
-        </Grid.Col>
 
-        <Grid.Col span={6}>
-          <Title className="text-xl" order={2}>
-            Countries
-          </Title>
+              {getBlacklistType(blacklistItem, 'w-full')}
+            </Paper>
+          ))}
+        </>
+      )}
 
-          <ScrollArea className="h-80" offsetScrollbars>
-            <Table verticalSpacing="md" highlightOnHover>
-              <thead>
-                <tr>
-                  <th>Value</th>
-                  <th />
-                </tr>
-              </thead>
-
-              {countryBlacklist.length > 0 ? (
-                <tbody>
-                  {countryBlacklist.map((list: BlacklistItem) => (
-                    <tr className="cursor-pointer" key={list.ref_id}>
-                      <td>{list.country}</td>
-                      <td>
-                        <ActionIcon onClick={() => deleteBlacklistItem(list.ref_id)} color="red" size="sm">
-                          <Trash />
-                        </ActionIcon>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              ) : (
-                <tbody>
-                  <tr>
-                    <td colSpan={6}>
-                      <Text align="center" color="dimmed" size="md">
-                        No countries blacklisted
-                      </Text>
-                    </td>
-                  </tr>
-                </tbody>
-              )}
-            </Table>
-          </ScrollArea>
-        </Grid.Col>
-
-        <Grid.Col span={6} mt={98}>
-          <Title className="text-xl" order={2}>
-            PayPal Emails
-          </Title>
-
-          <ScrollArea className="h-80" offsetScrollbars>
-            <Table verticalSpacing="md" highlightOnHover>
-              <thead>
-                <tr>
-                  <th>Value</th>
-                  <th />
-                </tr>
-              </thead>
-
-              {payPalEmailBlacklist.length > 0 ? (
-                <tbody>
-                  {payPalEmailBlacklist.map((list: BlacklistItem) => (
-                    <tr className="cursor-pointer" key={list.ref_id}>
-                      <td>{list.paypal_email}</td>
-                      <td>
-                        <ActionIcon onClick={() => deleteBlacklistItem(list.ref_id)} color="red" size="sm">
-                          <Trash />
-                        </ActionIcon>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              ) : (
-                <tbody>
-                  <tr>
-                    <td colSpan={6}>
-                      <Text align="center" color="dimmed" size="md">
-                        No PayPal emails blacklisted
-                      </Text>
-                    </td>
-                  </tr>
-                </tbody>
-              )}
-            </Table>
-          </ScrollArea>
-        </Grid.Col>
-
-        <Grid.Col span={6} mt={98}>
-          <Title className="text-xl" order={2}>
-            Users
-          </Title>
-
-          <ScrollArea className="h-80" offsetScrollbars>
-            <Table verticalSpacing="md" highlightOnHover>
-              <thead>
-                <tr>
-                  <th>Value</th>
-                  <th />
-                </tr>
-              </thead>
-
-              {userBlacklist.length > 0 ? (
-                <tbody>
-                  {userBlacklist.map((list: BlacklistItem) => (
-                    <tr className="cursor-pointer" key={list.ref_id}>
-                      <td>{list.email}</td>
-                      <td>
-                        <ActionIcon onClick={() => deleteBlacklistItem(list.ref_id)} color="red" size="sm">
-                          <Trash />
-                        </ActionIcon>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              ) : (
-                <tbody>
-                  <tr>
-                    <td colSpan={6}>
-                      <Text align="center" color="dimmed" size="md">
-                        No users blacklisted
-                      </Text>
-                    </td>
-                  </tr>
-                </tbody>
-              )}
-            </Table>
-          </ScrollArea>
-        </Grid.Col>
-      </Grid>
+      {blacklist.count > 0 && (
+        <Pagination
+          page={page}
+          onChange={changeBlacklistPage}
+          total={Math.ceil(blacklist.count / 10)}
+          position={isDesktop ? 'right' : 'center'}
+          size={isDesktop ? 'md' : 'sm'}
+          withEdges={isDesktop}
+          mt={48}
+        />
+      )}
 
       <CreateBlacklistItem
         getBlackList={getBlackList}

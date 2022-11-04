@@ -9,6 +9,7 @@ export interface AcceptedCryptoAddresses {
 
 export interface BlacklistFormData {
   [type: string]: string;
+  note: string;
   shop: string;
 }
 
@@ -17,12 +18,22 @@ export interface BlacklistItem {
   email?: string;
   country?: string;
   paypal_email?: string;
+  note?: string;
+  created_at: string;
   ref_id: string;
 }
 
 export interface BlacklistOnSubmitData {
   type: string;
   value: string;
+  note: string;
+}
+
+export interface BlacklistPagination {
+  count: number;
+  next?: string;
+  previous?: string;
+  results: BlacklistItem[];
 }
 
 export interface CommentFormData {

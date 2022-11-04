@@ -88,6 +88,7 @@ function OrderId(): JSX.Element {
     const formData: BlacklistFormData = {
       [type]: value,
       shop: selectedShop.ref_id,
+      note: `Created from order ${viewedOrder.ref_id}.`,
     };
 
     axios

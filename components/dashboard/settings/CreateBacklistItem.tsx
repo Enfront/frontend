@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from 'react';
 
-import { Modal, Button, TextInput, Select } from '@mantine/core';
+import { Modal, Button, TextInput, Select, Textarea } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
 import { useForm } from '@mantine/form';
 import { countryFinder } from 'jkshop-country-list';
@@ -25,6 +25,7 @@ function CreateBlacklistItem({
     initialValues: {
       type: '',
       value: '',
+      note: '',
     },
 
     validate: {
@@ -56,6 +57,7 @@ function CreateBlacklistItem({
   const onSubmit = (data: BlacklistOnSubmitData): void => {
     const formData: BlacklistFormData = {
       [data.type]: data.value,
+      note: data.note,
       shop: selectedShopRefId,
     };
 
@@ -86,7 +88,7 @@ function CreateBlacklistItem({
       <form onSubmit={form.onSubmit((values: BlacklistOnSubmitData) => onSubmit(values))}>
         <Select
           label="Type"
-          placeholder="BlacklistItem type"
+          placeholder="Blacklist Type"
           data={[
             { value: 'ip_address', label: 'IP Address' },
             { value: 'country', label: 'Country' },
@@ -97,7 +99,7 @@ function CreateBlacklistItem({
           {...form.getInputProps('type')}
         />
 
-        {form.values.type === 'country' && (
+        {form.values.type === 'country' ? (
           <Select
             label="Country"
             placeholder="Country"
@@ -111,17 +113,11 @@ function CreateBlacklistItem({
             required
             {...form.getInputProps('value')}
           />
+        ) : (
+          <TextInput label="Value" placeholder="Value" mt={12} required {...form.getInputProps('value')} />
         )}
 
-        {form.values.type !== 'country' && (
-          <TextInput
-            placeholder="BlacklistItem value"
-            label="Value"
-            mt={12}
-            required
-            {...form.getInputProps('value')}
-          />
-        )}
+        <Textarea label="Note" placeholder="Note" mt={12} {...form.getInputProps('note')} />
 
         <Button type="submit" mt={24} fullWidth>
           Create Item
