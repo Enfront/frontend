@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 import axios, { AxiosResponse } from 'axios';
 import { Search } from 'tabler-icons-react';
-import { Button, Group, Stack, TextInput, Title } from '@mantine/core';
+import { Button, Flex, TextInput, Title } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 
 import DashboardLayout from '../../../components/layouts/DashboardLayout';
@@ -63,31 +63,18 @@ function Index(): JSX.Element {
     >
       {shownProducts.length > 0 ? (
         <>
-          {isDesktop ? (
-            <Group position="apart" mb={48}>
-              <Title className="text-2xl" order={1}>
-                All Products
-              </Title>
+          <Flex
+            align={isDesktop ? 'center' : 'stretch'}
+            direction={isDesktop ? 'row' : 'column'}
+            gap={16}
+            justify="space-between"
+            mb={isDesktop ? 48 : 24}
+          >
+            <Title className="text-2xl" order={1}>
+              All Products
+            </Title>
 
-              <Group>
-                <TextInput
-                  onChange={(event: ChangeEvent<HTMLInputElement>) => searchProducts(event)}
-                  placeholder="Search for a product"
-                  aria-label="Search for a specific product"
-                  icon={<Search size={16} />}
-                />
-
-                <Link href="/dashboard/products/new" passHref>
-                  <Button component="a">Create Product</Button>
-                </Link>
-              </Group>
-            </Group>
-          ) : (
-            <Stack mb={24}>
-              <Title className="text-2xl" order={1}>
-                All Products
-              </Title>
-
+            <Flex align={isDesktop ? 'center' : 'stretch'} direction={isDesktop ? 'row' : 'column'} gap={16}>
               <TextInput
                 onChange={(event: ChangeEvent<HTMLInputElement>) => searchProducts(event)}
                 placeholder="Search for a product"
@@ -98,8 +85,8 @@ function Index(): JSX.Element {
               <Link href="/dashboard/products/new" passHref>
                 <Button component="a">Create Product</Button>
               </Link>
-            </Stack>
-          )}
+            </Flex>
+          </Flex>
 
           <ProductList
             isDesktop={isDesktop}

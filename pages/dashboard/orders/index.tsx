@@ -1,17 +1,17 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
-import { Group, Stack, TextInput, Title } from '@mantine/core';
+import { Flex, TextInput, Title } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { Search } from 'tabler-icons-react';
 import axios, { AxiosResponse } from 'axios';
 
-import OrderList from '../../../components/dashboard/orders/OrderList';
 import DashboardLayout from '../../../components/layouts/DashboardLayout';
+import OrderList from '../../../components/dashboard/orders/OrderList';
+import EmptyMessage from '../../../components/dashboard/EmptyMessage';
 import useShop from '../../../contexts/ShopContext';
 import { ProtectedRoute } from '../../../contexts/AuthContext';
 import { Order, OrderPagination } from '../../../types/types';
-import EmptyMessage from '../../../components/dashboard/EmptyMessage';
 
 function Index(): JSX.Element {
   const router = useRouter();
@@ -74,33 +74,24 @@ function Index(): JSX.Element {
     >
       {shownOrders.length > 0 ? (
         <>
-          {isDesktop ? (
-            <Group position="apart" mb={48}>
-              <Title className="text-2xl" order={1}>
-                All Orders
-              </Title>
+          <Flex
+            align={isDesktop ? 'center' : 'stretch'}
+            direction={isDesktop ? 'row' : 'column'}
+            gap={16}
+            justify="space-between"
+            mb={isDesktop ? 48 : 24}
+          >
+            <Title className="text-2xl" order={1}>
+              All Orders
+            </Title>
 
-              <TextInput
-                onChange={(event: ChangeEvent<HTMLInputElement>) => searchOrders(event)}
-                placeholder="Search for an order"
-                aria-label="Search for a specific order"
-                icon={<Search size={16} />}
-              />
-            </Group>
-          ) : (
-            <Stack mb={24}>
-              <Title className="text-2xl" order={1}>
-                All Orders
-              </Title>
-
-              <TextInput
-                onChange={(event: ChangeEvent<HTMLInputElement>) => searchOrders(event)}
-                placeholder="Search for an order"
-                aria-label="Search for a specific order"
-                icon={<Search size={16} />}
-              />
-            </Stack>
-          )}
+            <TextInput
+              onChange={(event: ChangeEvent<HTMLInputElement>) => searchOrders(event)}
+              placeholder="Search for an order"
+              aria-label="Search for a specific order"
+              icon={<Search size={16} />}
+            />
+          </Flex>
 
           <OrderList
             isDesktop={isDesktop}

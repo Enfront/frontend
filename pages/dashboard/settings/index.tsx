@@ -25,6 +25,7 @@ function Index(): JSX.Element {
       <Flex
         align={isDesktop ? 'center' : 'flex-start'}
         direction={isDesktop ? 'row' : 'column'}
+        gap={16}
         justify="space-between"
         mb={16}
         mih={36}
@@ -34,7 +35,7 @@ function Index(): JSX.Element {
         </Title>
 
         {selectedTab === 'blacklists' && (
-          <Button onClick={() => setOpenModal(true)} fullWidth={!isDesktop} mt={isDesktop ? 0 : 16}>
+          <Button onClick={() => setOpenModal(true)} fullWidth={!isDesktop}>
             Add BlacklistItem Item
           </Button>
         )}
