@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 
 import { ActionIcon, Badge, Divider, Group, Pagination, Paper, Stack, Table, Text } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
-import { useMediaQuery } from '@mantine/hooks';
 import { Trash } from 'tabler-icons-react';
 import axios, { AxiosResponse } from 'axios';
 import { format, parseISO } from 'date-fns';
@@ -13,13 +12,13 @@ import useShop from '../../../contexts/ShopContext';
 import { BlacklistItem, BlacklistPagination } from '../../../types/types';
 
 interface BlacklistProps {
+  isDesktop: boolean;
   openModal: boolean;
   setOpenModal: Dispatch<SetStateAction<boolean>>;
 }
 
-function BlackListTab({ openModal, setOpenModal }: BlacklistProps): JSX.Element {
+function BlackListTab({ isDesktop, openModal, setOpenModal }: BlacklistProps): JSX.Element {
   const router = useRouter();
-  const isDesktop = useMediaQuery('(min-width: 900px)');
 
   const { selectedShop } = useShop();
 
@@ -126,7 +125,7 @@ function BlackListTab({ openModal, setOpenModal }: BlacklistProps): JSX.Element 
   return (
     <>
       {isDesktop ? (
-        <Table verticalSpacing="md" highlightOnHover mt={24}>
+        <Table verticalSpacing="md" highlightOnHover>
           <thead>
             <tr>
               <th>Value</th>
@@ -164,7 +163,7 @@ function BlackListTab({ openModal, setOpenModal }: BlacklistProps): JSX.Element 
       ) : (
         <>
           {blacklist.results.map((blacklistItem: BlacklistItem) => (
-            <Paper p={16} radius="md" shadow="sm" mb={16} key={blacklistItem.ref_id} withBorder>
+            <Paper radius="md" shadow="sm" mt={16} p={16} key={blacklistItem.ref_id} withBorder>
               <Stack spacing={2}>
                 <Text size="xs" weight={500} lineClamp={1}>
                   {blacklistItem.paypal_email ||

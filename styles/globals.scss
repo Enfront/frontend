@@ -9,6 +9,15 @@
   visibility: hidden;
 }
 
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 .loader {
   align-items: center;
   background-color: #1A1B1E;

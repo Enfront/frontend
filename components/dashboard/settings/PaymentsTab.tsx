@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 
 import { Button, Divider, Grid, Input, Text, TextInput } from '@mantine/core';
-import { showNotification } from '@mantine/notifications';
 import { useForm } from '@mantine/form';
+import { showNotification } from '@mantine/notifications';
 import axios, { AxiosResponse } from 'axios';
 
 import { ShopPaymentFormData } from '../../../types/types';
@@ -114,19 +114,19 @@ function PaymentsTab(): JSX.Element {
 
   return (
     <form onSubmit={form.onSubmit((values: ShopPaymentFormData) => onSubmitPaymentInfo(values))}>
-      <Grid mt={24} align="end">
+      <Grid align="end">
         <Grid.Col span={12}>
           <Image src="/brands/bitcoin_logo.png" height={43} width={150} alt="Bitcoin Logo" />
         </Grid.Col>
 
-        <Grid.Col span={6} pr={48}>
+        <Grid.Col span={12} md={6} pr={48}>
           <Text size="sm">
             Bitcoin funds will not go directly to this address; instead, Enfront will use it as a payout address.
             Payouts will be made to this address every Sunday.
           </Text>
         </Grid.Col>
 
-        <Grid.Col span={4}>
+        <Grid.Col span={12} md={4}>
           <TextInput
             placeholder="P2PKH, P2SH, Bech32"
             label="Payout Address"
@@ -134,7 +134,7 @@ function PaymentsTab(): JSX.Element {
           />
         </Grid.Col>
 
-        <Grid.Col span={2}>
+        <Grid.Col span={12} md={2}>
           <Input.Wrapper>
             <Button type="submit" fullWidth>
               Save Bitcoin Address
@@ -150,14 +150,14 @@ function PaymentsTab(): JSX.Element {
           <Image src="/brands/paypal_logo.png" height={38} width={150} alt="PayPal Logo" />
         </Grid.Col>
 
-        <Grid.Col span={6} pr={48}>
+        <Grid.Col span={12} md={6} pr={48}>
           <Text size="sm">
             A PayPal account is required to accept payments through this gateway. After you have an account with PayPal
             input your email address to the right and click &ldquo;Save PayPal Info&rdquo;.
           </Text>
         </Grid.Col>
 
-        <Grid.Col span={4}>
+        <Grid.Col span={12} md={4}>
           <TextInput
             placeholder="PayPal Email"
             label="PayPal Email"
@@ -166,7 +166,7 @@ function PaymentsTab(): JSX.Element {
           />
         </Grid.Col>
 
-        <Grid.Col span={2}>
+        <Grid.Col span={12} md={2}>
           <Input.Wrapper label="&nbsp;">
             <Button type="submit" fullWidth>
               Save PayPal Email
@@ -182,7 +182,7 @@ function PaymentsTab(): JSX.Element {
           <Image src="/brands/stripe_logo.png" height={43} width={112} alt="Stripe Logo" />
         </Grid.Col>
 
-        <Grid.Col span={6} pr={48}>
+        <Grid.Col span={12} md={6} pr={48}>
           {!selectedShop.country.stripe_available && (
             <Text size="sm" color="red">
               Stripe is not available in your businesses operating country.
@@ -195,7 +195,7 @@ function PaymentsTab(): JSX.Element {
           </Text>
         </Grid.Col>
 
-        <Grid.Col span={6}>
+        <Grid.Col span={12} md={6}>
           {!stripeConnected ? (
             <Button
               className="block w-full bg-[#6A5BFA] hover:bg-[#6355ea]"

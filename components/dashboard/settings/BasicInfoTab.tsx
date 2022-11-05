@@ -1,31 +1,23 @@
 import { useEffect } from 'react';
 
+import { Button, Grid, Select, Text, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useModals } from '@mantine/modals';
 import { showNotification } from '@mantine/notifications';
-import { Button, Group, Select, Text, TextInput } from '@mantine/core';
 import axios, { AxiosError } from 'axios';
 
 import useShop from '../../../contexts/ShopContext';
 import utils from '../../../utils/utils';
 import { ShopSettingsFormData, ShopStatus } from '../../../types/types';
 
-function BasicInfoTab(): JSX.Element {
+interface BasicInfoProps {
+  isDesktop: boolean;
+}
+
+function BasicInfoTab({ isDesktop }: BasicInfoProps): JSX.Element {
   const modals = useModals();
 
-  const statusOptions: ShopStatus[] = [
-    {
-      value: '0',
-      label: 'Closed',
-    },
-    {
-      value: '1',
-      label: 'Open',
-    },
-  ];
-
   const { getUserShops, selectedShop } = useShop();
-
   const form = useForm({
     initialValues: {
       name: '',
@@ -38,6 +30,17 @@ function BasicInfoTab(): JSX.Element {
       email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
     },
   });
+
+  const statusOptions: ShopStatus[] = [
+    {
+      value: '0',
+      label: 'Closed',
+    },
+    {
+      value: '1',
+      label: 'Open',
+    },
+  ];
 
   const checkNameChange = (data: ShopSettingsFormData): void => {
     if (data.name !== selectedShop.name) {
@@ -125,35 +128,42 @@ function BasicInfoTab(): JSX.Element {
   return (
     <>
       <form onSubmit={form.onSubmit((values: ShopSettingsFormData) => checkNameChange(values))}>
-        <Group className="items-start" mt={24} grow>
-          <TextInput label="Shop Name" placeholder="Shop Name" required {...form.getInputProps('name')} />
-          <TextInput label="Business Email" placeholder="Business Email" required {...form.getInputProps('email')} />
-        </Group>
+        <Grid justify="flex-end">
+          <Grid.Col span={12} md={6}>
+            <TextInput label="Shop Name" placeholder="Shop Name" required {...form.getInputProps('name')} />
+          </Grid.Col>
 
-        <Group mt={24} grow>
-          <a
-            className="no-underline"
-            href={`${process.env.NEXT_PUBLIC_URL_SCHEME}${selectedShop.domain}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <TextInput
-              label="Domain"
-              placeholder="Domain"
-              value={`${process.env.NEXT_PUBLIC_URL_SCHEME}${selectedShop.domain}`}
-              disabled
-              required
-            />
-          </a>
+          <Grid.Col span={12} md={6}>
+            <TextInput label="Business Email" placeholder="Business Email" required {...form.getInputProps('email')} />
+          </Grid.Col>
 
-          <Select label="Status" placeholder="Status" data={statusOptions} {...form.getInputProps('status')} />
-        </Group>
+          <Grid.Col span={12} md={6}>
+            <a
+              className="no-underline"
+              href={`${process.env.NEXT_PUBLIC_URL_SCHEME}${selectedShop.domain}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <TextInput
+                label="Domain"
+                placeholder="Domain"
+                value={`${process.env.NEXT_PUBLIC_URL_SCHEME}${selectedShop.domain}`}
+                disabled
+                required
+              />
+            </a>
+          </Grid.Col>
 
-        <div className="flex justify-end">
-          <Button mt={24} type="submit">
-            Save General Info
-          </Button>
-        </div>
+          <Grid.Col span={12} md={6}>
+            <Select label="Status" placeholder="Status" data={statusOptions} {...form.getInputProps('status')} />
+          </Grid.Col>
+
+          <Grid.Col className="flex justify-end" span={12}>
+            <Button type="submit" fullWidth={!isDesktop}>
+              Save General Info
+            </Button>
+          </Grid.Col>
+        </Grid>
       </form>
     </>
   );

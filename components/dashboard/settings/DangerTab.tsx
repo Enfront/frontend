@@ -1,13 +1,17 @@
 import { ChangeEvent, useState } from 'react';
 import { useRouter } from 'next/router';
 
-import { Button, Group, Text, TextInput, Title } from '@mantine/core';
+import { Button, Grid, Group, Text, TextInput, Title } from '@mantine/core';
 import { useModals } from '@mantine/modals';
 import axios, { AxiosError } from 'axios';
 
 import useShop from '../../../contexts/ShopContext';
 
-function DangerTab(): JSX.Element {
+interface DangerTabProps {
+  isDesktop: boolean;
+}
+
+function DangerTab({ isDesktop }: DangerTabProps): JSX.Element {
   const router = useRouter();
   const modals = useModals();
 
@@ -66,19 +70,21 @@ function DangerTab(): JSX.Element {
   };
 
   return (
-    <Group mt={24}>
-      <div className="flex-1">
+    <Grid mt={24}>
+      <Grid.Col span={12} md={8}>
         <Title className="text-lg" order={2}>
           Delete {selectedShop.name}
         </Title>
 
         <Text size="sm">Once you delete a shop, there is no going back.</Text>
-      </div>
+      </Grid.Col>
 
-      <Button onClick={openDeleteModal} color="red">
-        Delete Shop
-      </Button>
-    </Group>
+      <Grid.Col span={12} md={4}>
+        <Button onClick={openDeleteModal} color="red" fullWidth={!isDesktop}>
+          Delete Shop
+        </Button>
+      </Grid.Col>
+    </Grid>
   );
 }
 
