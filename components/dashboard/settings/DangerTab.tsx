@@ -70,7 +70,7 @@ function DangerTab({ isDesktop }: DangerTabProps): JSX.Element {
   };
 
   return (
-    <Grid mt={24}>
+    <Grid align="center" justify="end" mt={24}>
       <Grid.Col span={12} md={8}>
         <Title className="text-lg" order={2}>
           Delete {selectedShop.name}
@@ -79,7 +79,7 @@ function DangerTab({ isDesktop }: DangerTabProps): JSX.Element {
         <Text size="sm">Once you delete a shop, there is no going back.</Text>
       </Grid.Col>
 
-      <Grid.Col span={12} md={4}>
+      <Grid.Col className="flex justify-end" span={12} md={4}>
         <Button onClick={openDeleteModal} color="red" fullWidth={!isDesktop}>
           Delete Shop
         </Button>
