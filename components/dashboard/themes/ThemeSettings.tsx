@@ -2,14 +2,18 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
-import { Badge, Button, Group, Grid, Paper, Text, Title } from '@mantine/core';
+import { Badge, Button, Flex, Group, Grid, Paper, Text, Title } from '@mantine/core';
 import axios, { AxiosError, AxiosResponse } from 'axios';
 
 import useShop from '../../../contexts/ShopContext';
 import ChangeTheme from './ChangeTheme';
 import { ThemeTemplate } from '../../../types/types';
 
-function ThemeSettings(): JSX.Element {
+interface ThemeSettingsProps {
+  isDesktop: boolean;
+}
+
+function ThemeSettings({ isDesktop }: ThemeSettingsProps): JSX.Element {
   const router = useRouter();
 
   const { getUserShops, selectedShop } = useShop();
@@ -85,19 +89,19 @@ function ThemeSettings(): JSX.Element {
                   {template.description}
                 </Text>
 
-                <Group mt={12} grow>
+                <Flex direction={isDesktop ? 'row' : 'column'} gap={8} mt={12}>
                   {selectedShop.current_theme.ref_id !== template.ref_id && (
-                    <Button className="flex-1" onClick={() => checkIfCanPublish(template.ref_id)} variant="outline">
+                    <Button onClick={() => checkIfCanPublish(template.ref_id)} variant="outline" fullWidth>
                       Publish Theme
                     </Button>
                   )}
 
                   <Link href={`/dashboard/themes/${template.ref_id}`} passHref>
-                    <Button className="flex-1" component="a">
+                    <Button component="a" fullWidth>
                       Edit Theme
                     </Button>
                   </Link>
-                </Group>
+                </Flex>
               </Paper>
             </Grid.Col>
           );
