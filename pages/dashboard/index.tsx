@@ -1,17 +1,20 @@
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
-import Image from 'next/image';
 
-import { Avatar, Badge, Box, Grid, Group, Paper, Stack, Table, Text, Title, useMantineTheme } from '@mantine/core';
+import { Box, Grid, Text, Title, useMantineTheme } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
 import { Calendar, CalendarTime, Receipt } from 'tabler-icons-react';
 import axios, { AxiosResponse } from 'axios';
 import { getSymbolWithIsoCode } from 'jkshop-country-list/dist/countryFinder';
-import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
-import { format, parseISO } from 'date-fns';
+import { format } from 'date-fns';
 import NumberFormat from 'react-number-format';
 
 import DashboardLayout from '../../components/layouts/DashboardLayout';
+import QuickStats from '../../components/dashboard/index/QuickStats';
+import OrdersByDay from '../../components/dashboard/index/OrdersByDay';
+import TopProducts from '../../components/dashboard/index/TopProducts';
+import LatestOrders from '../../components/dashboard/index/LatestOrders';
+import NewCustomers from '../../components/dashboard/index/NewCustomers';
 import useAuth, { ProtectedRoute } from '../../contexts/AuthContext';
 import useShop from '../../contexts/ShopContext';
 import { Customer, DashboardProduct, DashboardStats, Order, StatsCard } from '../../types/types';
@@ -19,6 +22,7 @@ import { Customer, DashboardProduct, DashboardStats, Order, StatsCard } from '..
 function Index(): JSX.Element {
   const router = useRouter();
   const theme = useMantineTheme();
+  const isDesktop = useMediaQuery('(min-width: 900px)');
 
   const { isProcessing, selectedShop } = useShop();
   const { userDetails } = useAuth();
@@ -37,7 +41,7 @@ function Index(): JSX.Element {
   const stats: StatsCard[] = [
     {
       id: 1,
-      name: 'Last 7 Days Gross Revenue',
+      name: '7-Day Gross Revenue',
       stat: (
         <NumberFormat
           value={(shopStats.past_profit / 100).toFixed(2)}
@@ -87,81 +91,6 @@ function Index(): JSX.Element {
       orders: shopStats.past_orders[i] || 0,
     };
   });
-
-  const getOrderCurrentStatus = (currentStatus: number): JSX.Element => {
-    switch (currentStatus) {
-      case -6:
-        return (
-          <Badge color="green" radius="xs">
-            Chargeback Won
-          </Badge>
-        );
-      case -5:
-        return (
-          <Badge color="red" radius="xs">
-            Chargeback Lost
-          </Badge>
-        );
-      case -4:
-        return (
-          <Badge color="yellow" radius="xs">
-            Chargeback Pending
-          </Badge>
-        );
-      case -3:
-        return (
-          <Badge color="indigo" radius="xs">
-            Order Refunded
-          </Badge>
-        );
-      case -2:
-        return (
-          <Badge color="yellow" radius="xs">
-            Payment Denied
-          </Badge>
-        );
-      case -1:
-        return (
-          <Badge color="red" radius="xs">
-            Order Canceled
-          </Badge>
-        );
-      case 0:
-        return (
-          <Badge color="yellow" radius="xs">
-            Waiting for Payment
-          </Badge>
-        );
-      case 1:
-        return (
-          <Badge color="indigo" radius="xs">
-            Payment Confirmed
-          </Badge>
-        );
-      case 2:
-        return (
-          <Badge color="indigo" radius="xs">
-            Order in Progress
-          </Badge>
-        );
-      case 3:
-        return (
-          <Badge color="green" radius="xs">
-            Order Delivered
-          </Badge>
-        );
-      default:
-        return (
-          <Badge color="red" radius="xs">
-            Unknown
-          </Badge>
-        );
-    }
-  };
-
-  const goToOrderDetails = (orderId: string): void => {
-    router.push(`/dashboard/orders/${orderId}`);
-  };
 
   useEffect(() => {
     const getShopStats = async (): Promise<void> => {
@@ -218,181 +147,27 @@ function Index(): JSX.Element {
 
       <Grid>
         {stats.map((item: StatsCard) => (
-          <Grid.Col span={4} key={item.name}>
-            <Paper withBorder p="md" radius="md" key={item.id}>
-              <Group position="apart">
-                <Text className="font-bold" size="sm" color="dimmed">
-                  {item.name}
-                </Text>
-
-                {item.icon}
-              </Group>
-
-              <Group align="flex-end" spacing="xs" mt={25}>
-                <Text className="text-2xl font-bold">{item.stat}</Text>
-              </Group>
-            </Paper>
+          <Grid.Col span={12} md={4} key={item.name}>
+            <QuickStats isDesktop={isDesktop} stats={item} />
           </Grid.Col>
         ))}
 
-        <Grid.Col span={8}>
-          <Paper p="md" radius="md" withBorder>
-            <Title className="text-lg" order={2} mb={16}>
-              Orders by Day
-            </Title>
-
-            <ResponsiveContainer width="100%" height={300}>
-              <AreaChart
-                data={data}
-                margin={{
-                  top: 10,
-                  right: 0,
-                  left: -22,
-                  bottom: 0,
-                }}
-              >
-                <CartesianGrid strokeDasharray="1 3" />
-                <XAxis dataKey="date" tick={{ fontSize: 14 }} tickMargin={12} tickLine={false} />
-                <YAxis
-                  dataKey="orders"
-                  tick={{ fontSize: 14 }}
-                  tickMargin={12}
-                  tickLine={false}
-                  axisLine={false}
-                  allowDecimals={false}
-                />
-                <Tooltip />
-                <Area type="monotone" dataKey="orders" stroke="#228be6" fill="#4DABF7" />
-              </AreaChart>
-            </ResponsiveContainer>
-          </Paper>
+        <Grid.Col span={12} md={8}>
+          <OrdersByDay data={data} />
         </Grid.Col>
 
-        <Grid.Col span={4}>
-          <Paper p="md" radius="md" withBorder sx={{ height: 378 }}>
-            <Title className="text-lg" order={2} mb={16}>
-              Top Selling Products
-            </Title>
-
-            <Stack spacing="xl">
-              {topProducts.current.map((product) => (
-                <Link href={`/dashboard/products/${product.ref_id}`} key={product.name} passHref>
-                  <Group className="cursor-pointer">
-                    <div className="relative h-10 w-10 flex-shrink-0">
-                      {product.images.length > 0 ? (
-                        <Image
-                          className="block rounded object-cover"
-                          src={`${process.env.NEXT_PUBLIC_AWS_IMAGE_URL}${product.images[0].path}`}
-                          layout="fill"
-                          alt={`${product.name} product image`}
-                        />
-                      ) : (
-                        <span className="block h-10 w-10 rounded bg-gray-400" />
-                      )}
-                    </div>
-
-                    <div className="flex-1">
-                      <Text className="max-w-[190px] truncate" size="sm" weight={500}>
-                        {product.name}
-                      </Text>
-
-                      <Text color="dimmed" size="xs">
-                        <NumberFormat
-                          value={(product.price / 100).toFixed(2)}
-                          prefix={getSymbolWithIsoCode(selectedShop.currency)}
-                          displayType="text"
-                          thousandSeparator
-                        />
-                      </Text>
-                    </div>
-
-                    <Text size="sm">{product.orders} Sold</Text>
-                  </Group>
-                </Link>
-              ))}
-            </Stack>
-          </Paper>
+        <Grid.Col span={12} md={4}>
+          <TopProducts isDesktop={isDesktop} selectedShop={selectedShop} topProducts={topProducts} />
         </Grid.Col>
 
-        <Grid.Col span={8}>
-          <Paper p="md" radius="md" sx={{ height: 400 }} withBorder>
-            <Title className="text-lg" order={2} mb={16}>
-              Latest Orders
-            </Title>
+        {isDesktop && (
+          <Grid.Col span={12} md={8}>
+            <LatestOrders newOrders={newOrders} router={router} />
+          </Grid.Col>
+        )}
 
-            <Table verticalSpacing="md">
-              <thead>
-                <tr>
-                  <th>Customer</th>
-                  <th>Order Date</th>
-                  <th>Total</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {newOrders.current.map((order) => (
-                  <tr className="cursor-pointer" onClick={() => goToOrderDetails(order.ref_id)} key={order.ref_id}>
-                    {order.email && <td>{order.email}</td>}
-
-                    {!order.email && order.customer && order.customer.user.email && (
-                      <td>{order.customer.user.email}</td>
-                    )}
-
-                    {!order.customer.user.email && !order.email && <td>Email Not Provided</td>}
-
-                    <td>{format(parseISO(order.created_at), 'MMMM do, yyyy H:mma')}</td>
-                    <td>
-                      <NumberFormat
-                        value={(order.total / 100).toFixed(2)}
-                        prefix={getSymbolWithIsoCode(order.currency)}
-                        displayType="text"
-                        thousandSeparator
-                      />
-                    </td>
-                    <td>{getOrderCurrentStatus(order.current_status)}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
-          </Paper>
-        </Grid.Col>
-
-        <Grid.Col span={4}>
-          <Paper p="md" radius="md" withBorder sx={{ height: 400 }}>
-            <Title className="text-lg" order={2} mb={16}>
-              New Customers
-            </Title>
-
-            <Stack spacing="xl">
-              {newCustomers.current.map((item) => (
-                <Link href={`/dashboard/customers/${item.user.ref_id}`} key={item.user.email} passHref>
-                  <Group className="cursor-pointer">
-                    <Avatar color="blue" radius="xl" />
-
-                    <div className="flex-1">
-                      <Text className="max-w-[175px] truncate" size="sm" weight={500}>
-                        {item.user.username ?? 'Anonymous'}
-                      </Text>
-
-                      <Text className="max-w-[175px] truncate" color="dimmed" size="xs">
-                        {item.user.email}
-                      </Text>
-                    </div>
-
-                    {item.user.is_active ? (
-                      <Badge color="green" radius="xs">
-                        Registered
-                      </Badge>
-                    ) : (
-                      <Badge color="yellow" radius="xs">
-                        Anonymous
-                      </Badge>
-                    )}
-                  </Group>
-                </Link>
-              ))}
-            </Stack>
-          </Paper>
+        <Grid.Col span={12} md={4}>
+          <NewCustomers isDesktop={isDesktop} newCustomers={newCustomers} />
         </Grid.Col>
       </Grid>
     </DashboardLayout>
