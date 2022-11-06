@@ -148,7 +148,7 @@ function Index(): JSX.Element {
       <Grid>
         {stats.map((item: StatsCard) => (
           <Grid.Col span={12} md={4} key={item.name}>
-            <QuickStats isDesktop={isDesktop} stats={item} />
+            <QuickStats stats={item} />
           </Grid.Col>
         ))}
 

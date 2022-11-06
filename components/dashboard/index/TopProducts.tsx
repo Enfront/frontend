@@ -67,7 +67,7 @@ function TopProducts({ isDesktop, selectedShop, topProducts }: TopProducts): JSX
                 </Stack>
               </Group>
 
-              <Text size="sm" mt={isDesktop ? 0 : 8} miw="max-content">
+              <Text size="sm" miw="max-content">
                 {product.orders} Sold
               </Text>
             </Flex>
