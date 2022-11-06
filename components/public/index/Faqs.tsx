@@ -13,7 +13,7 @@ const faqs = [
     },
     {
       question: 'What are your fees?',
-      answer: 'We run a simple model of 2%, 1%, 0.5% for our different tiers - PayPal is always 0% though.',
+      answer: 'We run a simple model of 3%, 2%, 1% for our different tiers - PayPal is always 0% though.',
     },
     {
       question: 'I received a lot of traffic to my shop - is Enfront able to keep up?',
