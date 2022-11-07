@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { Button, Group, TextInput } from '@mantine/core';
+import { Button, Grid, TextInput } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
 import { useForm } from '@mantine/form';
 import axios from 'axios';
@@ -8,7 +8,11 @@ import axios from 'axios';
 import useAuth from '../../../contexts/AuthContext';
 import { PersonalInfoFormData } from '../../../types/types';
 
-function PersonalInformationTab(): JSX.Element {
+interface PersonalInformationTabProps {
+  isDesktop: boolean;
+}
+
+function PersonalInformationTab({ isDesktop }: PersonalInformationTabProps): JSX.Element {
   const { userDetails } = useAuth();
 
   const form = useForm({
@@ -54,21 +58,29 @@ function PersonalInformationTab(): JSX.Element {
 
   return (
     <form onSubmit={form.onSubmit((values: PersonalInfoFormData) => onSubmit(values))}>
-      <Group className="items-start" mt={24} grow>
-        <TextInput label="First Name" placeholder="John" required disabled {...form.getInputProps('firstName')} />
-        <TextInput label="Last Name" placeholder="Doe" required disabled {...form.getInputProps('lastName')} />
-      </Group>
+      <Grid justify="flex-end">
+        <Grid.Col span={12} md={6}>
+          <TextInput label="First Name" placeholder="John" required disabled {...form.getInputProps('firstName')} />
+        </Grid.Col>
 
-      <Group className="items-start" mt={24} grow>
-        <TextInput label="Username" placeholder="Username" required {...form.getInputProps('username')} />
-        <TextInput label="Email" placeholder="Email" required {...form.getInputProps('email')} />
-      </Group>
+        <Grid.Col span={12} md={6}>
+          <TextInput label="Last Name" placeholder="Doe" required disabled {...form.getInputProps('lastName')} />
+        </Grid.Col>
 
-      <div className="flex justify-end">
-        <Button mt={24} type="submit">
-          Save Personal Info
-        </Button>
-      </div>
+        <Grid.Col span={12} md={6}>
+          <TextInput label="Username" placeholder="Username" required {...form.getInputProps('username')} />
+        </Grid.Col>
+
+        <Grid.Col span={12} md={6}>
+          <TextInput label="Email" placeholder="Email" required {...form.getInputProps('email')} />
+        </Grid.Col>
+
+        <Grid.Col className="flex justify-end" span={12}>
+          <Button type="submit" fullWidth={!isDesktop}>
+            Save Personal Info
+          </Button>
+        </Grid.Col>
+      </Grid>
     </form>
   );
 }

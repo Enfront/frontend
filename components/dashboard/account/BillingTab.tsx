@@ -24,6 +24,7 @@ import { format, fromUnixTime } from 'date-fns';
 import useShop from '../../../contexts/ShopContext';
 import useAuth from '../../../contexts/AuthContext';
 import { StatsCard, SubscriptionDetails, SubscriptionTier } from '../../../types/types';
+import QuickStats from '../index/QuickStats';
 
 function BillingTab(): JSX.Element {
   const theme = useMantineTheme();
@@ -129,7 +130,7 @@ function BillingTab(): JSX.Element {
       id: 3,
       name: 'Enterprise',
       plan_id: process.env.NEXT_PUBLIC_ENTERPRISE_SUB,
-      priceMonthly: 54.99,
+      priceMonthly: 199.99,
       description: "You've reached the highest level of success.",
       includedFeatures: [
         'Unlimited shops',
@@ -368,73 +369,61 @@ function BillingTab(): JSX.Element {
 
   return (
     <>
-      <SimpleGrid
-        cols={3}
-        breakpoints={[
-          { maxWidth: 'md', cols: 2 },
-          { maxWidth: 'xs', cols: 1 },
-        ]}
-        mt={24}
-      >
+      <SimpleGrid cols={3} breakpoints={[{ maxWidth: 'md', cols: 1 }]} mt="xl">
         {stats.map((item: StatsCard) => (
-          <Paper p="md" radius="md" key={item.id} withBorder>
-            <Group position="apart">
-              <Text className="font-bold" size="sm" color="dimmed">
-                {item.name}
-              </Text>
-
-              {item.icon}
-            </Group>
-
-            <Group align="flex-end" spacing="xs" mt={18}>
-              <Text className="text-xl font-bold">{item.stat}</Text>
-            </Group>
-          </Paper>
+          <QuickStats stats={item} key={item.id} />
         ))}
       </SimpleGrid>
 
-      <Title order={3} mt={36}>
+      <Title className="text-xl" order={2} mt="xxl">
         Current Plan
       </Title>
 
-      <Paper radius="md" mt={12} mb={36} withBorder>
+      <Paper radius="md" mt="sm" mb="xxl" withBorder>
         <Stack>
           <Group
             className="rounded rounded-b-none p-3"
             position="apart"
-            sx={{ backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[1] }}
+            bg={theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[1]}
           >
             <Text size="sm" weight={600}>
-              Enfront {tiers[currentTierId].name} Plan
+              {tiers[currentTierId].name} Plan
             </Text>
 
             {currentTierId !== 0 && !subscriptionDetails.cancel_at_period_end && (
-              <Button onClick={confirmCancellation} loading={patchPending} variant="subtle">
+              <Button onClick={confirmCancellation} loading={patchPending} variant="subtle" px={0}>
                 Cancel Subscription
               </Button>
             )}
 
             {currentTierId !== 0 && subscriptionDetails.cancel_at_period_end && (
-              <Button onClick={reinstateSubscription} loading={patchPending} color="red" variant="subtle" size="sm">
+              <Button
+                onClick={reinstateSubscription}
+                loading={patchPending}
+                color="red"
+                variant="subtle"
+                size="sm"
+                px={0}
+              >
                 Ends on {format(fromUnixTime(subscriptionDetails.current_period_end), 'MMMM do, yyyy')}
               </Button>
             )}
           </Group>
 
-          <SimpleGrid className="p-3 pt-0" cols={3}>
+          <SimpleGrid cols={3} pt={0} pb="md" px="md" breakpoints={[{ maxWidth: 'md', cols: 1 }]}>
             {tiers[currentTierId].includedFeatures.map((feature: string) => (
-              <Group align="center" key={feature}>
+              <Group align="center" key={feature} noWrap>
                 <CircleCheck className="text-green-500" size={21} />
-                <Text color="gray" size="sm">
+                <Text color="gray" size="sm" lineClamp={1}>
                   {feature}
                 </Text>
               </Group>
             ))}
 
             {tiers[currentTierId].notIncludedFeatures.map((feature: string) => (
-              <Group align="center" key={feature}>
+              <Group align="center" key={feature} noWrap>
                 <CircleX className="text-red-500" size={21} />
-                <Text color="gray" size="sm">
+                <Text color="gray" size="sm" lineClamp={1}>
                   {feature}
                 </Text>
               </Group>
@@ -445,92 +434,89 @@ function BillingTab(): JSX.Element {
 
       <Divider />
 
-      <Title order={3} mt={36}>
+      <Title className="text-xl" order={2} mt="xxl">
         Upgrade Plan
       </Title>
 
-      <SimpleGrid cols={3} mt={12}>
+      <SimpleGrid cols={3} breakpoints={[{ maxWidth: 'md', cols: 1 }]} mt="sm">
         {tiers
           .filter((tier: SubscriptionTier) => tier.id !== currentTierId)
           .map((tier: SubscriptionTier) => (
             <Paper p="md" radius="md" key={tier.id} withBorder>
-              <div className="p-6 pb-0">
-                <Title className="leading-6" order={4}>
-                  {tier.name}
-                </Title>
+              <Title order={4}>{tier.name}</Title>
 
-                <Text color="gray" size="sm" mt={4}>
-                  {tier.description}
-                </Text>
+              <Text color="gray" size="sm">
+                {tier.description}
+              </Text>
 
-                <Group align="baseline" spacing="xs" mt={12}>
-                  <Text className="text-4xl font-extrabold">${tier.priceMonthly}</Text> <Text color="gray">/mo</Text>
-                </Group>
+              <Group align="baseline" spacing="xs" mt="sm">
+                <Text className="text-4xl" weight={800}>
+                  ${tier.priceMonthly}
+                </Text>{' '}
+                <Text color="gray">/mo</Text>
+              </Group>
 
-                {tier.id === 0 && (
-                  <Button
-                    onClick={confirmCancellation}
-                    variant="outline"
-                    loading={patchPending}
-                    disabled={subscriptionDetails.cancel_at_period_end}
-                    mt={24}
-                    fullWidth
-                  >
-                    Cancel Subscription
-                  </Button>
-                )}
+              {tier.id === 0 && (
+                <Button
+                  onClick={confirmCancellation}
+                  variant="outline"
+                  loading={patchPending}
+                  disabled={subscriptionDetails.cancel_at_period_end}
+                  mt="xl"
+                  fullWidth
+                >
+                  Cancel Subscription
+                </Button>
+              )}
 
-                {tier.id !== 0 && currentTierId !== 0 && (
-                  <Button
-                    onClick={() => patchSubscription(tier.id, tier.plan_id)}
-                    variant={currentTierId < tier.id ? 'filled' : 'outline'}
-                    loading={patchPending}
-                    disabled={subscriptionDetails.cancel_at_period_end}
-                    mt={24}
-                    fullWidth
-                  >
-                    {currentTierId > tier.id ? <>Downgrade to {tier.name}</> : <>Upgrade to {tier.name}</>}
-                  </Button>
-                )}
+              {tier.id !== 0 && currentTierId !== 0 && (
+                <Button
+                  onClick={() => patchSubscription(tier.id, tier.plan_id)}
+                  variant={currentTierId < tier.id ? 'filled' : 'outline'}
+                  loading={patchPending}
+                  disabled={subscriptionDetails.cancel_at_period_end}
+                  mt="xl"
+                  fullWidth
+                >
+                  {currentTierId > tier.id ? <>Downgrade to {tier.name}</> : <>Upgrade to {tier.name}</>}
+                </Button>
+              )}
 
-                {tier.id !== 0 && currentTierId === 0 && (
-                  <Button
-                    onClick={() => createSubscription(tier.plan_id)}
-                    variant="filled"
-                    loading={patchPending}
-                    disabled={subscriptionDetails.cancel_at_period_end}
-                    mt={24}
-                    fullWidth
-                  >
-                    Upgrade to {tier.name}
-                  </Button>
-                )}
-              </div>
+              {tier.id !== 0 && currentTierId === 0 && (
+                <Button
+                  onClick={() => createSubscription(tier.plan_id)}
+                  variant="filled"
+                  loading={patchPending}
+                  disabled={subscriptionDetails.cancel_at_period_end}
+                  mt="xl"
+                  fullWidth
+                >
+                  Upgrade to {tier.name}
+                </Button>
+              )}
 
-              <Stack mt={24} px={24} pb={32}>
+              <Stack mt="xl">
                 <Text size="xs" transform="uppercase">
                   What&apos;s included
                 </Text>
 
-                <Stack>
-                  {tier.includedFeatures.map((feature) => (
-                    <Group spacing="xs" key={feature}>
-                      <CircleCheck className="h-5 w-5 flex-shrink-0 text-green-500" aria-hidden="true" />
-                      <Text color="gray" size="xs">
-                        {feature}
-                      </Text>
-                    </Group>
-                  ))}
+                {tier.includedFeatures.map((feature) => (
+                  <Group spacing="xs" key={feature} noWrap>
+                    <CircleCheck className="text-green-500" size={21} aria-hidden="true" />
+                    <Text color="gray" size="xs" lineClamp={1}>
+                      {feature}
+                    </Text>
+                  </Group>
+                ))}
 
-                  {tier.notIncludedFeatures.map((feature) => (
-                    <Group spacing="xs" key={feature}>
-                      <CircleX className="h-5 w-5 flex-shrink-0 text-red-500" aria-hidden="true" />
-                      <Text color="gray" size="xs">
-                        {feature}
-                      </Text>
-                    </Group>
-                  ))}
-                </Stack>
+                {tier.notIncludedFeatures.map((feature) => (
+                  <Group spacing="xs" key={feature} noWrap>
+                    <CircleX className="text-red-500" size={21} aria-hidden="true" />
+                    <Text color="gray" size="xs" lineClamp={1}>
+                      {feature}
+                    </Text>
+                  </Group>
+                ))}
               </Stack>
             </Paper>
           ))}
