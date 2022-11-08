@@ -20,7 +20,7 @@ const useStyles = createStyles((theme) => ({
     fontSize: theme.fontSizes.sm,
     fontWeight: 500,
     marginBottom: 4,
-    padding: `${theme.spacing.xs}px ${theme.spacing.md}px`,
+    padding: `${theme.spacing.xs}px ${theme.spacing.xs}px`,
     width: '100%',
 
     '&:hover': {
