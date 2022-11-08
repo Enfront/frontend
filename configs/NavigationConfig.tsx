@@ -6,10 +6,10 @@ export interface DashboardRoutes {
   key: string;
   path: string;
   title: string;
-  icon: ReactNode;
-  color: string;
+  icon?: ReactNode;
+  color?: string;
   breadcrumb: boolean;
-  submenu: DashboardRoutes[];
+  submenu?: DashboardRoutes[];
 }
 
 export const dashboardNavTree: DashboardRoutes[] = [
@@ -20,7 +20,6 @@ export const dashboardNavTree: DashboardRoutes[] = [
     icon: <Home size={21} />,
     color: 'teal',
     breadcrumb: false,
-    submenu: [],
   },
   {
     key: 'items',
@@ -29,7 +28,6 @@ export const dashboardNavTree: DashboardRoutes[] = [
     icon: <Tag size={21} />,
     color: 'blue',
     breadcrumb: false,
-    submenu: [],
   },
   {
     key: 'orders',
@@ -38,7 +36,6 @@ export const dashboardNavTree: DashboardRoutes[] = [
     icon: <Receipt size={21} />,
     color: 'indigo',
     breadcrumb: false,
-    submenu: [],
   },
   {
     key: 'customers',
@@ -47,7 +44,6 @@ export const dashboardNavTree: DashboardRoutes[] = [
     icon: <Users size={21} />,
     color: 'violet',
     breadcrumb: false,
-    submenu: [],
   },
   {
     key: 'themes',
@@ -56,7 +52,6 @@ export const dashboardNavTree: DashboardRoutes[] = [
     icon: <LayoutNavbar size={21} />,
     color: 'grape',
     breadcrumb: false,
-    submenu: [],
   },
   {
     key: 'shop',
@@ -65,7 +60,6 @@ export const dashboardNavTree: DashboardRoutes[] = [
     icon: <LayoutDashboard size={21} />,
     color: 'pink',
     breadcrumb: false,
-    submenu: [],
   },
 ];
 

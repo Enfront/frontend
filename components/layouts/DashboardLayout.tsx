@@ -5,12 +5,11 @@ import Head from 'next/head';
 import { AppShell, Container, Header, Navbar } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 
-import navigationConfig, { DashboardRoutes } from '../../configs/NavigationConfig';
-import utils from '../../utils/utils';
-
 import DashboardHeader from '../dashboard/headers/DashboardHeader';
 import Links from '../dashboard/sidenavs/Links';
 import Shops from '../dashboard/sidenavs/Shops';
+import navigationConfig, { DashboardRoutes } from '../../configs/NavigationConfig';
+import utils from '../../utils/utils';
 
 interface LayoutProps {
   children: ReactNode;
@@ -50,7 +49,9 @@ function DashboardLayout({ children, metaDescription, tabTitle }: LayoutProps): 
         navbar={
           <Navbar p="md" hiddenBreakpoint="sm" hidden={!sidebarOpen} width={{ sm: 300 }}>
             <Navbar.Section grow mt="xs">
-              <Links currentRouteInfo={currentRouteInfo} />
+              {navigationConfig.map((group: DashboardRoutes) => (
+                <Links currentRouteInfo={currentRouteInfo} links={group} key={group.key} />
+              ))}
             </Navbar.Section>
 
             <Navbar.Section>
