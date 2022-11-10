@@ -41,20 +41,17 @@ function DashboardHeader({ sidebarOpen, setSidebarOpen }: DashboardHeaderProps):
 
           <Menu.Dropdown>
             {accountNavigationConfig.map((item: AccountRoutes) => (
-              <>
-                <Menu.Item component={NextLink} href={item.path} icon={<Settings size={14} />} key={item.key}>
-                  {item.title}
-                </Menu.Item>
-
-                <Menu.Item
-                  onClick={() => toggleColorScheme()}
-                  icon={colorScheme === 'dark' ? <Sun size={16} /> : <MoonStars size={16} />}
-                  key="logout"
-                >
-                  Change Theme
-                </Menu.Item>
-              </>
+              <Menu.Item component={NextLink} href={item.path} icon={<Settings size={14} />} key={item.key}>
+                {item.title}
+              </Menu.Item>
             ))}
+
+            <Menu.Item
+              onClick={() => toggleColorScheme()}
+              icon={colorScheme === 'dark' ? <Sun size={16} /> : <MoonStars size={16} />}
+            >
+              Change Theme
+            </Menu.Item>
 
             <Menu.Divider />
 
