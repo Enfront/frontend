@@ -31,7 +31,13 @@ function DashboardHeader({ sidebarOpen, setSidebarOpen }: DashboardHeaderProps):
         />
       )}
 
-      <Image src="/logo.png" width={isDesktop ? '132' : '98'} height={isDesktop ? '37' : '28'} alt="Enfront logo" />
+      <Image
+        src="/logo.png"
+        width={isDesktop ? '132' : '98'}
+        height={isDesktop ? '37' : '28'}
+        alt="Enfront logo"
+        priority
+      />
 
       <Group noWrap>
         <Menu position="bottom-end" shadow="md" width={isDesktop ? 200 : '100%'}>
