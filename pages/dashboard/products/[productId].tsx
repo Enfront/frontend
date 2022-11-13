@@ -124,11 +124,11 @@ function Index(): JSX.Element {
           checkProductStatus(response.data.data);
         })
         .catch(() => {
-          router.push('/dashboard/customers');
+          router.push('/dashboard/products');
 
           showNotification({
-            title: 'Customer Not Found',
-            message: 'There was an issue trying to find the customer you were looking for.',
+            title: 'Product Not Found',
+            message: 'There was an issue trying to find the product you were looking for.',
             color: 'red',
           });
         });
