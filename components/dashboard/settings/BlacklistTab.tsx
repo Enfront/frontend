@@ -35,7 +35,9 @@ function BlackListTab({ isDesktop, openModal, setOpenModal }: BlacklistProps): J
       axios
         .get(`${process.env.NEXT_PUBLIC_API_URL}/blacklists/${selectedShop.ref_id}?page=${page}`)
         .then((response: AxiosResponse) => {
-          setBlacklist(response.data.data);
+          if (response.data.data) {
+            setBlacklist(response.data.data);
+          }
         })
         .catch(() => {
           showNotification({
