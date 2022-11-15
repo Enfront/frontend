@@ -6,10 +6,17 @@ interface EmptyStateProps {
   buttonText?: string;
   description: string;
   title: string;
-  url: string;
+  url?: string;
+  clickAction?: () => void;
 }
 
-function EmptyMessage({ buttonText, description, title, url }: EmptyStateProps): JSX.Element {
+EmptyMessage.defaultProps = {
+  clickAction: undefined,
+  buttonText: '',
+  url: undefined,
+};
+
+function EmptyMessage({ buttonText, clickAction, description, title, url }: EmptyStateProps): JSX.Element {
   return (
     <Container className="flex h-full items-center justify-center" size="xs">
       <Stack align="center" justify="center" spacing="xs">
@@ -21,18 +28,16 @@ function EmptyMessage({ buttonText, description, title, url }: EmptyStateProps):
           {description}
         </Text>
 
-        {buttonText && (
+        {buttonText && url && (
           <Link href={url} passHref>
             <Button component="a">{buttonText}</Button>
           </Link>
         )}
+
+        {buttonText && clickAction && <Button onClick={clickAction}>{buttonText}</Button>}
       </Stack>
     </Container>
   );
 }
-
-EmptyMessage.defaultProps = {
-  buttonText: '',
-};
 
 export default EmptyMessage;
