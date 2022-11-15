@@ -26,7 +26,8 @@ function ChatwootWidget(): null {
       hideMessageBubble: false,
       position: 'right', // This can be left or right
       locale: 'en', // Language to be set
-      type: 'expanded_bubble', // [standard, expanded_bubble]
+      type: 'standard', // [standard, expanded_bubble]
+      darkMode: 'auto',
     };
 
     // eslint-disable-next-line func-names
