@@ -1,12 +1,14 @@
 import Image from 'next/future/image';
 
-import { Avatar, Burger, Group, Menu, useMantineColorScheme, useMantineTheme } from '@mantine/core';
+import { Avatar, Burger, Code, Group, Menu, useMantineColorScheme, useMantineTheme } from '@mantine/core';
+import { useMediaQuery, useShallowEffect } from '@mantine/hooks';
+import { useModals } from '@mantine/modals';
 import { NextLink } from '@mantine/next';
-import { Logout, MoonStars, Settings, Sun } from 'tabler-icons-react';
+import { FileDiff, Logout, MoonStars, Settings, Sun } from 'tabler-icons-react';
 
-import { useMediaQuery } from '@mantine/hooks';
-import accountNavigationConfig, { AccountRoutes } from '../../../configs/AccountNavigationConfig';
+import WhatsNew from '../WhatsNew';
 import useAuth from '../../../contexts/AuthContext';
+import accountNavigationConfig, { AccountRoutes } from '../../../configs/AccountNavigationConfig';
 
 interface DashboardHeaderProps {
   sidebarOpen: boolean;
@@ -14,11 +16,36 @@ interface DashboardHeaderProps {
 }
 
 function DashboardHeader({ sidebarOpen, setSidebarOpen }: DashboardHeaderProps): JSX.Element {
+  const updateNumber = 1;
+
+  const modals = useModals();
   const theme = useMantineTheme();
   const isDesktop = useMediaQuery('(min-width: 900px)');
 
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const { logout } = useAuth();
+
+  const openWhatsNewModal = () => {
+    modals.openModal({
+      title: <Code>Nov 15th 2022</Code>,
+      centered: true,
+      children: <WhatsNew />,
+    });
+  };
+
+  useShallowEffect(() => {
+    const hasSeen = localStorage.getItem(`_enfront_whats_new_${updateNumber.toString()}`);
+    const lastHasSeen = localStorage.getItem(`_enfront_whats_new_${(updateNumber - 1).toString()}`);
+
+    if (lastHasSeen) {
+      localStorage.removeItem(`_enfront_whats_new_${(updateNumber - 1).toString()}`);
+    }
+
+    if (!hasSeen) {
+      localStorage.setItem(`_enfront_whats_new_${updateNumber.toString()}`, 'true');
+      openWhatsNewModal();
+    }
+  }, []);
 
   return (
     <Group className="h-full" align="center" px={0} spacing={0} position="apart">
@@ -57,6 +84,12 @@ function DashboardHeader({ sidebarOpen, setSidebarOpen }: DashboardHeaderProps):
               icon={colorScheme === 'dark' ? <Sun size={16} /> : <MoonStars size={16} />}
             >
               Change Theme
+            </Menu.Item>
+
+            <Menu.Divider />
+
+            <Menu.Item onClick={() => openWhatsNewModal()} icon={<FileDiff size={16} />}>
+              What&apos;s New
             </Menu.Item>
 
             <Menu.Divider />
