@@ -4,7 +4,7 @@ import { Receipt, LayoutDashboard, Tag, Home, Users, LayoutNavbar } from 'tabler
 
 export interface DashboardRoutes {
   key: string;
-  path: string;
+  path?: string;
   title: string;
   icon?: ReactNode;
   color?: string;
@@ -22,12 +22,25 @@ export const dashboardNavTree: DashboardRoutes[] = [
     breadcrumb: false,
   },
   {
-    key: 'items',
-    path: '/dashboard/products',
+    key: 'products',
     title: 'Products',
     icon: <Tag size={21} />,
     color: 'blue',
     breadcrumb: false,
+    submenu: [
+      {
+        key: 'all_products',
+        path: '/dashboard/products',
+        title: 'All Products',
+        breadcrumb: false,
+      },
+      {
+        key: 'collections',
+        path: '/dashboard/collections',
+        title: 'Collections',
+        breadcrumb: false,
+      },
+    ],
   },
   {
     key: 'orders',

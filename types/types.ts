@@ -36,6 +36,18 @@ export interface BlacklistPagination {
   results: BlacklistItem[];
 }
 
+export interface Collection {
+  title: string;
+  slug: string;
+  products: Product[];
+  ref_id: string;
+}
+
+export interface CollectionData {
+  title: string;
+  products: Product[] | string[];
+}
+
 export interface CommentFormData {
   comment: string;
 }

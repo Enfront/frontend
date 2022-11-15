@@ -5,10 +5,17 @@ import { DashboardRoutes } from '../configs/NavigationConfig';
 class Utils {
   static getRouteInfo(navTree: DashboardRoutes[], path: string): DashboardRoutes {
     return <DashboardRoutes>navTree.find((nav: DashboardRoutes) => {
+      if (nav.submenu) {
+        const checkSub = nav.submenu.find((sub: DashboardRoutes) => sub.path === path);
+        if (checkSub) {
+          return checkSub;
+        }
+      }
+
       // Matches first two slashes in path (EX: /dashboard/products/09892380 -> /dashboard/products)
       // Might have to change if we get 3 slashes deep
       const pathMatch = path.split('/').slice(0, 3).join('/');
-      return nav.path.match(pathMatch);
+      return nav.path === pathMatch;
     });
   }
 

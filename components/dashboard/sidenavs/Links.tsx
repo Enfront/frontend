@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 
-import { Collapse, createStyles, Group, UnstyledButton, Text, ThemeIcon, Title, Flex } from '@mantine/core';
+import { Box, Collapse, createStyles, Group, UnstyledButton, Text, ThemeIcon, Title, Flex } from '@mantine/core';
 import { IconChevronRight } from '@tabler/icons';
 
 import { DashboardRoutes } from '../../../configs/NavigationConfig';
@@ -55,7 +55,7 @@ function Links({ currentRouteInfo, links }: LinksProps): JSX.Element {
   const { shopProcessing, selectedShop } = useShop();
   const { classes, theme } = useStyles();
 
-  const [opened, setOpened] = useState(false);
+  const [opened, setOpened] = useState(!!currentRouteInfo?.submenu);
 
   const hasLinks = Array.isArray(links.submenu);
 
@@ -75,11 +75,19 @@ function Links({ currentRouteInfo, links }: LinksProps): JSX.Element {
         })}
       >
         <Group position="apart" spacing={0}>
-          <Link
-            href={!shopProcessing && selectedShop.ref_id !== '' ? links.path : '/dashboard'}
-            key={links.key}
-            passHref
-          >
+          {links.path ? (
+            <Link href={!shopProcessing && selectedShop.ref_id !== '' ? links.path : '/dashboard'} passHref>
+              <Flex align="center">
+                <ThemeIcon color={links.color} size="lg" variant="light">
+                  {links.icon}
+                </ThemeIcon>
+
+                <Title weight={currentRouteInfo?.key === links.key ? 500 : 400} size="sm" ml="md">
+                  {links.title}
+                </Title>
+              </Flex>
+            </Link>
+          ) : (
             <Flex align="center">
               <ThemeIcon color={links.color} size="lg" variant="light">
                 {links.icon}
@@ -89,7 +97,7 @@ function Links({ currentRouteInfo, links }: LinksProps): JSX.Element {
                 {links.title}
               </Title>
             </Flex>
-          </Link>
+          )}
 
           {hasLinks && (
             <IconChevronRight
@@ -107,11 +115,15 @@ function Links({ currentRouteInfo, links }: LinksProps): JSX.Element {
       {hasLinks && links.submenu ? (
         <Collapse in={opened}>
           {links.submenu.map((link: DashboardRoutes) => (
-            <Link href={link.path} key={link.title} passHref>
-              <Text className={classes.link} key={link.title}>
-                {link.title}
-              </Text>
-            </Link>
+            <Box key={link.title}>
+              {link.path && (
+                <Link href={link.path} passHref>
+                  <Text className={classes.link} key={link.title}>
+                    {link.title}
+                  </Text>
+                </Link>
+              )}
+            </Box>
           ))}
         </Collapse>
       ) : null}
