@@ -114,7 +114,7 @@ function PaymentsTab(): JSX.Element {
 
   return (
     <form onSubmit={form.onSubmit((values: ShopPaymentFormData) => onSubmitPaymentInfo(values))}>
-      <Grid align="end">
+      <Grid align="center">
         <Grid.Col span={12}>
           <Image src="/brands/bitcoin_logo.png" height={43} width={150} alt="Bitcoin Logo" />
         </Grid.Col>
@@ -151,6 +151,10 @@ function PaymentsTab(): JSX.Element {
         </Grid.Col>
 
         <Grid.Col span={12} md={6} pr={48}>
+          <Text color="red" size="sm" mb="xs">
+            PayPal is disabled for the foreseeable future.
+          </Text>
+
           <Text size="sm">
             A PayPal account is required to accept payments through this gateway. After you have an account with PayPal
             input your email address to the right and click &ldquo;Save PayPal Info&rdquo;.
@@ -163,6 +167,7 @@ function PaymentsTab(): JSX.Element {
             label="PayPal Email"
             type="email"
             {...form.getInputProps('paypal_email')}
+            disabled
           />
         </Grid.Col>
 
