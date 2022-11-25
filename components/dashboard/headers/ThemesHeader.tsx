@@ -90,15 +90,17 @@ function ThemesHeader({
           placeholder="Choose a page to edit"
           defaultValue="index"
           data={[
-            { value: 'index', label: 'Index' },
-            { value: 'collection', label: 'Collections' },
-            { value: 'product/test', label: 'Product' },
-            { value: 'cart/test', label: 'Cart' },
-            { value: 'login', label: 'Login' },
-            { value: 'register', label: 'Register' },
-            { value: 'activate', label: 'Activate Account' },
-            { value: 'forgot', label: 'Forgot Password' },
-            { value: 'reset', label: 'Reset Password' },
+            { value: 'index', label: 'Index', group: 'Shop' },
+            { value: 'collections', label: 'All Collections', group: 'Shop' },
+            { value: 'collections/test', label: 'Collection', group: 'Shop' },
+            { value: 'products', label: 'All Products', group: 'Shop' },
+            { value: 'product/test', label: 'Product', group: 'Shop' },
+            { value: 'cart/test', label: 'Cart', group: 'Checkout' },
+            { value: 'login', label: 'Login', group: 'Authentication' },
+            { value: 'register', label: 'Register', group: 'Authentication' },
+            { value: 'activate', label: 'Activate Account', group: 'Authentication' },
+            { value: 'forgot', label: 'Forgot Password', group: 'Authentication' },
+            { value: 'reset', label: 'Reset Password', group: 'Authentication' },
           ]}
         />
 

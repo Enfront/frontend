@@ -1,7 +1,19 @@
 import { ChangeEvent, Dispatch, ForwardedRef, forwardRef, SetStateAction, useEffect, useState } from 'react';
 
 import axios, { AxiosResponse } from 'axios';
-import { Avatar, Checkbox, ColorInput, Group, Select, Stack, Text, Textarea, TextInput, Title } from '@mantine/core';
+import {
+  Avatar,
+  Checkbox,
+  ColorInput,
+  Flex,
+  Group,
+  Select,
+  Stack,
+  Text,
+  Textarea,
+  TextInput,
+  Title,
+} from '@mantine/core';
 
 import useTheme from '../../../contexts/ThemeContext';
 import useShop from '../../../contexts/ShopContext';
@@ -325,24 +337,31 @@ function ThemesSidenav({ existingConfig, setExistingConfig, settingsScheme }: Th
   }, [settingsScheme, iframeLoaded]);
 
   return (
-    <Stack mb={48}>
-      {/* eslint-disable-next-line array-callback-return,consistent-return */}
-      {settingsScheme.map((settingsSection: SettingsSchema) => {
-        if (settingsSection.page === themePage || settingsSection.page === 'all') {
-          return (
-            <Stack key={settingsSection.name}>
-              <Title order={2} align="center">
-                {settingsSection.name}
-              </Title>
+    <>
+      {settingsScheme.some((a: SettingsSchema) => a.page === themePage || a.page === 'all') ? (
+        <Stack mb={48}>
+          {settingsScheme
+            .filter((b: SettingsSchema) => b.page === themePage || b.page === 'all')
+            .map((settingsSection: SettingsSchema) => {
+              return (
+                <Stack key={settingsSection.name}>
+                  <Title order={2} align="center">
+                    {settingsSection.name}
+                  </Title>
 
-              <Stack>
-                {existingConfig && settingsSection.settings.map((setting: Setting) => getSettingMarkup(setting))}
-              </Stack>
-            </Stack>
-          );
-        }
-      })}
-    </Stack>
+                  <Stack>
+                    {existingConfig && settingsSection.settings.map((setting: Setting) => getSettingMarkup(setting))}
+                  </Stack>
+                </Stack>
+              );
+            })}
+        </Stack>
+      ) : (
+        <Flex align="center" justify="center" mih="calc(100vh - 52px)">
+          <Text size="sm">There are no settings for this page</Text>
+        </Flex>
+      )}
+    </>
   );
 }
 
