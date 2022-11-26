@@ -35,13 +35,21 @@ function DigitalKeys({ form, getViewedProduct, shownKeys }: DigitalKeysProps): J
   const deleteKeys = (): void => {
     setLoading(true);
 
-    selection.forEach((refId: string) => {
+    selection.forEach((refId: string, index: number) => {
       axios
         .delete(`${process.env.NEXT_PUBLIC_API_URL}/products/digital/${refId}`)
         .then(() => {
-          getViewedProduct();
+          setSelection((current: string[]) => current.filter((item: string) => item !== refId));
+
+          if (index === selection.length - 1) {
+            getViewedProduct();
+            setLoading(false);
+          }
         })
         .catch(() => {
+          getViewedProduct();
+          setLoading(false);
+
           showNotification({
             title: 'Key Could Not Be Deleted!',
             message: 'There was an issue deleting your key.',
@@ -49,9 +57,6 @@ function DigitalKeys({ form, getViewedProduct, shownKeys }: DigitalKeysProps): J
           });
         });
     });
-
-    setSelection([]);
-    setLoading(false);
   };
 
   return (
