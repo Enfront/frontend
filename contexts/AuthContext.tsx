@@ -218,10 +218,15 @@ export function AuthProvider({ children }: AuthProvider): JSX.Element {
 
       await axiosConfig
         .get(`${process.env.NEXT_PUBLIC_API_URL}/users/status`)
-        .then(() => {
-          getUserDetails();
-          setIsAuthenticated(true);
-          setIsProcessing(false);
+        .then((response: AxiosResponse) => {
+          if (response.status === 200 && response.data.data.success === true) {
+            getUserDetails();
+            setIsAuthenticated(true);
+            setIsProcessing(false);
+          } else {
+            setIsAuthenticated(false);
+            setIsProcessing(false);
+          }
         })
         .catch(() => {
           setIsAuthenticated(false);
