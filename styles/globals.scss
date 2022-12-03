@@ -50,3 +50,20 @@
   0% {filter: blur(0px);}
   100% {filter: blur(4px);}
 }
+
+.two-factor {
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  height: 2.5rem;
+  margin: 8px 8px 8px 0;
+  width: 2.5rem !important;
+}
+
+.two-factor-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.error {
+  border: 1px solid red !important;
+}

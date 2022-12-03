@@ -487,6 +487,11 @@ export interface ThemeTemplate {
   updated_at: string;
 }
 
+export interface TwoFactor {
+  is_primary: boolean;
+  name: string;
+}
+
 export interface User {
   created_at: string;
   email: string;

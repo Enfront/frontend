@@ -4,6 +4,7 @@ import { useMediaQuery } from '@mantine/hooks';
 import DashboardLayout from '../../../components/layouts/DashboardLayout';
 import PersonalInformationTab from '../../../components/dashboard/account/PersonalInformationTab';
 import BillingTab from '../../../components/dashboard/account/BillingTab';
+import SecurityTab from '../../../components/dashboard/account/SecurityTab';
 import { ProtectedRoute } from '../../../contexts/AuthContext';
 
 function Index(): JSX.Element {
@@ -21,11 +22,16 @@ function Index(): JSX.Element {
       <Tabs defaultValue="personal">
         <Tabs.List className="no-scrollbar flex-nowrap overflow-x-auto overflow-y-hidden" mb="xl" pb={4}>
           <Tabs.Tab value="personal">Personal Information</Tabs.Tab>
+          <Tabs.Tab value="security">Security</Tabs.Tab>
           <Tabs.Tab value="billing">Billing</Tabs.Tab>
         </Tabs.List>
 
         <Tabs.Panel value="personal">
           <PersonalInformationTab isDesktop={isDesktop} />
+        </Tabs.Panel>
+
+        <Tabs.Panel value="security">
+          <SecurityTab isDesktop={isDesktop} />
         </Tabs.Panel>
 
         <Tabs.Panel value="billing">

@@ -5,19 +5,16 @@ import { Stack, Text, Title } from '@mantine/core';
 function WhatsNew(): JSX.Element {
   return (
     <Stack align="center" spacing={4}>
-      <Image src="/whats_new/new_theme.png" height={232} width={400} priority />
+      <Image src="/whats_new/two_factor.png" height={520} width={400} priority />
 
       <Title order={1} size="h4" mt="md">
-        Our Default Theme Has Changed!
+        Two-Factor Authentication Has Been Added
       </Title>
 
       <Text align="center" size="sm">
-        We have changed our templating language to Liquid, and with that comes our brand new default theme, Portrait.
-        This theme looks great on desktop and mobile devices and is fully customizable. Visit our{' '}
-        <a href="https://github.com/Enfront/portrait" target="_blank" rel="noreferrer">
-          Github
-        </a>{' '}
-        to see the source code.
+        To keep our users safe, we have added two-factor authentication to our platform. This means that you will need
+        to enter a code from an 2FA app in addition to your password to log in. This is a security measure that we
+        highly recommend you enable.
       </Text>
     </Stack>
   );

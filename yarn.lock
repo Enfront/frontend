@@ -559,6 +559,11 @@
   resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-5.7.0.tgz#9f6f02f575e6c302a6d797d8b544faa27fc42623"
   integrity sha512-VxZcnwqhTFr6qptIM6a1u1OC3wsEiCHZF6yJSw/ikM1/pzSaUIvCVAr7wWR8R2DCM2yYoN0KZB+Df6JcCMjvmg==
 
+"@mantine/labs@^5.8.4":
+  version "5.8.4"
+  resolved "https://registry.yarnpkg.com/@mantine/labs/-/labs-5.8.4.tgz#3ccde3b89bb515f027e8b70071afdf17e26df182"
+  integrity sha512-fdZ0LxAJTPVuJshijzKGtCdXD/mmJ5grw3L4rDW5hgs2qDhoRFj+Gsgn5mfIv9iRDmB1z9XSNw7jRIkjENLEGw==
+
 "@mantine/modals@^5.7.0":
   version "5.7.0"
   resolved "https://registry.yarnpkg.com/@mantine/modals/-/modals-5.7.0.tgz#49820e2fb8bcb7003ec0689030476feeb4648004"
@@ -4046,6 +4051,11 @@ react-number-format@^4.6.4:
   integrity sha512-v49XqXv7SpwYZKGkghNJjoDUr6lIUozlPLrObcxre7GfcLx7qD4TCvArn3GozN/Y4FVbLyEYCwJoBCiChdBh5A==
   dependencies:
     prop-types "^15.7.2"
+
+react-otp-input@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/react-otp-input/-/react-otp-input-2.4.0.tgz#0f0a3de1d8c8d564e2e4fbe5d6b7b56e29e3a6e6"
+  integrity sha512-AIgl7u4sS9BTNCxX1xlaS5fPWay/Zml8Ho5LszXZKXrH1C/TiFsTQGmtl13UecQYO3mSF3HUzG2rrDf0sjEFmg==
 
 react-property@2.0.0:
   version "2.0.0"

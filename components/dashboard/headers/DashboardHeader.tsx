@@ -16,7 +16,7 @@ interface DashboardHeaderProps {
 }
 
 function DashboardHeader({ sidebarOpen, setSidebarOpen }: DashboardHeaderProps): JSX.Element {
-  const updateNumber = 2;
+  const updateNumber = 3;
 
   const modals = useModals();
   const theme = useMantineTheme();
@@ -27,7 +27,7 @@ function DashboardHeader({ sidebarOpen, setSidebarOpen }: DashboardHeaderProps):
 
   const openWhatsNewModal = () => {
     modals.openModal({
-      title: <Code>Nov 26th 2022</Code>,
+      title: <Code>Dec 3th 2022</Code>,
       centered: true,
       children: <WhatsNew />,
     });

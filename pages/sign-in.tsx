@@ -1,11 +1,11 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import Image from 'next/future/image';
 import Link from 'next/link';
 
-import { Anchor, TextInput, PasswordInput, Title, Text, Button, Stack } from '@mantine/core';
+import { Anchor, Flex, TextInput, PasswordInput, Title, Text, Button, Input, Stack } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
+import OtpInput from 'react-otp-input';
 
 import { LoginData } from '../types/types';
 import useAuth from '../contexts/AuthContext';
@@ -13,8 +13,22 @@ import AuthLayout from '../components/layouts/AuthLayout';
 
 function SignIn(): JSX.Element {
   const router = useRouter();
-  const { authError, isAuthenticated, isProcessing, login } = useAuth();
+
   const { executeRecaptcha } = useGoogleReCaptcha();
+  const {
+    authError,
+    checkTwoFactor,
+    disableTwoFactor,
+    isAuthenticated,
+    isProcessing,
+    login,
+    needsVerification,
+    resetTwoFactor,
+    setResetTwoFactor,
+  } = useAuth();
+
+  const [twoFactorCode, setTwoFactorCode] = useState<string>('');
+  const [backupCode, setBackupCode] = useState<string>('');
 
   const form = useForm({
     initialValues: {
@@ -50,55 +64,136 @@ function SignIn(): JSX.Element {
       metaDescription="Enfront takes e-commerce to the next level by offering a vast amount of innovative tools designed
       to simplify, optimize, and accelerate the process."
     >
-      <div className="flex flex-col">
-        <Link href="/" aria-label="Home" passHref>
-          <Image src="/logo.png" width="135" height="40" alt="Enfront logo" />
-        </Link>
+      {!needsVerification && !resetTwoFactor && (
+        <>
+          <Flex align="center" direction="column" justify="center" mb="xl">
+            <Title order={1} size="h2" mt="sm">
+              Sign in to your account
+            </Title>
 
-        <div className="mt-8">
-          <Title className="text-lg font-semibold text-gray-900" order={2}>
-            Sign in to your account
+            <Text color="gray" size="sm" mt="sm">
+              Don’t have an account?{' '}
+              <Link href="/register" passHref>
+                <Anchor component="a" size="sm">
+                  Sign up
+                </Anchor>
+              </Link>
+            </Text>
+          </Flex>
+
+          <form onSubmit={form.onSubmit((values: LoginData) => onSubmit(values))}>
+            {authError && (
+              <Text className="flex justify-center text-center" color="red" size="sm" mb={6}>
+                {authError}
+              </Text>
+            )}
+
+            <TextInput
+              label="Email address"
+              placeholder="Email"
+              type="email"
+              mb="md"
+              required
+              {...form.getInputProps('email')}
+            />
+
+            <PasswordInput
+              label="Password"
+              placeholder="Password"
+              mb="md"
+              required
+              {...form.getInputProps('password')}
+            />
+
+            <Stack>
+              <Button variant="filled" type="submit" loading={isProcessing} fullWidth>
+                Sign in{' '}
+                <span className="ml-2" aria-hidden="true">
+                  &rarr;
+                </span>
+              </Button>
+
+              <Link href="/forgot" passHref>
+                <Anchor className="m-auto" component="a" size="sm">
+                  Forgot password
+                </Anchor>
+              </Link>
+            </Stack>
+          </form>
+        </>
+      )}
+
+      {needsVerification && !resetTwoFactor && (
+        <>
+          <Title align="center" size="h3" order={1}>
+            Two-Factor Authentication
           </Title>
 
-          <Text className="mt-2 text-sm text-gray-700">
-            Don’t have an account?{' '}
-            <Link href="/register" passHref>
-              <Anchor component="a" size="sm">
-                Sign up
-              </Anchor>
-            </Link>
+          <Text align="center" size="sm" color="gray" mt="sm" mb="xl">
+            Thanks for keeping your account secure. Please enter the verification code from the authentication app
+            chosen during setup.
           </Text>
-        </div>
-      </div>
 
-      <form
-        className="mt-10 grid grid-cols-1 gap-y-6"
-        onSubmit={form.onSubmit((values: LoginData) => onSubmit(values))}
-      >
-        {authError && (
-          <Text className="flex justify-center text-center" color="red" size="sm" mb={6}>
-            {authError}
-          </Text>
-        )}
+          <Input.Wrapper error={authError}>
+            <OtpInput
+              onChange={(value: string) => setTwoFactorCode(value)}
+              value={twoFactorCode}
+              numInputs={6}
+              inputStyle="two-factor"
+              containerStyle="two-factor-container"
+              errorStyle="error"
+              hasErrored={!!authError}
+              isInputNum
+            />
+          </Input.Wrapper>
 
-        <TextInput label="Email address" placeholder="Email" type="email" required {...form.getInputProps('email')} />
-        <PasswordInput label="Password" placeholder="Password" required {...form.getInputProps('password')} />
-
-        <Stack>
-          <Button className="w-full" variant="filled" radius="xl" type="submit" loading={isProcessing}>
-            Sign in{' '}
-            <span className="ml-2" aria-hidden="true">
-              &rarr;
-            </span>
+          <Button
+            onClick={() => checkTwoFactor(twoFactorCode)}
+            variant="filled"
+            type="submit"
+            loading={isProcessing}
+            mt="xs"
+            fullWidth
+          >
+            Confirm
           </Button>
 
-          <Link href="/forgot" passHref>
-            <Anchor className="m-auto" component="a" size="sm">
-              Forgot password
-            </Anchor>
-          </Link>
-        </Stack>
-      </form>
+          <Anchor onClick={() => setResetTwoFactor(true)} component="button" size="sm" mx="auto" mt="sm" w="100%">
+            Reset Two-Factor Authentication
+          </Anchor>
+        </>
+      )}
+
+      {resetTwoFactor && (
+        <>
+          <Title align="center" size="h3" order={1}>
+            Disable Two-Factor Authentication
+          </Title>
+
+          <Text align="center" size="sm" color="gray" mt="sm" mb="xl">
+            Please enter the backup code provided during setup.
+          </Text>
+
+          <TextInput
+            label="Backup Code"
+            placeholder="Backup Code"
+            value={backupCode}
+            onChange={(event) => setBackupCode(event.currentTarget.value)}
+            error={authError}
+          />
+
+          <Button
+            onClick={() => disableTwoFactor(backupCode)}
+            variant="filled"
+            type="submit"
+            loading={isProcessing}
+            mt="xs"
+            fullWidth
+          >
+            Confirm
+          </Button>
+        </>
+      )}
     </AuthLayout>
   );
 }

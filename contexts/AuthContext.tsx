@@ -1,11 +1,12 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
+import { useSessionStorage } from '@mantine/hooks';
 import { showNotification } from '@mantine/notifications';
 import axios, { AxiosError, AxiosResponse } from 'axios';
 
-import LoadingAnimation from '../components/dashboard/LoadingAnimation';
 import axiosConfig from '../axiosConfig';
+import LoadingAnimation from '../components/dashboard/LoadingAnimation';
 import { LoginData, RegisterData, ResetPasswordData, User } from '../types/types';
 
 interface AuthExports {
@@ -13,7 +14,12 @@ interface AuthExports {
   isProcessing: boolean;
   isAuthenticated: boolean;
   userDetails: User;
+  needsVerification: boolean;
+  resetTwoFactor: boolean;
   login: (data: LoginData, recaptcha: string) => Promise<void>;
+  checkTwoFactor: (code: string) => Promise<void>;
+  disableTwoFactor: (code: string) => Promise<void>;
+  setResetTwoFactor: (value: boolean) => void;
   register: (data: RegisterData, recaptcha: string) => Promise<void>;
   forgotPassword: (data: { email: string }, recaptcha: string) => Promise<void>;
   resetPassword: (data: ResetPasswordData) => Promise<void>;
@@ -40,7 +46,12 @@ export const AuthContext = createContext<AuthExports>({
   isProcessing: true,
   isAuthenticated: false,
   userDetails: userDetailsInitialState,
+  needsVerification: false,
+  resetTwoFactor: false,
   login: async () => undefined,
+  checkTwoFactor: async () => undefined,
+  disableTwoFactor: async () => undefined,
+  setResetTwoFactor: async () => undefined,
   register: async () => undefined,
   logout: async () => undefined,
   forgotPassword: async () => undefined,
@@ -53,7 +64,15 @@ export function AuthProvider({ children }: AuthProvider): JSX.Element {
   const [authError, setAuthError] = useState<string>('');
   const [isProcessing, setIsProcessing] = useState<boolean>(true);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [needsVerification, setNeedsVerification] = useState<boolean>(false);
   const [userDetails, setUserDetails] = useState<User>(userDetailsInitialState);
+  const [userRefId, setUserRefId] = useState<string>('');
+  const [resetTwoFactor, setResetTwoFactor] = useState<boolean>(false);
+
+  const [ephToken, setEphToken, removeEphToken] = useSessionStorage({
+    key: '_enfront_ephemeral_token',
+    defaultValue: '',
+  });
 
   const getUserDetails = async (): Promise<void> => {
     await axiosConfig
@@ -98,6 +117,8 @@ export function AuthProvider({ children }: AuthProvider): JSX.Element {
           setAuthError(error.response.data.message);
         }
       });
+
+    setIsProcessing(false);
   };
 
   const login = async (data: LoginData, recaptchaToken: string): Promise<void> => {
@@ -110,12 +131,18 @@ export function AuthProvider({ children }: AuthProvider): JSX.Element {
         shop: true,
         recaptcha: recaptchaToken,
       })
-      .then(() => {
-        setAuthError('');
-        getUserDetails();
-        setIsAuthenticated(true);
+      .then((response: AxiosResponse) => {
+        if (response.status === 200) {
+          setAuthError('');
+          getUserDetails();
+          setIsAuthenticated(true);
 
-        router.push('/dashboard');
+          router.push('/dashboard');
+        } else if (response.status === 202) {
+          setUserRefId(response.data.data.user);
+          setEphToken(response.data.data.ephemeral_token);
+          setNeedsVerification(true);
+        }
       })
       .catch((error: AxiosError) => {
         if (error.response && error.response.status === 401) {
@@ -123,6 +150,57 @@ export function AuthProvider({ children }: AuthProvider): JSX.Element {
         } else {
           setAuthError('There was an unknown error. Please contact support for further assistance.');
         }
+      });
+
+    setIsProcessing(false);
+  };
+
+  const checkTwoFactor = async (code: string): Promise<void> => {
+    setIsProcessing(true);
+
+    await axios
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/users/login/two-factor`, { code, ephemeral_token: ephToken })
+      .then((response: AxiosResponse) => {
+        if (response.status === 200) {
+          removeEphToken();
+          getUserDetails();
+          setIsAuthenticated(true);
+
+          router.push('/dashboard').then(() => {
+            setNeedsVerification(false);
+          });
+        }
+      })
+      .catch((error: AxiosError) => {
+        setAuthError(error?.response?.data[0]);
+      });
+
+    setIsProcessing(false);
+  };
+
+  const disableTwoFactor = async (code: string): Promise<void> => {
+    setIsProcessing(true);
+
+    await axiosConfig
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/users/two-factor/disable`, {
+        method: 'app',
+        user: userRefId,
+        code,
+      })
+      .then(() => {
+        getUserDetails();
+        setNeedsVerification(false);
+        setResetTwoFactor(false);
+        setAuthError('');
+
+        showNotification({
+          title: 'Two Factor Authentication Disabled',
+          message: 'We strongly suggest you reactivate it after logging in.',
+          color: 'green',
+        });
+      })
+      .catch((error: AxiosError) => {
+        setAuthError(error?.response?.data.code[0]);
       });
 
     setIsProcessing(false);
@@ -249,11 +327,16 @@ export function AuthProvider({ children }: AuthProvider): JSX.Element {
         forgotPassword,
         register,
         login,
+        checkTwoFactor,
+        disableTwoFactor,
         logout,
+        setResetTwoFactor,
+        resetTwoFactor,
         userDetails,
         isAuthenticated,
         isProcessing,
         authError,
+        needsVerification,
       }}
     >
       {children}
