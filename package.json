@@ -24,7 +24,7 @@
     "@paypal/react-paypal-js": "^7.6.0",
     "@repeatgg/react-paypal-button-v2": "^2.7.1",
     "@stripe/react-stripe-js": "^1.7.2",
-    "@stripe/stripe-js": "^1.29.0",
+    "@stripe/stripe-js": "^1.44.1",
     "@tabler/icons": "^1.110.0",
     "@tailwindcss/forms": "^0.4.0",
     "@tailwindcss/typography": "^0.5.1",
@@ -46,11 +46,11 @@
     "react-number-format": "^4.6.4",
     "react-otp-input": "^2.4.0",
     "recharts": "^2.1.5",
-    "sass": "^1.35.2",
+    "sass": "^1.56.1",
     "sharp": "^0.29.3",
     "slugify": "^1.6.5",
     "tabler-icons-react": "^1.55.0",
-    "tailwindcss": "^3.0.19"
+    "tailwindcss": "^3.2.4"
   },
   "devDependencies": {
     "@commitlint/cli": "^12.1.4",
@@ -78,7 +78,7 @@
     "postcss": "^8.4.6",
     "prettier": "^2.3.2",
     "prettier-plugin-tailwindcss": "^0.1.7",
-    "tailwindcss": "^3.0.19",
+    "tailwindcss": "^3.2.4",
     "typescript": "4.3.5"
   }
 }
