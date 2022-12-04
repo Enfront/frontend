@@ -27,7 +27,7 @@ function DashboardHeader({ sidebarOpen, setSidebarOpen }: DashboardHeaderProps):
 
   const openWhatsNewModal = () => {
     modals.openModal({
-      title: <Code>Dec 3th 2022</Code>,
+      title: <Code>Dec 3rd 2022</Code>,
       centered: true,
       children: <WhatsNew />,
     });
