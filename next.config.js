@@ -1,10 +1,5 @@
 module.exports = {
   output: 'standalone',
-  experimental: {
-    images: {
-      allowFutureImage: true,
-    },
-  },
   images: {
     domains: [
       'minio.jkshop.gg',
