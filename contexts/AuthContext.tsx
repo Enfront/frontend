@@ -297,7 +297,7 @@ export function AuthProvider({ children }: AuthProvider): JSX.Element {
       await axiosConfig
         .get(`${process.env.NEXT_PUBLIC_API_URL}/users/status`)
         .then((response: AxiosResponse) => {
-          if (response.status === 200 && response.data.data.success === true) {
+          if (response.status === 200 && response.data.success === true) {
             getUserDetails();
             setIsAuthenticated(true);
             setIsProcessing(false);
