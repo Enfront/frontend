@@ -35,7 +35,7 @@
     "date-fns": "^2.23.0",
     "dayjs": "^1.11.6",
     "jkshop-country-list": "^0.0.3",
-    "leaflet": "^1.7.1",
+    "leaflet": "^1.9.2",
     "multicoin-address-validator": "^0.5.2",
     "next": "12.3.3",
     "react": "^18.2.0",
