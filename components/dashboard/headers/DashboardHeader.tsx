@@ -69,22 +69,22 @@ function DashboardHeader({ sidebarOpen, setSidebarOpen }: DashboardHeaderProps):
       <Group noWrap>
         <Menu position="bottom-end" shadow="md" width={isDesktop ? 200 : '100%'}>
           <Menu.Target>
-            <Avatar className="cursor-pointer" color="brand" radius="xl" size="md" alt="No image" />
+            <Avatar className="cursor-pointer" color="brand" radius="xl" size="md" alt="Account dropdown" />
           </Menu.Target>
 
           <Menu.Dropdown>
             <Menu.Label>
               <Text size="xs" weight={500}>
-                Signed in as{' '}
-                <Text
-                  color={colorScheme === 'dark' ? theme.colors.dark[0] : theme.black}
-                  size="sm"
-                  weight={600}
-                  mt={4}
-                  inline
-                >
-                  {userDetails.username}
-                </Text>
+                Signed in as
+              </Text>
+
+              <Text
+                color={colorScheme === 'dark' ? theme.colors.dark[0] : theme.black}
+                size="sm"
+                weight={600}
+                lineClamp={1}
+              >
+                {userDetails.username}
               </Text>
             </Menu.Label>
 
