@@ -42,7 +42,7 @@ function DashboardLayout({ children, metaDescription, tabTitle }: LayoutProps): 
         padding={32}
         navbarOffsetBreakpoint="sm"
         header={
-          <Header height={70} p="md">
+          <Header height={70} px={26} py="md">
             <DashboardHeader sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
           </Header>
         }
