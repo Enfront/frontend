@@ -1,6 +1,6 @@
 import Image from 'next/future/image';
 
-import { Avatar, Burger, Code, Group, Menu, useMantineColorScheme, useMantineTheme } from '@mantine/core';
+import { Avatar, Burger, Code, Group, Menu, Text, useMantineColorScheme, useMantineTheme } from '@mantine/core';
 import { useMediaQuery, useShallowEffect } from '@mantine/hooks';
 import { useModals } from '@mantine/modals';
 import { NextLink } from '@mantine/next';
@@ -23,7 +23,7 @@ function DashboardHeader({ sidebarOpen, setSidebarOpen }: DashboardHeaderProps):
   const isDesktop = useMediaQuery('(min-width: 900px)');
 
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
-  const { logout } = useAuth();
+  const { logout, userDetails } = useAuth();
 
   const openWhatsNewModal = () => {
     modals.openModal({
@@ -69,15 +69,36 @@ function DashboardHeader({ sidebarOpen, setSidebarOpen }: DashboardHeaderProps):
       <Group noWrap>
         <Menu position="bottom-end" shadow="md" width={isDesktop ? 200 : '100%'}>
           <Menu.Target>
-            <Avatar className="mr-2 cursor-pointer" color="brand" radius="xl" size="md" alt="No image" />
+            <Avatar className="cursor-pointer" color="brand" radius="xl" size="md" alt="No image" />
           </Menu.Target>
 
           <Menu.Dropdown>
+            <Menu.Label>
+              <Text size="xs" weight={500}>
+                Signed in as{' '}
+                <Text
+                  color={colorScheme === 'dark' ? theme.colors.dark[0] : theme.black}
+                  size="sm"
+                  weight={600}
+                  mt={4}
+                  inline
+                >
+                  {userDetails.username}
+                </Text>
+              </Text>
+            </Menu.Label>
+
+            <Menu.Divider />
+
             {accountNavigationConfig.map((item: AccountRoutes) => (
-              <Menu.Item component={NextLink} href={item.path} icon={<Settings size={14} />} key={item.key}>
+              <Menu.Item component={NextLink} href={item.path} icon={<Settings size={16} />} lh={1.15} key={item.key}>
                 {item.title}
               </Menu.Item>
             ))}
+
+            <Menu.Item onClick={() => openWhatsNewModal()} icon={<FileDiff size={16} />}>
+              What&apos;s New
+            </Menu.Item>
 
             <Menu.Item
               onClick={() => toggleColorScheme()}
@@ -88,13 +109,7 @@ function DashboardHeader({ sidebarOpen, setSidebarOpen }: DashboardHeaderProps):
 
             <Menu.Divider />
 
-            <Menu.Item onClick={() => openWhatsNewModal()} icon={<FileDiff size={16} />}>
-              What&apos;s New
-            </Menu.Item>
-
-            <Menu.Divider />
-
-            <Menu.Item onClick={() => logout()} icon={<Logout size={14} />}>
+            <Menu.Item onClick={() => logout()} icon={<Logout size={16} />}>
               Logout
             </Menu.Item>
           </Menu.Dropdown>
