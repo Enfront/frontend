@@ -17,7 +17,7 @@
     "@mantine/hooks": "^5.7.0",
     "@mantine/labs": "^5.8.4",
     "@mantine/modals": "^5.7.0",
-    "@mantine/next": "^4.1.4",
+    "@mantine/next": "^4.2.12",
     "@mantine/notifications": "^5.7.0",
     "@mantine/rte": "^5.7.0",
     "@paypal/paypal-js": "^5.0.5",
