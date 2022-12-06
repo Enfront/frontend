@@ -45,7 +45,7 @@
     "react-leaflet": "^3.2.4",
     "react-number-format": "^4.6.4",
     "react-otp-input": "^2.4.0",
-    "recharts": "^2.1.5",
+    "recharts": "^2.1.16",
     "sass": "^1.56.1",
     "sharp": "^0.31.2",
     "slugify": "^1.6.5",
