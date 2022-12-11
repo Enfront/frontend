@@ -506,12 +506,12 @@
     "@radix-ui/react-scroll-area" "1.0.2"
     react-textarea-autosize "8.3.4"
 
-"@mantine/dates@^5.7.0":
-  version "5.7.0"
-  resolved "https://registry.yarnpkg.com/@mantine/dates/-/dates-5.7.0.tgz#a0baf99271a3754b6f9c10bebc1ee756a5366113"
-  integrity sha512-XVXjs2Km0xR1Fbyb12Zsz9fIqRk3LnE6jlmpfJzjtomy+tDat0h5WhyH0hvpL/l2aY0nDZeVMCItNZVETFGr5g==
+"@mantine/dates@^5.8.2":
+  version "5.9.3"
+  resolved "https://registry.yarnpkg.com/@mantine/dates/-/dates-5.9.3.tgz#aac46d60be471ea7a0d1ffde948fafb3c915ed3f"
+  integrity sha512-LFeMeq+Qed9b5Q1QrwjS0Wz3SJnJSg9qn/mYWT5R0wr+numhyd4Nc6qelFy5cUfKN1RrHMHb24ytGkxU8UWoMA==
   dependencies:
-    "@mantine/utils" "5.7.0"
+    "@mantine/utils" "5.9.3"
 
 "@mantine/dropzone@^5.7.0":
   version "5.7.0"
