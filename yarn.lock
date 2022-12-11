@@ -529,10 +529,10 @@
     fast-deep-equal "^3.1.3"
     klona "^2.0.5"
 
-"@mantine/hooks@^5.7.0":
-  version "5.7.0"
-  resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-5.7.0.tgz#9f6f02f575e6c302a6d797d8b544faa27fc42623"
-  integrity sha512-VxZcnwqhTFr6qptIM6a1u1OC3wsEiCHZF6yJSw/ikM1/pzSaUIvCVAr7wWR8R2DCM2yYoN0KZB+Df6JcCMjvmg==
+"@mantine/hooks@^5.8.2":
+  version "5.9.3"
+  resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-5.9.3.tgz#58bfa80ec879b6526345f96586278f0cfe7013db"
+  integrity sha512-r0z5qMcpi26TwWBD5ZLoXNPd7PvBDoksSBlH15Ys9AYlClr/wYlvp1CmdR6zMIZ9asT9P+i8WdD/XYgymkoPGg==
 
 "@mantine/labs@^5.8.4":
   version "5.8.4"
