@@ -513,12 +513,12 @@
   dependencies:
     "@mantine/utils" "5.9.3"
 
-"@mantine/dropzone@^5.7.0":
-  version "5.7.0"
-  resolved "https://registry.yarnpkg.com/@mantine/dropzone/-/dropzone-5.7.0.tgz#2c6bc7ab1f77f35b63079fa4350559b901fb9f43"
-  integrity sha512-27xnx7kqpxVk22zI7rxYLqZ1zAkVHURSiQox7KwCF+NO1KpDX+JY+DtHuXvHn5zq5SWLEInFqBbWOKo0Sl6v8A==
+"@mantine/dropzone@^5.8.2":
+  version "5.9.4"
+  resolved "https://registry.yarnpkg.com/@mantine/dropzone/-/dropzone-5.9.4.tgz#088006dc1d749da2fd83abbf52f85436e008131e"
+  integrity sha512-76qKHYPHpFqCZUA+XUT3pQVLQGRlBc0hysnqdHs44gjqsldVKcjfYwJUZn5i8fRj6xobWZfs30xmWJrr98l3zA==
   dependencies:
-    "@mantine/utils" "5.7.0"
+    "@mantine/utils" "5.9.4"
     react-dropzone "14.2.3"
 
 "@mantine/form@^5.8.2":
@@ -613,6 +613,11 @@
   version "5.9.3"
   resolved "https://registry.yarnpkg.com/@mantine/utils/-/utils-5.9.3.tgz#649726ed2ff001a7fcf512f805c5ee895d7a27f2"
   integrity sha512-03Km80wjeQX2LHYpNrJ+kWbTrLmp1fupOGzkUvuPtbhoA4C1Zd9JfGI1UuGHSYQFTwMXmzjkHS3K9PngqjTl+g==
+
+"@mantine/utils@5.9.4":
+  version "5.9.4"
+  resolved "https://registry.yarnpkg.com/@mantine/utils/-/utils-5.9.4.tgz#3d3b7646eabaffe6cb4b02083317cc8f9565d03e"
+  integrity sha512-NZAn30jjF52X+MFnkO3oaVgo2LPx3o/QxYlcuMkRBUTZALEXvQgrD0OyGDRgEXnfMdmkBP6rk3Pol6yXXEwU6w==
 
 "@next/env@12.3.3":
   version "12.3.3"
