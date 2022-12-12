@@ -561,10 +561,10 @@
     "@mantine/utils" "5.7.0"
     react-transition-group "4.4.2"
 
-"@mantine/rte@^5.7.0":
-  version "5.7.0"
-  resolved "https://registry.yarnpkg.com/@mantine/rte/-/rte-5.7.0.tgz#6a49f440c91385c13e7d67349ae691825ba60190"
-  integrity sha512-bOfhDzVacU/OOHtcgc4wGwLSXcyVFxTaWtUzn0CzN8uru6CpULAyBRYQkVefu7jlHk31w722X4/1gboseCSIdg==
+"@mantine/rte@^5.8.2":
+  version "5.9.4"
+  resolved "https://registry.yarnpkg.com/@mantine/rte/-/rte-5.9.4.tgz#6c840341b896d00820e20c491385e31861438d38"
+  integrity sha512-ISUA5fGeLxL6j6q67TwIDDGyLpFdTgI63o6PUiVwnTc/yw4UuULk58qXdO167i76T6dW3JEHuf9euOUnRQQnUw==
   dependencies:
     "@tabler/icons" "^1.68.0"
     quill-mention "^3.0.8"
