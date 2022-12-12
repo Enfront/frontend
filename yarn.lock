@@ -539,12 +539,12 @@
   resolved "https://registry.yarnpkg.com/@mantine/labs/-/labs-5.8.4.tgz#3ccde3b89bb515f027e8b70071afdf17e26df182"
   integrity sha512-fdZ0LxAJTPVuJshijzKGtCdXD/mmJ5grw3L4rDW5hgs2qDhoRFj+Gsgn5mfIv9iRDmB1z9XSNw7jRIkjENLEGw==
 
-"@mantine/modals@^5.7.0":
-  version "5.7.0"
-  resolved "https://registry.yarnpkg.com/@mantine/modals/-/modals-5.7.0.tgz#49820e2fb8bcb7003ec0689030476feeb4648004"
-  integrity sha512-s/DBjTvK6Xwx7e7acYYR/Xf7ADo9ouSWqK18Kp2P81PZ/SXwicqtBTzjqRxbeLF42NBN37VdYPvgiILcPJANyQ==
+"@mantine/modals@^5.8.2":
+  version "5.9.4"
+  resolved "https://registry.yarnpkg.com/@mantine/modals/-/modals-5.9.4.tgz#eca5705eff6776bf001c24f7f70c32f14317468b"
+  integrity sha512-Iu2qWHv3dxHyLQ1/60aEEtJGPCG+K/+BAzGJyk9a/WPN9cQqtKf03jS25xNTwlXW3IVtS/7MP0Ygq84X6yNKAg==
   dependencies:
-    "@mantine/utils" "5.7.0"
+    "@mantine/utils" "5.9.4"
 
 "@mantine/next@^4.2.12":
   version "4.2.12"
@@ -613,6 +613,11 @@
   version "5.9.3"
   resolved "https://registry.yarnpkg.com/@mantine/utils/-/utils-5.9.3.tgz#649726ed2ff001a7fcf512f805c5ee895d7a27f2"
   integrity sha512-03Km80wjeQX2LHYpNrJ+kWbTrLmp1fupOGzkUvuPtbhoA4C1Zd9JfGI1UuGHSYQFTwMXmzjkHS3K9PngqjTl+g==
+
+"@mantine/utils@5.9.4":
+  version "5.9.4"
+  resolved "https://registry.yarnpkg.com/@mantine/utils/-/utils-5.9.4.tgz#3d3b7646eabaffe6cb4b02083317cc8f9565d03e"
+  integrity sha512-NZAn30jjF52X+MFnkO3oaVgo2LPx3o/QxYlcuMkRBUTZALEXvQgrD0OyGDRgEXnfMdmkBP6rk3Pol6yXXEwU6w==
 
 "@next/env@12.3.3":
   version "12.3.3"
