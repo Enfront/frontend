@@ -715,14 +715,7 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@paypal/paypal-js@^5.0.5":
-  version "5.0.5"
-  resolved "https://registry.yarnpkg.com/@paypal/paypal-js/-/paypal-js-5.0.5.tgz#f2f61e6ef414847fdcae847054039a05454df8dd"
-  integrity sha512-OV+0Z2MgHVj6dQiE58x9vq6upWWvajbyuwYlDQ4aBkwj6sLLsdkXO8HDuYJPYoVzbX3+/Di6fNKvlUlCJiv+zA==
-  dependencies:
-    promise-polyfill "^8.2.3"
-
-"@paypal/paypal-js@^5.1.4":
+"@paypal/paypal-js@^5.1.2", "@paypal/paypal-js@^5.1.4":
   version "5.1.4"
   resolved "https://registry.yarnpkg.com/@paypal/paypal-js/-/paypal-js-5.1.4.tgz#aff45a27bb542dc331853577094aee78d5233b75"
   integrity sha512-5ktge4DFOMu3rvFR4YWDiPm4wDUzOmghtCM9ZxgJyJCOJP+61IVYdrENysMay91T4GOZ10k2ywWcBN5shsGhLw==

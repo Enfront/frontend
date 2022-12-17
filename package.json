@@ -20,7 +20,7 @@
     "@mantine/next": "^4.2.12",
     "@mantine/notifications": "^5.7.0",
     "@mantine/rte": "^5.7.0",
-    "@paypal/paypal-js": "^5.0.5",
+    "@paypal/paypal-js": "^5.1.2",
     "@paypal/react-paypal-js": "^7.8.1",
     "@repeatgg/react-paypal-button-v2": "^2.7.1",
     "@stripe/react-stripe-js": "^1.14.2",
