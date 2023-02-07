@@ -1,8 +1,10 @@
 import { useState } from 'react';
 
-import { Button, Checkbox, Group, ScrollArea, Table, Textarea, useMantineTheme } from '@mantine/core';
+import { ActionIcon, Button, Checkbox, Group, Menu, ScrollArea, Table, Textarea, useMantineTheme } from '@mantine/core';
+import { IconChevronDown, IconFileSpreadsheet } from '@tabler/icons';
 import { showNotification } from '@mantine/notifications';
 import { UseFormReturnType } from '@mantine/form';
+import { CSVLink } from 'react-csv';
 import { format, parseISO } from 'date-fns';
 import axios from 'axios';
 
@@ -18,11 +20,12 @@ function DigitalKeys({ form, getViewedProduct, shownKeys }: DigitalKeysProps): J
   const theme = useMantineTheme();
 
   const [selection, setSelection] = useState<string[]>([]);
+  const [excelSelection, setExcelSelection] = useState<{ key: string }[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const toggleRow = (id: string) => {
+  const toggleRow = (key: Item) => {
     setSelection((current: string[]) =>
-      current.includes(id) ? current.filter((item: string) => item !== id) : [...current, id],
+      current.includes(key.ref_id) ? current.filter((item: string) => item !== key.ref_id) : [...current, key.ref_id],
     );
   };
 
@@ -30,6 +33,19 @@ function DigitalKeys({ form, getViewedProduct, shownKeys }: DigitalKeysProps): J
     setSelection((current: string[]) =>
       current.length === shownKeys.length ? [] : shownKeys.map((item: Item) => item.ref_id),
     );
+  };
+
+  const manipulateKeysForExcel = (done: () => void): void => {
+    setExcelSelection([]);
+    selection.forEach((selectedKey: string) => {
+      setExcelSelection((current: { key: string }[]) =>
+        current.find((item: { key: string }) => item.key === selectedKey)
+          ? current.filter((item: { key: string }) => item.key !== selectedKey)
+          : [...current, { key: selectedKey }],
+      );
+    });
+
+    done();
   };
 
   const deleteKeys = (): void => {
@@ -96,7 +112,7 @@ function DigitalKeys({ form, getViewedProduct, shownKeys }: DigitalKeysProps): J
                     <td>
                       <Checkbox
                         checked={selection.includes(key.ref_id)}
-                        onChange={() => toggleRow(key.ref_id)}
+                        onChange={() => toggleRow(key)}
                         disabled={key.recipient_email != null}
                         transitionDuration={0}
                       />
@@ -115,6 +131,50 @@ function DigitalKeys({ form, getViewedProduct, shownKeys }: DigitalKeysProps): J
           </ScrollArea>
 
           <Group position="right">
+            <Group noWrap spacing={0}>
+              <Button
+                className="rounded-r-none"
+                onClick={() => navigator.clipboard.writeText(selection.toString())}
+                disabled={selection.length === 0}
+              >
+                Copy Selected Keys
+              </Button>
+
+              <Menu transition="pop" position="bottom-end">
+                <Menu.Target>
+                  <ActionIcon
+                    className={`rounded-l-none border-l ${
+                      theme.colorScheme === 'dark' ? `border-l-[#1A1B1E]` : `border-l-[#fff]`
+                    }`}
+                    disabled={selection.length === 0}
+                    variant="filled"
+                    color={theme.primaryColor}
+                    size={36}
+                  >
+                    <IconChevronDown size={16} stroke={1.5} />
+                  </ActionIcon>
+                </Menu.Target>
+
+                <Menu.Dropdown>
+                  <Menu.Item
+                    icon={<IconFileSpreadsheet size={16} stroke={1.5} color="green" />}
+                    disabled={selection.length === 0}
+                  >
+                    <CSVLink
+                      className={`no-underline ${selection.length === 0 ? 'text-[#adb5bd]' : 'text-black'}`}
+                      onClick={(_, done) => manipulateKeysForExcel(done)}
+                      data={excelSelection}
+                      filename={`${new Date().toJSON().slice(0, 10).replace(/-/g, '/')} - Key Download`}
+                      target="_blank"
+                      asyncOnClick
+                    >
+                      Download Selected Keys to Excel
+                    </CSVLink>
+                  </Menu.Item>
+                </Menu.Dropdown>
+              </Menu>
+            </Group>
+
             <Button onClick={() => deleteKeys()} loading={loading} disabled={selection.length === 0}>
               Delete Selected Item(s)
             </Button>
