@@ -1,9 +1,21 @@
 import { useState } from 'react';
 
-import { ActionIcon, Button, Checkbox, Group, Menu, ScrollArea, Table, Textarea, useMantineTheme } from '@mantine/core';
+import {
+  ActionIcon,
+  Button,
+  Checkbox,
+  Group,
+  Menu,
+  ScrollArea,
+  Table,
+  Textarea,
+  Tooltip,
+  useMantineTheme,
+} from '@mantine/core';
 import { IconChevronDown, IconFileSpreadsheet } from '@tabler/icons';
 import { showNotification } from '@mantine/notifications';
 import { UseFormReturnType } from '@mantine/form';
+import { useClipboard } from '@mantine/hooks';
 import { CSVLink } from 'react-csv';
 import { format, parseISO } from 'date-fns';
 import axios from 'axios';
@@ -18,30 +30,38 @@ interface DigitalKeysProps {
 
 function DigitalKeys({ form, getViewedProduct, shownKeys }: DigitalKeysProps): JSX.Element {
   const theme = useMantineTheme();
+  const clipboard = useClipboard();
 
-  const [selection, setSelection] = useState<string[]>([]);
+  const [selection, setSelection] = useState<Item[]>([]);
   const [excelSelection, setExcelSelection] = useState<{ key: string }[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const toggleRow = (key: Item) => {
-    setSelection((current: string[]) =>
-      current.includes(key.ref_id) ? current.filter((item: string) => item !== key.ref_id) : [...current, key.ref_id],
+  const toggleRow = (key: Item): void => {
+    setSelection((current: Item[]) =>
+      current.includes(key) ? current.filter((item: Item) => item !== key) : [...current, key],
     );
   };
 
-  const toggleAll = () => {
-    setSelection((current: string[]) =>
-      current.length === shownKeys.length ? [] : shownKeys.map((item: Item) => item.ref_id),
-    );
+  const toggleAll = (): void => {
+    setSelection((current: Item[]) => (current.length === shownKeys.length ? [] : shownKeys.map((item: Item) => item)));
+  };
+
+  const copyKeys = (): void => {
+    const keys: string[] = [];
+    selection.forEach((item: Item) => {
+      keys.push(item.key);
+    });
+
+    clipboard.copy(keys.toString());
   };
 
   const manipulateKeysForExcel = (done: () => void): void => {
     setExcelSelection([]);
-    selection.forEach((selectedKey: string) => {
+    selection.forEach((selectedKey: Item) => {
       setExcelSelection((current: { key: string }[]) =>
-        current.find((item: { key: string }) => item.key === selectedKey)
-          ? current.filter((item: { key: string }) => item.key !== selectedKey)
-          : [...current, { key: selectedKey }],
+        current.find((item: { key: string }) => item.key === selectedKey.key)
+          ? current.filter((item: { key: string }) => item.key !== selectedKey.key)
+          : [...current, { key: selectedKey.key }],
       );
     });
 
@@ -51,11 +71,11 @@ function DigitalKeys({ form, getViewedProduct, shownKeys }: DigitalKeysProps): J
   const deleteKeys = (): void => {
     setLoading(true);
 
-    selection.forEach((refId: string, index: number) => {
+    selection.forEach((item: Item, index: number) => {
       axios
-        .delete(`${process.env.NEXT_PUBLIC_API_URL}/products/digital/${refId}`)
+        .delete(`${process.env.NEXT_PUBLIC_API_URL}/products/digital/${item.ref_id}`)
         .then(() => {
-          setSelection((current: string[]) => current.filter((item: string) => item !== refId));
+          setSelection((current: Item[]) => current.filter((selectionItem: Item) => selectionItem !== item));
 
           if (index === selection.length - 1) {
             getViewedProduct();
@@ -111,7 +131,7 @@ function DigitalKeys({ form, getViewedProduct, shownKeys }: DigitalKeysProps): J
                   <tr key={key.key}>
                     <td>
                       <Checkbox
-                        checked={selection.includes(key.ref_id)}
+                        checked={selection.includes(key)}
                         onChange={() => toggleRow(key)}
                         disabled={key.recipient_email != null}
                         transitionDuration={0}
@@ -132,13 +152,19 @@ function DigitalKeys({ form, getViewedProduct, shownKeys }: DigitalKeysProps): J
 
           <Group position="right">
             <Group noWrap spacing={0}>
-              <Button
-                className="rounded-r-none"
-                onClick={() => navigator.clipboard.writeText(selection.toString())}
-                disabled={selection.length === 0}
+              <Tooltip
+                label="Keys copied!"
+                offset={5}
+                position="bottom"
+                radius="xl"
+                transition="slide-down"
+                transitionDuration={100}
+                opened={clipboard.copied}
               >
-                Copy Selected Keys
-              </Button>
+                <Button className="rounded-r-none" onClick={() => copyKeys()} disabled={selection.length === 0}>
+                  Copy Selected Keys
+                </Button>
+              </Tooltip>
 
               <Menu transition="pop" position="bottom-end">
                 <Menu.Target>
