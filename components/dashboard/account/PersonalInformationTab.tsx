@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 
 import { Button, Grid, TextInput } from '@mantine/core';
-import { showNotification } from '@mantine/notifications';
 import { useForm } from '@mantine/form';
+import { showNotification } from '@mantine/notifications';
 import axios from 'axios';
 
-import useAuth from '../../../contexts/AuthContext';
-import { PersonalInfoFormData } from '../../../types/types';
+import useAuth from '&/contexts/AuthContext';
+import { PersonalInfoFormData } from '&/types/types';
 
 interface PersonalInformationTabProps {
   isDesktop: boolean;

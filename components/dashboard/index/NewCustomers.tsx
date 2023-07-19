@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import { Avatar, Badge, Flex, Group, Paper, Stack, Text, Title } from '@mantine/core';
 
-import { Customer } from '../../../types/types';
+import { Customer } from '&/types/types';
 
 interface NewCustomersProps {
   isDesktop: boolean;

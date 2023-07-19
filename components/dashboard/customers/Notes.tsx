@@ -1,9 +1,9 @@
 import { ActionIcon, Grid, Group, Paper, Stack, Text, Title } from '@mantine/core';
+import axios from 'axios';
 import { format, parseISO } from 'date-fns';
 import { Trash } from 'tabler-icons-react';
-import axios from 'axios';
 
-import { Note } from '../../../types/types';
+import { Note } from '&/types/types';
 
 interface NotesProps {
   getCustomerNotes: () => Promise<void>;

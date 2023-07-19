@@ -3,21 +3,21 @@ import { useRouter } from 'next/router';
 
 import { Box, Grid, Text, Title, useMantineTheme } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
-import { Calendar, CalendarTime, Receipt } from 'tabler-icons-react';
 import axios, { AxiosResponse } from 'axios';
-import { getSymbolWithIsoCode } from 'jkshop-country-list/dist/countryFinder';
 import { format } from 'date-fns';
+import { getSymbolWithIsoCode } from 'jkshop-country-list/dist/countryFinder';
 import NumberFormat from 'react-number-format';
+import { Calendar, CalendarTime, Receipt } from 'tabler-icons-react';
 
-import DashboardLayout from '../../components/layouts/DashboardLayout';
-import QuickStats from '../../components/dashboard/index/QuickStats';
-import OrdersByDay from '../../components/dashboard/index/OrdersByDay';
-import TopProducts from '../../components/dashboard/index/TopProducts';
-import LatestOrders from '../../components/dashboard/index/LatestOrders';
-import NewCustomers from '../../components/dashboard/index/NewCustomers';
-import useAuth, { ProtectedRoute } from '../../contexts/AuthContext';
-import useShop from '../../contexts/ShopContext';
-import { Customer, DashboardProduct, DashboardStats, Order, StatsCard } from '../../types/types';
+import LatestOrders from '&/components/dashboard/index/LatestOrders';
+import NewCustomers from '&/components/dashboard/index/NewCustomers';
+import OrdersByDay from '&/components/dashboard/index/OrdersByDay';
+import QuickStats from '&/components/dashboard/index/QuickStats';
+import TopProducts from '&/components/dashboard/index/TopProducts';
+import DashboardLayout from '&/components/layouts/DashboardLayout';
+import useAuth, { ProtectedRoute } from '&/contexts/AuthContext';
+import useShop from '&/contexts/ShopContext';
+import { Customer, DashboardProduct, DashboardStats, Order, StatsCard } from '&/types/types';
 
 function Index(): JSX.Element {
   const router = useRouter();

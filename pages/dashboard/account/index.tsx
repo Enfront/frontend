@@ -1,11 +1,11 @@
 import { Tabs, Title } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 
-import DashboardLayout from '../../../components/layouts/DashboardLayout';
-import PersonalInformationTab from '../../../components/dashboard/account/PersonalInformationTab';
-import BillingTab from '../../../components/dashboard/account/BillingTab';
-import SecurityTab from '../../../components/dashboard/account/SecurityTab';
-import { ProtectedRoute } from '../../../contexts/AuthContext';
+import BillingTab from '&/components/dashboard/account/BillingTab';
+import PersonalInformationTab from '&/components/dashboard/account/PersonalInformationTab';
+import SecurityTab from '&/components/dashboard/account/SecurityTab';
+import DashboardLayout from '&/components/layouts/DashboardLayout';
+import { ProtectedRoute } from '&/contexts/AuthContext';
 
 function Index(): JSX.Element {
   const isDesktop = useMediaQuery('(min-width: 900px)');

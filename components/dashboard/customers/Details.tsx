@@ -17,10 +17,10 @@ import {
 import { useForm } from '@mantine/form';
 import { useModals } from '@mantine/modals';
 import { showNotification } from '@mantine/notifications';
-import { ChevronDown, Note, Pencil } from 'tabler-icons-react';
 import axios, { AxiosError } from 'axios';
+import { ChevronDown, Note, Pencil } from 'tabler-icons-react';
 
-import { CustomerDetails, EditUserData, StatsCard } from '../../../types/types';
+import { CustomerDetails, EditUserData, StatsCard } from '&/types/types';
 
 interface CustomerDetailProps {
   customer: CustomerDetails;

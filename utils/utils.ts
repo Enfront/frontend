@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { DashboardRoutes } from '../configs/NavigationConfig';
+import { DashboardRoutes } from '&/configs/NavigationConfig';
 
 class Utils {
   static getRouteInfo(navTree: DashboardRoutes[], path: string): DashboardRoutes {

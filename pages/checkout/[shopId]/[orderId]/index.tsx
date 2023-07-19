@@ -3,13 +3,13 @@ import { useRouter } from 'next/router';
 
 import { Anchor, Avatar, Container, Grid, Group, Stack, Text, Title } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
+import axios, { AxiosResponse } from 'axios';
 import { getSymbolWithIsoCode } from 'jkshop-country-list/dist/countryFinder';
 import { Tag } from 'tabler-icons-react';
-import axios, { AxiosResponse } from 'axios';
 
-import EmailForm from '../../../../components/public/checkout/EmailForm';
-import PaymentForm from '../../../../components/public/checkout/PaymentForm';
-import { OrderInfo, OrderItem } from '../../../../types/types';
+import EmailForm from '&/components/public/checkout/EmailForm';
+import PaymentForm from '&/components/public/checkout/PaymentForm';
+import { OrderInfo, OrderItem } from '&/types/types';
 
 function Index(): JSX.Element {
   const router = useRouter();

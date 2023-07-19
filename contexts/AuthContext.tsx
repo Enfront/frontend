@@ -5,9 +5,10 @@ import { useSessionStorage } from '@mantine/hooks';
 import { showNotification } from '@mantine/notifications';
 import axios, { AxiosError, AxiosResponse } from 'axios';
 
-import axiosConfig from '../axiosConfig';
-import LoadingAnimation from '../components/dashboard/LoadingAnimation';
-import { LoginData, RegisterData, ResetPasswordData, User } from '../types/types';
+import LoadingAnimation from '&/components/dashboard/LoadingAnimation';
+import { LoginData, RegisterData, ResetPasswordData, User } from '&/types/types';
+
+import axiosConfig from '&/axiosConfig';
 
 interface AuthExports {
   authError: string;

@@ -2,11 +2,11 @@ import { Dispatch, SetStateAction } from 'react';
 import { NextRouter } from 'next/router';
 
 import { Badge, Divider, Group, Pagination, Paper, Stack, Table, Text } from '@mantine/core';
+import { format, parseISO } from 'date-fns';
 import { getSymbolWithIsoCode } from 'jkshop-country-list/dist/countryFinder';
 import NumberFormat from 'react-number-format';
-import { format, parseISO } from 'date-fns';
 
-import { Order, OrderPagination, ShopData } from '../../../types/types';
+import { Order, OrderPagination, ShopData } from '&/types/types';
 
 interface OrderListProps {
   isDesktop: boolean;

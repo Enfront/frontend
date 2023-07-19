@@ -6,7 +6,7 @@ import { getSymbolWithIsoCode } from 'jkshop-country-list/dist/countryFinder';
 import NumberFormat from 'react-number-format';
 import { Edit } from 'tabler-icons-react';
 
-import { Product, ShopData } from '../../../types/types';
+import { Product, ShopData } from '&/types/types';
 
 interface ProductListProps {
   isDesktop: boolean;

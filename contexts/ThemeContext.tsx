@@ -1,6 +1,6 @@
 import { ChangeEvent, createContext, ReactNode, useContext, useState } from 'react';
 
-import { Product } from '../types/types';
+import { Product } from '&/types/types';
 
 interface ThemeExport {
   editorViewport: string;

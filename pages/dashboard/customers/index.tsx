@@ -3,15 +3,15 @@ import { useRouter } from 'next/router';
 
 import { Flex, TextInput, Title } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
-import { Search } from 'tabler-icons-react';
 import axios, { AxiosResponse } from 'axios';
+import { Search } from 'tabler-icons-react';
 
-import DashboardLayout from '../../../components/layouts/DashboardLayout';
-import CustomerList from '../../../components/dashboard/customers/CustomerList';
-import EmptyMessage from '../../../components/dashboard/EmptyMessage';
-import useShop from '../../../contexts/ShopContext';
-import { ProtectedRoute } from '../../../contexts/AuthContext';
-import { Customer, CustomerPagination } from '../../../types/types';
+import CustomerList from '&/components/dashboard/customers/CustomerList';
+import EmptyMessage from '&/components/dashboard/EmptyMessage';
+import DashboardLayout from '&/components/layouts/DashboardLayout';
+import { ProtectedRoute } from '&/contexts/AuthContext';
+import useShop from '&/contexts/ShopContext';
+import { Customer, CustomerPagination } from '&/types/types';
 
 function Index(): JSX.Element {
   const router = useRouter();

@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 import { Button, SimpleGrid, Stack, Text, Title } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
 import { PayPalButton } from '@repeatgg/react-paypal-button-v2';
-import { loadStripe, Stripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe, Stripe } from '@stripe/stripe-js';
 import axios, { AxiosResponse } from 'axios';
 
-import { AcceptedCryptoAddresses, CryptoTxnInfo, PayPalOnApprove } from '../../../types/types';
-import CryptoModal from './CryptoModal';
-import StripeModal from './StripeModal';
+import CryptoModal from '&/components/public/checkout/CryptoModal';
+import StripeModal from '&/components/public/checkout/StripeModal';
+import { AcceptedCryptoAddresses, CryptoTxnInfo, PayPalOnApprove } from '&/types/types';
 
 interface PaymentFormProps {
   buyerEmail: string;

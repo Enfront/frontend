@@ -1,6 +1,5 @@
 import { ChangeEvent, Dispatch, ForwardedRef, forwardRef, SetStateAction, useEffect, useState } from 'react';
 
-import axios, { AxiosResponse } from 'axios';
 import {
   Avatar,
   Checkbox,
@@ -14,10 +13,11 @@ import {
   TextInput,
   Title,
 } from '@mantine/core';
+import axios, { AxiosResponse } from 'axios';
 
-import useTheme from '../../../contexts/ThemeContext';
-import useShop from '../../../contexts/ShopContext';
-import { Product, ProductSelect, Setting, SettingsSchema, ThemeProductNew } from '../../../types/types';
+import useShop from '&/contexts/ShopContext';
+import useTheme from '&/contexts/ThemeContext';
+import { Product, ProductSelect, Setting, SettingsSchema, ThemeProductNew } from '&/types/types';
 
 interface ThemesSideNavProps {
   existingConfig: Record<string | number, ThemeProductNew | string | boolean | number>;

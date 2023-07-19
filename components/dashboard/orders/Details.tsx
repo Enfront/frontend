@@ -20,7 +20,7 @@ import {
   User,
 } from 'tabler-icons-react';
 
-import { Order, OrderGeoData } from '../../../types/types';
+import { Order, OrderGeoData } from '&/types/types';
 
 const DeviceMap = dynamic(() => import('./DeviceMap'), { ssr: false });
 

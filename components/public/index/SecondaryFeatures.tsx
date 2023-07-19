@@ -1,14 +1,14 @@
 import { ReactNode } from 'react';
 import Image, { StaticImageData } from 'next/future/image';
 
+import { Tab } from '@headlessui/react';
 import { Container, Text, Title } from '@mantine/core';
 import { useId } from '@mantine/hooks';
-import { Tab } from '@headlessui/react';
 import clsx from 'clsx';
 
-import screenshotContacts from '../../../public/screenshots/contacts.png';
-import screenshotInventory from '../../../public/screenshots/inventory.png';
-import screenshotProfitLoss from '../../../public/screenshots/profit-loss.png';
+import screenshotContacts from '&/public/screenshots/contacts.png';
+import screenshotInventory from '&/public/screenshots/inventory.png';
+import screenshotProfitLoss from '&/public/screenshots/profit-loss.png';
 
 interface FeatureProps {
   className: string;

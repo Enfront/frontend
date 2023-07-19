@@ -3,17 +3,16 @@ import { useRouter } from 'next/router';
 
 import { Button, Grid, Group, Menu, Stack, Title, useMantineTheme } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
-import { Ban, BrandPaypal, ChevronDown, UserOff } from 'tabler-icons-react';
 import axios, { AxiosResponse } from 'axios';
+import { Ban, BrandPaypal, ChevronDown, UserOff } from 'tabler-icons-react';
 
-import { ProtectedRoute } from '../../../contexts/AuthContext';
-import useShop from '../../../contexts/ShopContext';
-
-import DashboardLayout from '../../../components/layouts/DashboardLayout';
-import Items from '../../../components/dashboard/orders/Items';
-import Activity from '../../../components/dashboard/orders/Activity';
-import Details from '../../../components/dashboard/orders/Details';
-import { BlacklistFormData, Order, OrderComment, OrderGeoData, OrderItem, OrderStatus } from '../../../types/types';
+import Activity from '&/components/dashboard/orders/Activity';
+import Details from '&/components/dashboard/orders/Details';
+import Items from '&/components/dashboard/orders/Items';
+import DashboardLayout from '&/components/layouts/DashboardLayout';
+import { ProtectedRoute } from '&/contexts/AuthContext';
+import useShop from '&/contexts/ShopContext';
+import { BlacklistFormData, Order, OrderComment, OrderGeoData, OrderItem, OrderStatus } from '&/types/types';
 
 export const initialViewedOrder: Order = {
   customer: {

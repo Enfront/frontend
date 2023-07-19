@@ -3,10 +3,10 @@ import { useRouter } from 'next/router';
 
 import { Avatar, Badge, Pagination, Stack, Table, Text, Title } from '@mantine/core';
 import { format, parseISO } from 'date-fns';
-import NumberFormat from 'react-number-format';
 import { getSymbolWithIsoCode } from 'jkshop-country-list/dist/countryFinder';
+import NumberFormat from 'react-number-format';
 
-import { CustomerOrder, OrderItem } from '../../../types/types';
+import { CustomerOrder, OrderItem } from '&/types/types';
 
 interface OrderHistoryProps {
   orders: CustomerOrder[];

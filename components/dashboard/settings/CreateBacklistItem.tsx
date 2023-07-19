@@ -1,12 +1,12 @@
 import { Dispatch, SetStateAction } from 'react';
 
-import { Modal, Button, TextInput, Select, Textarea } from '@mantine/core';
-import { showNotification } from '@mantine/notifications';
+import { Button, Modal, Select, Textarea, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { countryFinder } from 'jkshop-country-list';
+import { showNotification } from '@mantine/notifications';
 import axios from 'axios';
+import { countryFinder } from 'jkshop-country-list';
 
-import { BlacklistFormData, BlacklistOnSubmitData } from '../../../types/types';
+import { BlacklistFormData, BlacklistOnSubmitData } from '&/types/types';
 
 interface CreateBlacklistItemProps {
   getBlackList: () => void;

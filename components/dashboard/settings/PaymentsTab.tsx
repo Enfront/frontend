@@ -6,8 +6,8 @@ import { useForm } from '@mantine/form';
 import { showNotification } from '@mantine/notifications';
 import axios, { AxiosResponse } from 'axios';
 
-import { ShopPaymentFormData } from '../../../types/types';
-import useShop from '../../../contexts/ShopContext';
+import useShop from '&/contexts/ShopContext';
+import { ShopPaymentFormData } from '&/types/types';
 
 function PaymentsTab(): JSX.Element {
   const { selectedShop } = useShop();

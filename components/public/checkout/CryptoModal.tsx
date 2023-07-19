@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 import { ActionIcon, Avatar, Box, Modal, Stack, Text, TextInput, Tooltip } from '@mantine/core';
 import { useClipboard } from '@mantine/hooks';
-import { ArrowNarrowLeft, ArrowNarrowRight, Check } from 'tabler-icons-react';
 import axios, { AxiosResponse } from 'axios';
+import { ArrowNarrowLeft, ArrowNarrowRight, Check } from 'tabler-icons-react';
 
-import { AcceptedCryptoAddresses, CryptoTxnInfo } from '../../../types/types';
+import { AcceptedCryptoAddresses, CryptoTxnInfo } from '&/types/types';
 
 interface CryptoModalProps {
   acceptedCryptos: AcceptedCryptoAddresses[];

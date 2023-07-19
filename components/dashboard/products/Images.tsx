@@ -4,10 +4,10 @@ import Image from 'next/image';
 import { ActionIcon, Group, Input, Text, useMantineTheme } from '@mantine/core';
 import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone';
 import { showNotification } from '@mantine/notifications';
-import { Photo, Trash, Upload, X } from 'tabler-icons-react';
 import axios from 'axios';
+import { Photo, Trash, Upload, X } from 'tabler-icons-react';
 
-import { ImageType, Product, ProductImage } from '../../../types/types';
+import { ImageType, Product, ProductImage } from '&/types/types';
 
 interface ImagesProps {
   getViewedProduct: () => void;

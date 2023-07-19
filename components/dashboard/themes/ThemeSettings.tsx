@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
-import { Badge, Button, Flex, Group, Grid, Paper, Text, Title } from '@mantine/core';
+import { Badge, Button, Flex, Grid, Group, Paper, Text, Title } from '@mantine/core';
 import axios, { AxiosError, AxiosResponse } from 'axios';
 
-import useShop from '../../../contexts/ShopContext';
-import ChangeTheme from './ChangeTheme';
-import { ThemeTemplate } from '../../../types/types';
+import ChangeTheme from '&/components/dashboard/themes/ChangeTheme';
+import useShop from '&/contexts/ShopContext';
+import { ThemeTemplate } from '&/types/types';
 
 interface ThemeSettingsProps {
   isDesktop: boolean;

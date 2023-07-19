@@ -1,15 +1,14 @@
 import { ReactNode, useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 
-import axios, { AxiosError, AxiosResponse } from 'axios';
 import { AppShell, Header, Navbar, ScrollArea } from '@mantine/core';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 
-import useShop from '../../contexts/ShopContext';
-
-import ThemesHeader from '../dashboard/headers/ThemesHeader';
-import ThemesSidenav from '../dashboard/sidenavs/ThemesSidenav';
-import { SettingsSchema, ThemeConfigFormData, ThemeProductNew } from '../../types/types';
+import ThemesHeader from '&/components/dashboard/headers/ThemesHeader';
+import ThemesSidenav from '&/components/dashboard/sidenavs/ThemesSidenav';
+import useShop from '&/contexts/ShopContext';
+import { SettingsSchema, ThemeConfigFormData, ThemeProductNew } from '&/types/types';
 
 interface ThemeEditorLayoutProps {
   children: ReactNode;

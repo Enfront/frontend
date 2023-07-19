@@ -1,6 +1,6 @@
 import { Group, Paper, Text } from '@mantine/core';
 
-import { StatsCard } from '../../../types/types';
+import { StatsCard } from '&/types/types';
 
 interface QuickStatsProps {
   stats: StatsCard;

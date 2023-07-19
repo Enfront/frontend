@@ -1,14 +1,14 @@
 import { useEffect } from 'react';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
 import Image from 'next/future/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
+import { Button, PasswordInput, Text, Title } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { Title, Text, Button, PasswordInput } from '@mantine/core';
 
-import { ResetPasswordData } from '../types/types';
-import useAuth from '../contexts/AuthContext';
-import AuthLayout from '../components/layouts/AuthLayout';
+import AuthLayout from '&/components/layouts/AuthLayout';
+import useAuth from '&/contexts/AuthContext';
+import { ResetPasswordData } from '&/types/types';
 
 function Reset(): JSX.Element {
   const router = useRouter();

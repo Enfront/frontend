@@ -1,9 +1,9 @@
 import { Title } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 
-import ThemeSettings from '../../../components/dashboard/themes/ThemeSettings';
-import DashboardLayout from '../../../components/layouts/DashboardLayout';
-import { ProtectedRoute } from '../../../contexts/AuthContext';
+import ThemeSettings from '&/components/dashboard/themes/ThemeSettings';
+import DashboardLayout from '&/components/layouts/DashboardLayout';
+import { ProtectedRoute } from '&/contexts/AuthContext';
 
 function Index(): JSX.Element {
   const isDesktop = useMediaQuery('(min-width: 900px)');

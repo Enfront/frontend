@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import { Button, Container, Group, Text } from '@mantine/core';
 
-import useAuth from '../../../contexts/AuthContext';
+import useAuth from '&/contexts/AuthContext';
 
 function PublicHeader(): JSX.Element {
   const { isAuthenticated, isProcessing, logout } = useAuth();

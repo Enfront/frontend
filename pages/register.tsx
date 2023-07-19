@@ -1,15 +1,15 @@
 import { useEffect } from 'react';
-import { useRouter } from 'next/router';
 import Image from 'next/future/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import { Anchor, Button, PasswordInput, Text, TextInput, Title } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 
-import { RegisterData } from '../types/types';
-import useAuth from '../contexts/AuthContext';
-import AuthLayout from '../components/layouts/AuthLayout';
+import AuthLayout from '&/components/layouts/AuthLayout';
+import useAuth from '&/contexts/AuthContext';
+import { RegisterData } from '&/types/types';
 
 function Register(): JSX.Element {
   const router = useRouter();

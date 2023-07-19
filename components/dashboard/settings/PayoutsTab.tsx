@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 import { Badge, Group, Pagination, Paper, SimpleGrid, Table, Text, Title } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
 import axios, { AxiosResponse } from 'axios';
 import { format, parseISO } from 'date-fns';
 
-import useShop from '../../../contexts/ShopContext';
-import { PayoutHistory } from '../../../types/types';
+import useShop from '&/contexts/ShopContext';
+import { PayoutHistory } from '&/types/types';
 
 function PayoutsTab(): JSX.Element {
   const router = useRouter();

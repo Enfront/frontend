@@ -1,18 +1,11 @@
 import { ActionIcon, Button, Group, ScrollArea, Text, Textarea, Timeline } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useModals } from '@mantine/modals';
-import { InfoCircle, Message, Trash } from 'tabler-icons-react';
-import { format, parseISO } from 'date-fns';
 import axios from 'axios';
+import { format, parseISO } from 'date-fns';
+import { InfoCircle, Message, Trash } from 'tabler-icons-react';
 
-import {
-  CommentFormData,
-  Order,
-  OrderComment,
-  OrderStatus,
-  OrderStatusItemKey,
-  OrderStatusItem,
-} from '../../../types/types';
+import { CommentFormData, Order, OrderComment, OrderStatus, OrderStatusItem, OrderStatusItemKey } from '&/types/types';
 
 interface OrderActivityProps {
   getOrderInfo: () => Promise<void>;

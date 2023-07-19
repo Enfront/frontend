@@ -3,17 +3,17 @@ import { useRouter } from 'next/router';
 
 import { Box, Divider, Stack, useMantineTheme } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
-import { Calendar, Coin, Receipt, Receipt2 } from 'tabler-icons-react';
 import axios, { AxiosResponse } from 'axios';
 import { format, parseISO } from 'date-fns';
+import { Calendar, Coin, Receipt, Receipt2 } from 'tabler-icons-react';
 
-import { ProtectedRoute } from '../../../contexts/AuthContext';
-import useShop from '../../../contexts/ShopContext';
-import DashboardLayout from '../../../components/layouts/DashboardLayout';
-import Details from '../../../components/dashboard/customers/Details';
-import Notes from '../../../components/dashboard/customers/Notes';
-import OrderHistory from '../../../components/dashboard/customers/OrderHistory';
-import { CustomerDetails, Note, Order, StatsCard } from '../../../types/types';
+import Details from '&/components/dashboard/customers/Details';
+import Notes from '&/components/dashboard/customers/Notes';
+import OrderHistory from '&/components/dashboard/customers/OrderHistory';
+import DashboardLayout from '&/components/layouts/DashboardLayout';
+import { ProtectedRoute } from '&/contexts/AuthContext';
+import useShop from '&/contexts/ShopContext';
+import { CustomerDetails, Note, Order, StatsCard } from '&/types/types';
 
 function Index(): JSX.Element {
   const router = useRouter();

@@ -1,6 +1,6 @@
 import { Anchor, Container, List, Stack, Text, Title } from '@mantine/core';
 
-import PublicLayout from '../../components/layouts/PublicLayout';
+import PublicLayout from '&/components/layouts/PublicLayout';
 
 function AcceptableUse(): JSX.Element {
   return (

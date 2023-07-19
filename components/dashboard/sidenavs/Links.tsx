@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import Link from 'next/link';
 
-import { Box, Collapse, createStyles, Group, UnstyledButton, Text, ThemeIcon, Title, Flex } from '@mantine/core';
+import { Box, Collapse, createStyles, Flex, Group, Text, ThemeIcon, Title, UnstyledButton } from '@mantine/core';
 import { IconChevronRight } from '@tabler/icons';
 
-import { DashboardRoutes } from '../../../configs/NavigationConfig';
-import useShop from '../../../contexts/ShopContext';
+import { DashboardRoutes } from '&/configs/NavigationConfig';
+import useShop from '&/contexts/ShopContext';
 
 interface LinksProps {
   currentRouteInfo: DashboardRoutes;

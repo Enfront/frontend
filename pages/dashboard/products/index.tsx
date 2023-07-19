@@ -1,18 +1,18 @@
 import { ChangeEvent, useCallback, useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
-import axios, { AxiosResponse } from 'axios';
-import { Search } from 'tabler-icons-react';
 import { Button, Flex, TextInput, Title } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
+import axios, { AxiosResponse } from 'axios';
+import { Search } from 'tabler-icons-react';
 
-import DashboardLayout from '../../../components/layouts/DashboardLayout';
-import ProductList from '../../../components/dashboard/products/ProductList';
-import EmptyMessage from '../../../components/dashboard/EmptyMessage';
-import useShop from '../../../contexts/ShopContext';
-import { ProtectedRoute } from '../../../contexts/AuthContext';
-import { Product } from '../../../types/types';
+import EmptyMessage from '&/components/dashboard/EmptyMessage';
+import ProductList from '&/components/dashboard/products/ProductList';
+import DashboardLayout from '&/components/layouts/DashboardLayout';
+import { ProtectedRoute } from '&/contexts/AuthContext';
+import useShop from '&/contexts/ShopContext';
+import { Product } from '&/types/types';
 
 function Index(): JSX.Element {
   const router = useRouter();

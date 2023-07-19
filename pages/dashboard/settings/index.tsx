@@ -3,13 +3,13 @@ import { useState } from 'react';
 import { Button, Flex, Tabs, Title } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 
-import DashboardLayout from '../../../components/layouts/DashboardLayout';
-import BasicInfoTab from '../../../components/dashboard/settings/BasicInfoTab';
-import PaymentsTab from '../../../components/dashboard/settings/PaymentsTab';
-import BlacklistTab from '../../../components/dashboard/settings/BlacklistTab';
-import DangerTab from '../../../components/dashboard/settings/DangerTab';
-import PayoutsTab from '../../../components/dashboard/settings/PayoutsTab';
-import { ProtectedRoute } from '../../../contexts/AuthContext';
+import BasicInfoTab from '&/components/dashboard/settings/BasicInfoTab';
+import BlacklistTab from '&/components/dashboard/settings/BlacklistTab';
+import DangerTab from '&/components/dashboard/settings/DangerTab';
+import PaymentsTab from '&/components/dashboard/settings/PaymentsTab';
+import PayoutsTab from '&/components/dashboard/settings/PayoutsTab';
+import DashboardLayout from '&/components/layouts/DashboardLayout';
+import { ProtectedRoute } from '&/contexts/AuthContext';
 
 function Index(): JSX.Element {
   const isDesktop = useMediaQuery('(min-width: 900px)');

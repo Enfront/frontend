@@ -10,8 +10,8 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.7.4",
-    "@mantine/dates": "^5.8.2",
     "@mantine/core": "^5.8.2",
+    "@mantine/dates": "^5.8.2",
     "@mantine/dropzone": "^5.7.0",
     "@mantine/form": "^5.8.2",
     "@mantine/hooks": "^5.8.2",
@@ -56,6 +56,7 @@
   "devDependencies": {
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.4",
+    "@ianvs/prettier-plugin-sort-imports": "^4.1.0",
     "@types/leaflet": "^1.7.8",
     "@types/node": "^16.3.1",
     "@types/react": "17.0.14",

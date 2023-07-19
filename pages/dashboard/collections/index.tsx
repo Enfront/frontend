@@ -5,12 +5,12 @@ import { useMediaQuery } from '@mantine/hooks';
 import { useModals } from '@mantine/modals';
 import axios, { AxiosResponse } from 'axios';
 
-import DashboardLayout from '../../../components/layouts/DashboardLayout';
-import CollectionList from '../../../components/dashboard/collections/CollectionList';
-import EmptyMessage from '../../../components/dashboard/EmptyMessage';
-import CreateCollection from '../../../components/dashboard/collections/CreateCollection';
-import useShop from '../../../contexts/ShopContext';
-import { Collection } from '../../../types/types';
+import CollectionList from '&/components/dashboard/collections/CollectionList';
+import CreateCollection from '&/components/dashboard/collections/CreateCollection';
+import EmptyMessage from '&/components/dashboard/EmptyMessage';
+import DashboardLayout from '&/components/layouts/DashboardLayout';
+import useShop from '&/contexts/ShopContext';
+import { Collection } from '&/types/types';
 
 function Index(): JSX.Element {
   const modals = useModals();

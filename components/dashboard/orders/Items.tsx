@@ -1,11 +1,11 @@
 import { Fragment } from 'react';
 
 import { Avatar, Badge, Box, Grid, Group, Stack, Text, Title } from '@mantine/core';
-import { Barcode } from 'tabler-icons-react';
 import { getSymbolWithIsoCode } from 'jkshop-country-list/dist/countryFinder';
 import NumberFormat from 'react-number-format';
+import { Barcode } from 'tabler-icons-react';
 
-import { Order, OrderItem } from '../../../types/types';
+import { Order, OrderItem } from '&/types/types';
 
 interface OrderItemProps {
   fulfilledOrder: boolean;

@@ -6,9 +6,9 @@ import { useModals } from '@mantine/modals';
 import { NextLink } from '@mantine/next';
 import { FileDiff, Logout, MoonStars, Settings, Sun } from 'tabler-icons-react';
 
-import WhatsNew from '../WhatsNew';
-import useAuth from '../../../contexts/AuthContext';
-import accountNavigationConfig, { AccountRoutes } from '../../../configs/AccountNavigationConfig';
+import WhatsNew from '&/components/dashboard/WhatsNew';
+import accountNavigationConfig, { AccountRoutes } from '&/configs/AccountNavigationConfig';
+import useAuth from '&/contexts/AuthContext';
 
 interface DashboardHeaderProps {
   sidebarOpen: boolean;

@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import { Anchor, Container, Stack, Text, Title } from '@mantine/core';
 
-import PublicLayout from '../../components/layouts/PublicLayout';
+import PublicLayout from '&/components/layouts/PublicLayout';
 
 function Cookies(): JSX.Element {
   return (

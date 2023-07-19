@@ -13,18 +13,17 @@ import {
   Title,
   useMantineTheme,
 } from '@mantine/core';
-
 import { useModals } from '@mantine/modals';
 import { showNotification } from '@mantine/notifications';
-import { Calendar, CircleCheck, CircleX, FileInvoice, Receipt2 } from 'tabler-icons-react';
-import { getSymbolWithIsoCode } from 'jkshop-country-list/dist/countryFinder';
 import axios, { AxiosResponse } from 'axios';
 import { format, fromUnixTime } from 'date-fns';
+import { getSymbolWithIsoCode } from 'jkshop-country-list/dist/countryFinder';
+import { Calendar, CircleCheck, CircleX, FileInvoice, Receipt2 } from 'tabler-icons-react';
 
-import useShop from '../../../contexts/ShopContext';
-import useAuth from '../../../contexts/AuthContext';
-import { StatsCard, SubscriptionDetails, SubscriptionTier } from '../../../types/types';
-import QuickStats from '../index/QuickStats';
+import QuickStats from '&/components/dashboard/index/QuickStats';
+import useAuth from '&/contexts/AuthContext';
+import useShop from '&/contexts/ShopContext';
+import { StatsCard, SubscriptionDetails, SubscriptionTier } from '&/types/types';
 
 function BillingTab(): JSX.Element {
   const theme = useMantineTheme();

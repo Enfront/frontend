@@ -1,9 +1,9 @@
-import Link from 'next/link';
 import Image from 'next/future/image';
+import Link from 'next/link';
 
 import { Button, Container, Text, Title } from '@mantine/core';
 
-import backgroundImage from '../../../public/backgrounds/background-call-to-action.jpg';
+import backgroundImage from '&/public/backgrounds/background-call-to-action.jpg';
 
 function CallToAction(): JSX.Element {
   return (

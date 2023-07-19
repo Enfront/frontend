@@ -1,10 +1,10 @@
-import PublicLayout from '../components/layouts/PublicLayout';
-import Hero from '../components/public/index/Hero';
-import PrimaryFeatures from '../components/public/index/PrimaryFeatures';
-import SecondaryFeatures from '../components/public/index/SecondaryFeatures';
-import CallToAction from '../components/public/index/CallToAction';
-import Pricing from '../components/public/index/Pricing';
-import Faqs from '../components/public/index/Faqs';
+import PublicLayout from '&/components/layouts/PublicLayout';
+import CallToAction from '&/components/public/index/CallToAction';
+import Faqs from '&/components/public/index/Faqs';
+import Hero from '&/components/public/index/Hero';
+import Pricing from '&/components/public/index/Pricing';
+import PrimaryFeatures from '&/components/public/index/PrimaryFeatures';
+import SecondaryFeatures from '&/components/public/index/SecondaryFeatures';
 
 function Index(): JSX.Element {
   return (

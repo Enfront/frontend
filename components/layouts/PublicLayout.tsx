@@ -1,8 +1,8 @@
 import { ReactNode } from 'react';
 import Head from 'next/head';
 
-import PublicHeader from '../public/headers/PublicHeader';
-import Footer from '../public/footers/Footer';
+import Footer from '&/components/public/footers/Footer';
+import PublicHeader from '&/components/public/headers/PublicHeader';
 
 interface LayoutProps {
   children: ReactNode;

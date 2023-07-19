@@ -1,19 +1,19 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
-import axios, { AxiosError, AxiosResponse } from 'axios';
 import { Button, Grid, Group, NumberInput, Select, Stack, Text, Title, useMantineTheme } from '@mantine/core';
-import { showNotification } from '@mantine/notifications';
-import { useModals } from '@mantine/modals';
 import { useForm } from '@mantine/form';
+import { useModals } from '@mantine/modals';
+import { showNotification } from '@mantine/notifications';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 
-import { ProtectedRoute } from '../../../contexts/AuthContext';
-import useShop from '../../../contexts/ShopContext';
-import DashboardLayout from '../../../components/layouts/DashboardLayout';
-import GeneralInformation from '../../../components/dashboard/products/GeneralInformation';
-import DigitalKeys from '../../../components/dashboard/products/DigitalKeys';
-import Images from '../../../components/dashboard/products/Images';
-import { ImageType, Item, Product, ProductFormData } from '../../../types/types';
+import DigitalKeys from '&/components/dashboard/products/DigitalKeys';
+import GeneralInformation from '&/components/dashboard/products/GeneralInformation';
+import Images from '&/components/dashboard/products/Images';
+import DashboardLayout from '&/components/layouts/DashboardLayout';
+import { ProtectedRoute } from '&/contexts/AuthContext';
+import useShop from '&/contexts/ShopContext';
+import { ImageType, Item, Product, ProductFormData } from '&/types/types';
 
 function Index(): JSX.Element {
   const router = useRouter();

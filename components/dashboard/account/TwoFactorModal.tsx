@@ -2,10 +2,10 @@ import { useRef, useState } from 'react';
 import Image from 'next/image';
 
 import { Button, Flex, Group, Input, Text, TextInput, Tooltip } from '@mantine/core';
-import { ModalsContextProps } from '@mantine/modals/lib/context';
 import { useClipboard } from '@mantine/hooks';
-import axios, { AxiosError, AxiosResponse } from 'axios';
+import { ModalsContextProps } from '@mantine/modals/lib/context';
 import { IconCheck, IconCopy } from '@tabler/icons';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 import OtpInput from 'react-otp-input';
 
 interface TwoFactorModalProps {

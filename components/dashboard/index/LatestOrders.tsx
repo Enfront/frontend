@@ -3,10 +3,10 @@ import { NextRouter } from 'next/router';
 
 import { Badge, Paper, Table, Title } from '@mantine/core';
 import { format, parseISO } from 'date-fns';
-import NumberFormat from 'react-number-format';
 import { getSymbolWithIsoCode } from 'jkshop-country-list/dist/countryFinder';
+import NumberFormat from 'react-number-format';
 
-import { Order } from '../../../types/types';
+import { Order } from '&/types/types';
 
 interface LatestOrdersProps {
   newOrders: MutableRefObject<Order[]>;

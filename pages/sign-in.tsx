@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
-import { Anchor, Flex, TextInput, PasswordInput, Title, Text, Button, Input, Stack } from '@mantine/core';
+import { Anchor, Button, Flex, Input, PasswordInput, Stack, Text, TextInput, Title } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import OtpInput from 'react-otp-input';
 
-import { LoginData } from '../types/types';
-import useAuth from '../contexts/AuthContext';
-import AuthLayout from '../components/layouts/AuthLayout';
+import AuthLayout from '&/components/layouts/AuthLayout';
+import useAuth from '&/contexts/AuthContext';
+import { LoginData } from '&/types/types';
 
 function SignIn(): JSX.Element {
   const router = useRouter();

@@ -1,13 +1,13 @@
 import { MutableRefObject } from 'react';
 
 import { Button, MultiSelect, SelectItem, Stack, TextInput } from '@mantine/core';
-import { ModalsContextProps } from '@mantine/modals/lib/context';
 import { useForm } from '@mantine/form';
+import { ModalsContextProps } from '@mantine/modals/lib/context';
 import axios, { AxiosError } from 'axios';
 import slugify from 'slugify';
 
-import { CollectionData, ShopData } from '../../../types/types';
-import utils from '../../../utils/utils';
+import { CollectionData, ShopData } from '&/types/types';
+import utils from '&/utils/utils';
 
 interface CreateCollectionProps {
   getCollections: () => void;

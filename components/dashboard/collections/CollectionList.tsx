@@ -14,13 +14,13 @@ import {
   Text,
   Tooltip,
 } from '@mantine/core';
-import { ModalsContextProps } from '@mantine/modals/lib/context';
 import { useClipboard } from '@mantine/hooks';
-import { Copy, Edit, Trash } from 'tabler-icons-react';
+import { ModalsContextProps } from '@mantine/modals/lib/context';
 import axios from 'axios';
+import { Copy, Edit, Trash } from 'tabler-icons-react';
 
-import EditCollection from './EditCollection';
-import { Collection, ShopData } from '../../../types/types';
+import EditCollection from '&/components/dashboard/collections/EditCollection';
+import { Collection, ShopData } from '&/types/types';
 
 interface CollectionsListProps {
   getCollections: () => void;

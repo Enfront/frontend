@@ -3,13 +3,13 @@ import { useRouter } from 'next/router';
 
 import { ActionIcon, Badge, Divider, Group, Pagination, Paper, Stack, Table, Text } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
-import { Trash } from 'tabler-icons-react';
 import axios, { AxiosResponse } from 'axios';
 import { format, parseISO } from 'date-fns';
+import { Trash } from 'tabler-icons-react';
 
-import CreateBlacklistItem from './CreateBacklistItem';
-import useShop from '../../../contexts/ShopContext';
-import { BlacklistItem, BlacklistPagination } from '../../../types/types';
+import CreateBlacklistItem from '&/components/dashboard/settings/CreateBacklistItem';
+import useShop from '&/contexts/ShopContext';
+import { BlacklistItem, BlacklistPagination } from '&/types/types';
 
 interface BlacklistProps {
   isDesktop: boolean;

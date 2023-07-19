@@ -12,15 +12,15 @@ import {
   Tooltip,
   useMantineTheme,
 } from '@mantine/core';
-import { IconChevronDown, IconFileSpreadsheet } from '@tabler/icons';
-import { showNotification } from '@mantine/notifications';
 import { UseFormReturnType } from '@mantine/form';
 import { useClipboard } from '@mantine/hooks';
-import { CSVLink } from 'react-csv';
-import { format, parseISO } from 'date-fns';
+import { showNotification } from '@mantine/notifications';
+import { IconChevronDown, IconFileSpreadsheet } from '@tabler/icons';
 import axios from 'axios';
+import { format, parseISO } from 'date-fns';
+import { CSVLink } from 'react-csv';
 
-import { Item, ProductFormData } from '../../../types/types';
+import { Item, ProductFormData } from '&/types/types';
 
 interface DigitalKeysProps {
   form: UseFormReturnType<ProductFormData>;

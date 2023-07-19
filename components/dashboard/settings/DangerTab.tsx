@@ -5,7 +5,7 @@ import { Button, Grid, Group, Text, TextInput, Title } from '@mantine/core';
 import { useModals } from '@mantine/modals';
 import axios, { AxiosError } from 'axios';
 
-import useShop from '../../../contexts/ShopContext';
+import useShop from '&/contexts/ShopContext';
 
 interface DangerTabProps {
   isDesktop: boolean;

@@ -1,15 +1,15 @@
 import { ReactNode, useState } from 'react';
-import { useRouter } from 'next/router';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 
 import { AppShell, Container, Header, Navbar } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 
-import DashboardHeader from '../dashboard/headers/DashboardHeader';
-import Links from '../dashboard/sidenavs/Links';
-import Shops from '../dashboard/sidenavs/Shops';
-import navigationConfig, { DashboardRoutes } from '../../configs/NavigationConfig';
-import utils from '../../utils/utils';
+import DashboardHeader from '&/components/dashboard/headers/DashboardHeader';
+import Links from '&/components/dashboard/sidenavs/Links';
+import Shops from '&/components/dashboard/sidenavs/Shops';
+import navigationConfig, { DashboardRoutes } from '&/configs/NavigationConfig';
+import utils from '&/utils/utils';
 
 interface LayoutProps {
   children: ReactNode;

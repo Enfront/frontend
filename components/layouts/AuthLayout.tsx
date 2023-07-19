@@ -1,10 +1,10 @@
 import { ReactNode } from 'react';
-import Head from 'next/head';
 import Image from 'next/future/image';
+import Head from 'next/head';
 
 import { useMediaQuery } from '@mantine/hooks';
 
-import backgroundImage from '../../public/backgrounds/background-auth.jpg';
+import backgroundImage from '&/public/backgrounds/background-auth.jpg';
 
 interface AuthLayoutProps {
   children: ReactNode;

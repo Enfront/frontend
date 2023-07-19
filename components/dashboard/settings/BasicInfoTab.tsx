@@ -6,9 +6,9 @@ import { useModals } from '@mantine/modals';
 import { showNotification } from '@mantine/notifications';
 import axios, { AxiosError } from 'axios';
 
-import useShop from '../../../contexts/ShopContext';
-import utils from '../../../utils/utils';
-import { ShopSettingsFormData, ShopStatus } from '../../../types/types';
+import useShop from '&/contexts/ShopContext';
+import { ShopSettingsFormData, ShopStatus } from '&/types/types';
+import utils from '&/utils/utils';
 
 interface BasicInfoProps {
   isDesktop: boolean;

@@ -3,10 +3,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { Flex, Group, Paper, Stack, Text, Title } from '@mantine/core';
-import NumberFormat from 'react-number-format';
 import { getSymbolWithIsoCode } from 'jkshop-country-list/dist/countryFinder';
+import NumberFormat from 'react-number-format';
 
-import { DashboardProduct, ShopData } from '../../../types/types';
+import { DashboardProduct, ShopData } from '&/types/types';
 
 interface TopProducts {
   isDesktop: boolean;

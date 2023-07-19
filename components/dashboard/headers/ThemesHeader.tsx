@@ -1,14 +1,14 @@
 import { useState } from 'react';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import { ActionIcon, Burger, Button, Group, MediaQuery, Select, useMantineTheme } from '@mantine/core';
-import { DeviceDesktop, DeviceMobile, DeviceTablet } from 'tabler-icons-react';
 import axios, { AxiosError } from 'axios';
+import { DeviceDesktop, DeviceMobile, DeviceTablet } from 'tabler-icons-react';
 
-import useTheme from '../../../contexts/ThemeContext';
-import useShop from '../../../contexts/ShopContext';
-import ChangeTheme from '../themes/ChangeTheme';
+import ChangeTheme from '&/components/dashboard/themes/ChangeTheme';
+import useShop from '&/contexts/ShopContext';
+import useTheme from '&/contexts/ThemeContext';
 
 interface ThemesHeaderProps {
   sidebarOpen: boolean;

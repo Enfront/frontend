@@ -2,7 +2,7 @@ import Image from 'next/future/image';
 
 import { Container, Text, Title } from '@mantine/core';
 
-import backgroundImage from '../../../public/backgrounds/background-faqs.jpg';
+import backgroundImage from '&/public/backgrounds/background-faqs.jpg';
 
 const faqs = [
   [

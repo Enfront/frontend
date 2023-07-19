@@ -2,8 +2,8 @@ import { createContext, ReactNode, useCallback, useContext, useEffect, useState 
 
 import axios, { AxiosResponse } from 'axios';
 
-import useAuth from './AuthContext';
-import { ShopData } from '../types/types';
+import useAuth from '&/contexts/AuthContext';
+import { ShopData } from '&/types/types';
 
 interface ShopExports {
   getUserShops(): Promise<void>;

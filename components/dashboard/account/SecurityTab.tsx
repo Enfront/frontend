@@ -5,9 +5,9 @@ import { useShallowEffect } from '@mantine/hooks';
 import { useModals } from '@mantine/modals';
 import axios, { AxiosResponse } from 'axios';
 
-import useAuth from '../../../contexts/AuthContext';
-import TwoFactorModal from './TwoFactorModal';
-import { TwoFactor } from '../../../types/types';
+import TwoFactorModal from '&/components/dashboard/account/TwoFactorModal';
+import useAuth from '&/contexts/AuthContext';
+import { TwoFactor } from '&/types/types';
 
 interface SecurityTabProps {
   isDesktop: boolean;

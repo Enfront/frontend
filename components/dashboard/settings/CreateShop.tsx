@@ -4,9 +4,9 @@ import { Button, Drawer, Group, Select, SelectItem, Stack, Text, Textarea, TextI
 import { useForm } from '@mantine/form';
 import axios, { AxiosError, AxiosResponse } from 'axios';
 
-import useShop from '../../../contexts/ShopContext';
-import utils from '../../../utils/utils';
-import { Country, CreateShopFormData, Currency as EnfrontCurrency } from '../../../types/types';
+import useShop from '&/contexts/ShopContext';
+import { Country, CreateShopFormData, Currency as EnfrontCurrency } from '&/types/types';
+import utils from '&/utils/utils';
 
 interface CreateShopProps {
   isVisible: boolean;

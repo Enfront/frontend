@@ -1,19 +1,19 @@
 import type { AppProps } from 'next/app';
 
 import 'leaflet/dist/leaflet.css';
-import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
-import { ColorSchemeProvider, ColorScheme, MantineProvider } from '@mantine/core';
-import { NotificationsProvider } from '@mantine/notifications';
-import { ModalsProvider } from '@mantine/modals';
+
+import { ColorScheme, ColorSchemeProvider, MantineProvider } from '@mantine/core';
 import { useLocalStorage } from '@mantine/hooks';
+import { ModalsProvider } from '@mantine/modals';
+import { NotificationsProvider } from '@mantine/notifications';
+import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 
-import { AuthProvider } from '../contexts/AuthContext';
-import { ShopProvider } from '../contexts/ShopContext';
-import { ThemeProvider } from '../contexts/ThemeContext';
+import ChatwootWidget from '&/components/public/live-chat/ChatWootWidget';
+import { AuthProvider } from '&/contexts/AuthContext';
+import { ShopProvider } from '&/contexts/ShopContext';
+import { ThemeProvider } from '&/contexts/ThemeContext';
 
-import ChatwootWidget from '../components/public/live-chat/ChatWootWidget';
-
-import '../styles/globals.scss';
+import '&/styles/globals.scss';
 
 function Enfront({ Component, pageProps }: AppProps): JSX.Element {
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({

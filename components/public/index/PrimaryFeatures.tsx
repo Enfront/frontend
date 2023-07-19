@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/future/image';
 
-import { Container, Text, Title } from '@mantine/core';
 import { Tab } from '@headlessui/react';
+import { Container, Text, Title } from '@mantine/core';
 import clsx from 'clsx';
 
-import screenshotProduct from '../../../public/screenshots/product.png';
-import screenshotOrder from '../../../public/screenshots/order.png';
-import screenshotCustomer from '../../../public/screenshots/customer.png';
-import screenshotTheme from '../../../public/screenshots/theme.png';
+import screenshotCustomer from '&/public/screenshots/customer.png';
+import screenshotOrder from '&/public/screenshots/order.png';
+import screenshotProduct from '&/public/screenshots/product.png';
+import screenshotTheme from '&/public/screenshots/theme.png';
 
 const features = [
   {

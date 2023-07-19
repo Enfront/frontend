@@ -1,8 +1,8 @@
 import Link from 'next/link';
 
-import { Anchor, Container, Title, Text, List, Stack } from '@mantine/core';
+import { Anchor, Container, List, Stack, Text, Title } from '@mantine/core';
 
-import PublicLayout from '../../components/layouts/PublicLayout';
+import PublicLayout from '&/components/layouts/PublicLayout';
 
 function Index(): JSX.Element {
   return (

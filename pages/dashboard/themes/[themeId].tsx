@@ -2,12 +2,11 @@ import { useRouter } from 'next/router';
 
 import { Stack } from '@mantine/core';
 
-import useShop from '../../../contexts/ShopContext';
-import useTheme from '../../../contexts/ThemeContext';
-import { ProtectedRoute } from '../../../contexts/AuthContext';
-import utils from '../../../utils/utils';
-
-import ThemeEditorLayout from '../../../components/layouts/ThemeEditorLayout';
+import ThemeEditorLayout from '&/components/layouts/ThemeEditorLayout';
+import { ProtectedRoute } from '&/contexts/AuthContext';
+import useShop from '&/contexts/ShopContext';
+import useTheme from '&/contexts/ThemeContext';
+import utils from '&/utils/utils';
 
 function ThemeId(): JSX.Element {
   const router = useRouter();

@@ -4,7 +4,7 @@ import { NextRouter } from 'next/router';
 import { Avatar, Badge, Divider, Group, Pagination, Paper, Stack, Table, Text } from '@mantine/core';
 import { format, parseISO } from 'date-fns';
 
-import { Customer, CustomerPagination } from '../../../types/types';
+import { Customer, CustomerPagination } from '&/types/types';
 
 interface ListProps {
   customers: CustomerPagination;

@@ -4,9 +4,9 @@ import { useRouter } from 'next/router';
 import { Avatar, Box, Button, Group, Menu, Stack, Text, UnstyledButton, useMantineTheme } from '@mantine/core';
 import { ChevronRight } from 'tabler-icons-react';
 
-import useShop from '../../../contexts/ShopContext';
-import CreateShop from '../settings/CreateShop';
-import { ShopData } from '../../../types/types';
+import CreateShop from '&/components/dashboard/settings/CreateShop';
+import useShop from '&/contexts/ShopContext';
+import { ShopData } from '&/types/types';
 
 function Shops(): JSX.Element {
   const router = useRouter();

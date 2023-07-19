@@ -4,5 +4,30 @@
   "printWidth": 120,
   "singleQuote": true,
   "trailingComma": "all",
-  "bracketSameLine": false
+  "bracketSameLine": false,
+  "importOrder": [
+    "^(react/(.*)$)|^(react$)",
+    "^(next/(.*)$)|^(next$)",
+    "",
+    "<THIRD_PARTY_MODULES>",
+    "",
+    "^&/components/(.*)$|^(&/components$)",
+    "^&/configs/(.*)$|^(&/configs$)",
+    "^&/contexts/(.*)$|^(&/contexts)",
+    "^&/pages/(.*)$|^(&/pages)",
+    "^&/public/(.*)$|^(&/public)",
+    "^&/styles/(.*)$|^(&/styles)",
+    "^&/types/(.*)$|^(&/types)",
+    "^&/utils/(.*)$|^(&/utils)",
+    "",
+    "^&/__mocks__/(.*)$|^(&/__mocks__)",
+    "^&/__tests__/(.*)$|^(&/__tests__)",
+    "",
+    "&/.*",
+    "",
+    "^[./]"
+  ],
+  "importOrderSortSpecifiers": true,
+  "importOrderMergeDuplicateImports": true,
+  "importOrderCombineTypeAndValueImports": true
 }

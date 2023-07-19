@@ -5,7 +5,7 @@ import { Group, Input, NumberInput, TextInput } from '@mantine/core';
 import { UseFormReturnType } from '@mantine/form';
 import { getSymbolWithIsoCode } from 'jkshop-country-list/dist/countryFinder';
 
-import { ProductFormData } from '../../../types/types';
+import { ProductFormData } from '&/types/types';
 
 const QuillNoSSRWrapper = dynamic(() => import('@mantine/rte'), {
   ssr: false,
