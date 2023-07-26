@@ -290,13 +290,6 @@ export interface OrderStatusItemKey {
   status: number;
 }
 
-export interface PayoutFormData {
-  shop: string;
-  amount: number;
-  destination: string;
-  currency: 'BTC' | string;
-}
-
 export interface PayoutHistory {
   amount: number;
   created_at: string;

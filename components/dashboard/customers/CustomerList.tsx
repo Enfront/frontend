@@ -123,7 +123,7 @@ function CustomerList({ customers, isDesktop, page, router, setPage, shownCustom
 
       {customers.count >= 10 && (
         <Pagination
-          page={page}
+          value={page}
           onChange={changeCustomerPage}
           total={Math.ceil(customers.count / 10)}
           position={isDesktop ? 'right' : 'center'}

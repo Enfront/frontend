@@ -245,7 +245,7 @@ function Details({ commentCount, customerData, viewedOrder }: OrderDetailsProps)
                   position="bottom"
                   trapFocus={false}
                   closeOnEscape={false}
-                  transition="pop-top-left"
+                  transitionProps={{ transition: 'pop-top-left' }}
                   withArrow
                 >
                   <Popover.Target>

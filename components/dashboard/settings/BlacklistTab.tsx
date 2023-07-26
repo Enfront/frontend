@@ -201,7 +201,7 @@ function BlackListTab({ isDesktop, openModal, setOpenModal }: BlacklistProps): J
 
       {blacklist.count > 0 && (
         <Pagination
-          page={page}
+          value={page}
           onChange={changeBlacklistPage}
           total={Math.ceil(blacklist.count / 10)}
           position={isDesktop ? 'right' : 'center'}

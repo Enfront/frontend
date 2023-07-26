@@ -2,10 +2,9 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import { Anchor, Button, Flex, Input, PasswordInput, Stack, Text, TextInput, Title } from '@mantine/core';
+import { Anchor, Button, Flex, Input, PasswordInput, PinInput, Stack, Text, TextInput, Title } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
-import OtpInput from 'react-otp-input';
 
 import AuthLayout from '&/components/layouts/AuthLayout';
 import useAuth from '&/contexts/AuthContext';
@@ -134,16 +133,16 @@ function SignIn(): JSX.Element {
             chosen during setup.
           </Text>
 
-          <Input.Wrapper error={authError}>
-            <OtpInput
+          <Input.Wrapper error={authError} aria-label="One time code">
+            <PinInput
+              className="justify-between"
               onChange={(value: string) => setTwoFactorCode(value)}
               value={twoFactorCode}
-              numInputs={6}
-              inputStyle="two-factor"
-              containerStyle="two-factor-container"
-              errorStyle="error"
-              hasErrored={!!authError}
-              isInputNum
+              length={6}
+              type="number"
+              error={!!authError}
+              size="lg"
+              oneTimeCode
             />
           </Input.Wrapper>
 

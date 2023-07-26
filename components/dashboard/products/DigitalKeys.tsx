@@ -15,7 +15,7 @@ import {
 import { UseFormReturnType } from '@mantine/form';
 import { useClipboard } from '@mantine/hooks';
 import { showNotification } from '@mantine/notifications';
-import { IconChevronDown, IconFileSpreadsheet } from '@tabler/icons';
+import { IconChevronDown, IconFileSpreadsheet } from '@tabler/icons-react';
 import axios from 'axios';
 import { format, parseISO } from 'date-fns';
 import { CSVLink } from 'react-csv';
@@ -157,8 +157,7 @@ function DigitalKeys({ form, getViewedProduct, shownKeys }: DigitalKeysProps): J
                 offset={5}
                 position="bottom"
                 radius="xl"
-                transition="slide-down"
-                transitionDuration={100}
+                transitionProps={{ duration: 100, transition: 'slide-down' }}
                 opened={clipboard.copied}
               >
                 <Button className="rounded-r-none" onClick={() => copyKeys()} disabled={selection.length === 0}>
@@ -166,7 +165,7 @@ function DigitalKeys({ form, getViewedProduct, shownKeys }: DigitalKeysProps): J
                 </Button>
               </Tooltip>
 
-              <Menu transition="pop" position="bottom-end">
+              <Menu transitionProps={{ transition: 'pop' }} position="bottom-end">
                 <Menu.Target>
                   <ActionIcon
                     className={`rounded-l-none border-l ${

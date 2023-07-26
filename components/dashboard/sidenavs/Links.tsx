@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 
 import { Box, Collapse, createStyles, Flex, Group, Text, ThemeIcon, Title, UnstyledButton } from '@mantine/core';
-import { IconChevronRight } from '@tabler/icons';
+import { IconChevronRight } from '@tabler/icons-react';
 
 import { DashboardRoutes } from '&/configs/NavigationConfig';
 import useShop from '&/contexts/ShopContext';
@@ -20,7 +20,7 @@ const useStyles = createStyles((theme) => ({
     fontSize: theme.fontSizes.sm,
     fontWeight: 500,
     marginBottom: 4,
-    padding: `${theme.spacing.xs}px ${theme.spacing.xs}px`,
+    padding: `${theme.spacing.xs} ${theme.spacing.xs}`,
     width: '100%',
 
     '&:hover': {
@@ -37,7 +37,7 @@ const useStyles = createStyles((theme) => ({
     fontSize: theme.fontSizes.sm,
     fontWeight: 500,
     marginLeft: 30,
-    padding: `${theme.spacing.xs}px ${theme.spacing.md}px`,
+    padding: `${theme.spacing.xs} ${theme.spacing.md}`,
     paddingLeft: 31,
     textDecoration: 'none',
 

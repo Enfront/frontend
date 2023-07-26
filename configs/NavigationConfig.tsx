@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import { Receipt, LayoutDashboard, Tag, Home, Users, LayoutNavbar } from 'tabler-icons-react';
+import { IconHome, IconLayoutDashboard, IconLayoutNavbar, IconReceipt, IconTag, IconUsers } from '@tabler/icons-react';
 
 export interface DashboardRoutes {
   key: string;
@@ -17,14 +17,14 @@ export const dashboardNavTree: DashboardRoutes[] = [
     key: 'dashboard',
     path: '/dashboard',
     title: 'Dashboard',
-    icon: <Home size={21} />,
+    icon: <IconHome size={21} />,
     color: 'teal',
     breadcrumb: false,
   },
   {
     key: 'products',
     title: 'Products',
-    icon: <Tag size={21} />,
+    icon: <IconTag size={21} />,
     color: 'blue',
     breadcrumb: false,
     submenu: [
@@ -46,7 +46,7 @@ export const dashboardNavTree: DashboardRoutes[] = [
     key: 'orders',
     path: '/dashboard/orders',
     title: 'Orders',
-    icon: <Receipt size={21} />,
+    icon: <IconReceipt size={21} />,
     color: 'indigo',
     breadcrumb: false,
   },
@@ -54,7 +54,7 @@ export const dashboardNavTree: DashboardRoutes[] = [
     key: 'customers',
     path: '/dashboard/customers',
     title: 'Customers',
-    icon: <Users size={21} />,
+    icon: <IconUsers size={21} />,
     color: 'violet',
     breadcrumb: false,
   },
@@ -62,7 +62,7 @@ export const dashboardNavTree: DashboardRoutes[] = [
     key: 'themes',
     path: '/dashboard/themes',
     title: 'Themes',
-    icon: <LayoutNavbar size={21} />,
+    icon: <IconLayoutNavbar size={21} />,
     color: 'grape',
     breadcrumb: false,
   },
@@ -70,7 +70,7 @@ export const dashboardNavTree: DashboardRoutes[] = [
     key: 'shop',
     path: '/dashboard/settings',
     title: 'Shop Settings',
-    icon: <LayoutDashboard size={21} />,
+    icon: <IconLayoutDashboard size={21} />,
     color: 'pink',
     breadcrumb: false,
   },

@@ -146,7 +146,7 @@ function PayoutsTab(): JSX.Element {
 
           <Pagination
             className="mt-12"
-            page={page}
+            value={page}
             onChange={changeHistoryPage}
             total={Math.ceil(payoutHistoryCount / 10)}
             position="right"

@@ -234,7 +234,7 @@ function OrderList({
 
       {shownOrders.length > 0 && (
         <Pagination
-          page={page}
+          value={page}
           onChange={changeOrderPage}
           total={Math.ceil(orders.count / 10)}
           position={isDesktop ? 'right' : 'center'}

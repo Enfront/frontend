@@ -113,7 +113,7 @@ function ThemesSidenav({ existingConfig, setExistingConfig, settingsScheme }: Th
           //       showNotification({
           //         title: 'Uh oh!',
           //         message:
-          //           'There was an issue uploading this image. The max size is 3mb and we only accept .png, .gif, .jpeg & .webp.',
+          //           'There was an issue uploading this image. The max size is 3mb, and we only accept .png, .gif, .jpeg & .webp.',
           //         color: 'red',
           //       });
           //     }}

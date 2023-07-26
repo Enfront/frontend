@@ -1,12 +1,11 @@
 import { useRef, useState } from 'react';
 import Image from 'next/image';
 
-import { Button, Flex, Group, Input, Text, TextInput, Tooltip } from '@mantine/core';
+import { Button, Flex, Group, Input, PinInput, Text, TextInput, Tooltip } from '@mantine/core';
 import { useClipboard } from '@mantine/hooks';
 import { ModalsContextProps } from '@mantine/modals/lib/context';
-import { IconCheck, IconCopy } from '@tabler/icons';
+import { IconCheck, IconCopy } from '@tabler/icons-react';
 import axios, { AxiosError, AxiosResponse } from 'axios';
-import OtpInput from 'react-otp-input';
 
 interface TwoFactorModalProps {
   checkTwoFactorMethods: () => void;
@@ -125,15 +124,15 @@ function TwoFactorModal({ checkTwoFactorMethods, disable, email, modals }: TwoFa
           </Flex>
 
           <Input.Wrapper label="Verification code" error={confirmError} mt="md" pb="md">
-            <OtpInput
+            <PinInput
+              className="justify-between"
               onChange={(event: string) => setCode(event)}
               value={code}
-              numInputs={6}
-              inputStyle="two-factor"
-              containerStyle="two-factor-container"
-              hasErrored={!!confirmError}
-              errorStyle="error"
-              isInputNum
+              length={6}
+              type="number"
+              error={!!confirmError}
+              size="lg"
+              oneTimeCode
             />
           </Input.Wrapper>
 
@@ -165,8 +164,7 @@ function TwoFactorModal({ checkTwoFactorMethods, disable, email, modals }: TwoFa
                 offset={5}
                 position="bottom"
                 radius="xl"
-                transition="slide-down"
-                transitionDuration={100}
+                transitionProps={{ duration: 100, transition: 'slide-down' }}
                 opened={clipboard.copied}
                 key={backupCode}
               >
@@ -210,15 +208,15 @@ function TwoFactorModal({ checkTwoFactorMethods, disable, email, modals }: TwoFa
           </Text>
 
           <Input.Wrapper label="Verification code" error={confirmError} mt="md" pb="md">
-            <OtpInput
+            <PinInput
+              className="justify-between"
               onChange={(event: string) => setCode(event)}
               value={code}
-              numInputs={6}
-              inputStyle="two-factor"
-              containerStyle="two-factor-container"
-              hasErrored={!!confirmError}
-              errorStyle="error"
-              isInputNum
+              length={6}
+              type="number"
+              error={!!confirmError}
+              size="lg"
+              oneTimeCode
             />
           </Input.Wrapper>
 

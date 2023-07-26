@@ -1,9 +1,9 @@
 import Image from 'next/future/image';
+import Link from 'next/link';
 
 import { Avatar, Burger, Code, Group, Menu, Text, useMantineColorScheme, useMantineTheme } from '@mantine/core';
 import { useMediaQuery, useShallowEffect } from '@mantine/hooks';
 import { useModals } from '@mantine/modals';
-import { NextLink } from '@mantine/next';
 import { FileDiff, Logout, MoonStars, Settings, Sun } from 'tabler-icons-react';
 
 import WhatsNew from '&/components/dashboard/WhatsNew';
@@ -91,9 +91,11 @@ function DashboardHeader({ sidebarOpen, setSidebarOpen }: DashboardHeaderProps):
             <Menu.Divider />
 
             {accountNavigationConfig.map((item: AccountRoutes) => (
-              <Menu.Item component={NextLink} href={item.path} icon={<Settings size={16} />} lh={1.15} key={item.key}>
-                {item.title}
-              </Menu.Item>
+              <Link href={item.path} passHref key={item.key}>
+                <Menu.Item component="a" icon={<Settings size={16} />} lh={1.15}>
+                  {item.title}
+                </Menu.Item>
+              </Link>
             ))}
 
             <Menu.Item onClick={() => openWhatsNewModal()} icon={<FileDiff size={16} />}>

@@ -5,7 +5,7 @@ import 'leaflet/dist/leaflet.css';
 import { ColorScheme, ColorSchemeProvider, MantineProvider } from '@mantine/core';
 import { useLocalStorage } from '@mantine/hooks';
 import { ModalsProvider } from '@mantine/modals';
-import { NotificationsProvider } from '@mantine/notifications';
+import { Notifications } from '@mantine/notifications';
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 
 import ChatwootWidget from '&/components/public/live-chat/ChatWootWidget';
@@ -35,7 +35,6 @@ function Enfront({ Component, pageProps }: AppProps): JSX.Element {
             withNormalizeCSS
             theme={{
               colorScheme,
-              fontFamily: 'Inter, sans-serif',
               colors: {
                 brand: [
                   '#d3e0fb',
@@ -50,22 +49,22 @@ function Enfront({ Component, pageProps }: AppProps): JSX.Element {
                   '#133276',
                 ],
               },
+              fontFamily: 'Inter, sans-serif',
               headings: { fontFamily: 'Inter, sans-serif' },
               primaryColor: 'brand',
-              spacing: { xs: 10, sm: 12, md: 16, lg: 20, xl: 24, xxl: 32 },
+              spacing: { xs: '0.625rem', sm: '0.75rem', md: '1rem', lg: '1.25rem', xl: '1.5rem', xxl: '2rem' },
             }}
           >
-            <NotificationsProvider position="top-right">
-              <ModalsProvider>
-                <AuthProvider>
-                  <ShopProvider>
-                    <ThemeProvider>
-                      <Component {...pageProps} />
-                    </ThemeProvider>
-                  </ShopProvider>
-                </AuthProvider>
-              </ModalsProvider>
-            </NotificationsProvider>
+            <ModalsProvider>
+              <AuthProvider>
+                <ShopProvider>
+                  <ThemeProvider>
+                    <Notifications position="top-right" />
+                    <Component {...pageProps} />
+                  </ThemeProvider>
+                </ShopProvider>
+              </AuthProvider>
+            </ModalsProvider>
           </MantineProvider>
         </ColorSchemeProvider>
       </GoogleReCaptchaProvider>

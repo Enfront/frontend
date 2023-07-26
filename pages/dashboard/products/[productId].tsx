@@ -38,12 +38,12 @@ function Index(): JSX.Element {
   const [images, setImages] = useState<ImageType[]>([]);
   const [viewedProduct, setViewedProduct] = useState<Product>(initialProduct);
   const [shownItems, setShownItems] = useState<Item[]>([]);
-  const [description, setDescription] = useState<string>('');
   const [disableVisibilityToggle, setDisableVisibilityToggle] = useState<boolean>(false);
 
   const form = useForm<ProductFormData>({
     initialValues: {
       name: '',
+      description: '',
       price: 0,
       keys: '',
       status: '0',
@@ -113,13 +113,16 @@ function Index(): JSX.Element {
         .get(`${process.env.NEXT_PUBLIC_API_URL}/products/${productId}`)
         .then((response: AxiosResponse) => {
           setViewedProduct(response.data.data);
-          setDescription(response.data.data.description);
           setShownItems(response.data.data.keys);
 
           form.setFieldValue('name', response.data.data.name);
           form.setFieldValue('price', +response.data.data.price / 100);
           form.setFieldValue('min_order_quantity', response.data.data.min_order_quantity);
           form.setFieldValue('max_order_quantity', response.data.data.max_order_quantity);
+
+          if (response.data.data.description) {
+            form.setFieldValue('description', response.data.data.description);
+          }
 
           checkProductStatus(response.data.data);
         })
@@ -141,10 +144,13 @@ function Index(): JSX.Element {
   const onSubmit = async (data: ProductFormData): Promise<void> => {
     const formData: FormData = new FormData();
     formData.append('name', data.name);
-    formData.append('description', description);
     formData.append('type', '0');
     formData.append('price', Math.round(data.price * 100).toString());
     formData.append('status', data.status);
+
+    if (data.description) {
+      formData.append('description', data.description);
+    }
 
     if (data.min_order_quantity) {
       formData.append('min_order_quantity', data.min_order_quantity.toString());
@@ -274,12 +280,7 @@ function Index(): JSX.Element {
                 General Information
               </Title>
 
-              <GeneralInformation
-                description={description}
-                form={form}
-                setDescription={setDescription}
-                shopCurrency={selectedShop.currency}
-              />
+              <GeneralInformation form={form} shopCurrency={selectedShop.currency} />
             </Stack>
 
             <Stack py={32}>
