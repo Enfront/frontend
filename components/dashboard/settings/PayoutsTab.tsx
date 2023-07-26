@@ -103,7 +103,7 @@ function PayoutsTab(): JSX.Element {
               Bitcoin (BTC)
             </Text>
 
-            <Image src="/brands/bitcoin.png" height={24} width={24} />
+            <Image src="/brands/bitcoin.png" height={24} width={24} alt="Bitcoin logo" />
           </Group>
 
           <Group align="flex-end" spacing="xs" mt={25}>

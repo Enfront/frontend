@@ -96,7 +96,7 @@ function ProductList({ isDesktop, router, shownProducts, selectedShop }: Product
                 <tr className="cursor-pointer" onClick={() => gotoProductDetails(product.ref_id)} key={product.ref_id}>
                   <td>
                     <div className="flex items-center">
-                      <div className="relative h-10 w-10 flex-shrink-0">
+                      <div className="relative h-10 w-10 shrink-0">
                         {product.images.length > 0 ? (
                           <Image
                             className="block rounded object-cover"
@@ -167,7 +167,7 @@ function ProductList({ isDesktop, router, shownProducts, selectedShop }: Product
               withBorder
             >
               <Group align="flex-start" spacing={8} noWrap>
-                <div className="relative h-10 w-10 flex-shrink-0">
+                <div className="relative h-10 w-10 shrink-0">
                   {product.images.length > 0 ? (
                     <Image
                       className="block rounded object-cover"

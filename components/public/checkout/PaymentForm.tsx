@@ -206,7 +206,7 @@ function PaymentForm({ buyerEmail, getOrderInfo, existingCryptoOrder, shopCurren
                 className="block h-[42px] w-full bg-[#6A5BFA] hover:bg-[#6355ea]"
                 onClick={() => startStripeCheckout()}
               >
-                <Image src="/brands/stripe_logo_white.png" height={36} width={72} />
+                <Image src="/brands/stripe_logo_white.png" height={36} width={72} alt="Stripe logo" />
               </Button>
             )}
           </SimpleGrid>

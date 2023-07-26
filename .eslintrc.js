@@ -8,16 +8,11 @@ module.exports = {
   },
   extends: [
     'next',
-    'next/core-web-vitals',
-    'eslint:recommended',
-    'airbnb',
-    'airbnb/hooks',
-    'plugin:react/recommended',
-    'plugin:import/errors',
-    'plugin:import/warnings',
+    // 'eslint:recommended',
+    // 'next/core-web-vitals',
+    // 'plugin:@typescript-eslint/recommended',
     'plugin:jsx-a11y/recommended',
-    'plugin:react-hooks/recommended',
-    'plugin:@typescript-eslint/recommended',
+    'plugin:tailwindcss/recommended',
     'plugin:prettier/recommended',
   ],
   globals: {
@@ -98,6 +93,12 @@ module.exports = {
         required: {
           some: ['nesting', 'id'],
         },
+      },
+    ],
+    'tailwindcss/no-custom-classname': [
+      'error',
+      {
+        whitelist: ['no-scrollbar', 'loader', 'loader__text'],
       },
     ],
   },

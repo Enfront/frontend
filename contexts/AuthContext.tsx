@@ -349,8 +349,12 @@ export default function useAuth(): AuthExports {
   return useContext(AuthContext);
 }
 
-export const ProtectedRoute = (WrappedComponent: (props: never) => JSX.Element): ((props: never) => void) => {
-  const AuthGuard = (props: never) => {
+type WrappedComponentProps = Record<string, any>;
+
+export const ProtectedRoute = (
+  WrappedComponent: (props: WrappedComponentProps) => JSX.Element,
+): ((props: WrappedComponentProps) => JSX.Element | null) => {
+  const AuthGuard = (props: WrappedComponentProps) => {
     const { isProcessing, isAuthenticated } = useAuth();
     const router = useRouter();
 
@@ -360,6 +364,7 @@ export const ProtectedRoute = (WrappedComponent: (props: never) => JSX.Element):
 
     if (!isProcessing && !isAuthenticated) {
       router.push('/sign-in');
+      return null;
     }
 
     if (!isProcessing && isAuthenticated) {

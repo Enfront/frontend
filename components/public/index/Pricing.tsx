@@ -48,16 +48,16 @@ function Plan({ name, price, description, href, features, featured = false }: Pl
         featured ? 'order-first bg-blue-600 py-8 lg:order-none' : 'lg:py-8',
       )}
     >
-      <Title className="font-display mt-5 mb-0 text-lg text-white" order={3}>
+      <Title className="mb-0 mt-5 text-lg text-white" order={3}>
         {name}
       </Title>
 
       <Text className={clsx('mt-2 text-base', featured ? 'text-white' : 'text-slate-400')}>{description}</Text>
-      <Text className="font-display order-first m-0 text-5xl font-light tracking-tight text-white">{price}</Text>
+      <Text className="order-first m-0 text-5xl font-light tracking-tight text-white">{price}</Text>
 
       <ul
         className={clsx(
-          'order-last mt-10 mb-0 flex flex-col gap-y-3 p-0 text-sm',
+          'order-last mb-0 mt-10 flex flex-col gap-y-3 p-0 text-sm',
           featured ? 'text-white' : 'text-slate-200',
         )}
       >
@@ -94,9 +94,9 @@ function Pricing(): JSX.Element {
     <section id="pricing" aria-label="Pricing" className="bg-slate-900 py-20 sm:py-32">
       <Container size="xl">
         <div className="md:text-center">
-          <Title className="font-display text-3xl tracking-tight text-white sm:text-4xl" order={2}>
+          <Title className="text-3xl tracking-tight text-white sm:text-4xl" order={2}>
             <span className="relative whitespace-nowrap">
-              <SwirlyDoodle className="absolute top-1/2 left-0 h-[1em] w-full fill-blue-400" />
+              <SwirlyDoodle className="absolute left-0 top-1/2 h-[1em] w-full fill-blue-400" />
               <span className="relative">Simple pricing,</span>
             </span>{' '}
             for everyone.

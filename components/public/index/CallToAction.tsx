@@ -9,7 +9,7 @@ function CallToAction(): JSX.Element {
   return (
     <section id="get-started-today" className="relative overflow-hidden bg-blue-600 py-32">
       <Image
-        className="absolute -top-3/4 -left-1/4 max-w-none"
+        className="absolute -left-1/4 -top-3/4 max-w-none"
         src={backgroundImage}
         alt=""
         width={2347}
@@ -19,7 +19,7 @@ function CallToAction(): JSX.Element {
 
       <Container className="relative" size="xl">
         <div className="mx-auto max-w-lg text-center">
-          <Title className="font-display text-3xl tracking-tight text-white sm:text-4xl" order={2}>
+          <Title className="text-3xl tracking-tight text-white sm:text-4xl" order={2}>
             Get started today
           </Title>
 

@@ -58,7 +58,7 @@ function Faqs(): JSX.Element {
 
       <Container className="relative" size="xl">
         <div className="mx-auto max-w-2xl lg:mx-0">
-          <Title id="faq-title" className="font-display text-3xl tracking-tight text-slate-900 sm:text-4xl" order={2}>
+          <Title id="faq-title" className="text-3xl tracking-tight text-slate-900 sm:text-4xl" order={2}>
             Frequently asked questions
           </Title>
 
@@ -68,14 +68,14 @@ function Faqs(): JSX.Element {
           </Text>
         </div>
 
-        <ul className="mx-auto mt-16 mb-0 grid max-w-2xl list-none grid-cols-1 gap-8 pl-0 lg:max-w-none lg:grid-cols-3">
+        <ul className="mx-auto mb-0 mt-16 grid max-w-2xl list-none grid-cols-1 gap-8 pl-0 lg:max-w-none lg:grid-cols-3">
           {faqs.map((column, columnIndex) => (
             // eslint-disable-next-line react/no-array-index-key
             <li key={columnIndex}>
               <ul className="flex list-none flex-col gap-y-8 pl-0">
                 {column.map((faq: { answer: string; question: string }) => (
                   <li key={faq.question}>
-                    <Title className="font-display text-lg leading-7 text-slate-900" order={3}>
+                    <Title className="text-lg leading-7 text-slate-900" order={3}>
                       {faq.question}
                     </Title>
                     <Text className="mt-4 text-sm text-slate-700">{faq.answer}</Text>

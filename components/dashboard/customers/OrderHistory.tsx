@@ -154,7 +154,7 @@ function OrderHistory({ orders, setPage, totalOrdersCount }: OrderHistoryProps):
 
       {totalOrdersCount > 10 && (
         <Pagination
-          className="mt-12 mb-12"
+          className="my-12"
           onChange={setPage}
           total={Math.floor(totalOrdersCount / 10)}
           position="right"

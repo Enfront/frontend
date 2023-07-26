@@ -29,5 +29,6 @@
   ],
   "importOrderSortSpecifiers": true,
   "importOrderMergeDuplicateImports": true,
-  "importOrderCombineTypeAndValueImports": true
+  "importOrderCombineTypeAndValueImports": true,
+  "plugins": ["prettier-plugin-tailwindcss"]
 }

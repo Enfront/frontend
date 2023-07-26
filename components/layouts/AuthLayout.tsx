@@ -37,7 +37,7 @@ function AuthLayout({ children, metaDescription, pageTitle }: AuthLayoutProps): 
           style={{ position: 'absolute', top: '1.5rem', left: '1.5rem', zIndex: 99 }}
         />
 
-        <div className="relative z-10 flex flex-1 flex-col bg-white py-10 px-4 shadow-2xl sm:justify-center md:flex-none md:px-28">
+        <div className="relative z-10 flex flex-1 flex-col bg-white px-4 py-10 shadow-2xl sm:justify-center md:flex-none md:px-28">
           <div className="mx-auto w-full max-w-md sm:px-4 md:w-96 md:max-w-sm md:px-0">{children}</div>
         </div>
 

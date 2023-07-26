@@ -100,7 +100,7 @@ function Feature({ feature, isActive, className, ...props }: FeatureProps) {
         {feature.name}
       </Title>
 
-      <Text className="font-display mt-2 text-xl text-slate-900" size="md">
+      <Text className="mt-2 text-xl text-slate-900" size="md">
         {feature.summary}
       </Text>
     </div>
@@ -156,7 +156,7 @@ function FeaturesDesktop() {
             ))}
           </Tab.List>
 
-          <Tab.Panels className="rounded-4xl relative mt-20 overflow-hidden bg-slate-200 px-14 py-16 xl:px-16">
+          <Tab.Panels className="relative mt-20 overflow-hidden bg-slate-200 px-14 py-16 xl:px-16">
             <div className="-mx-5 flex">
               {features.map((feature, featureIndex) => (
                 <Tab.Panel
@@ -176,7 +176,7 @@ function FeaturesDesktop() {
               ))}
             </div>
 
-            <div className="rounded-4xl pointer-events-none absolute inset-0 ring-1 ring-inset ring-slate-900/10" />
+            <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-slate-900/10" />
           </Tab.Panels>
         </>
       )}
@@ -189,11 +189,11 @@ function SecondaryFeatures(): JSX.Element {
     <section
       id="secondary-features"
       aria-label="Features for simplifying everyday business tasks"
-      className="pt-20 pb-14 sm:pb-20 sm:pt-32 lg:pb-32"
+      className="pb-14 pt-20 sm:pb-20 sm:pt-32 lg:pb-32"
     >
       <Container size="xl">
         <div className="mx-auto max-w-2xl md:text-center">
-          <Title className="font-display text-3xl tracking-tight text-slate-900 sm:text-4xl" order={2}>
+          <Title className="text-3xl tracking-tight text-slate-900 sm:text-4xl" order={2}>
             Simplify everyday business tasks.
           </Title>
 

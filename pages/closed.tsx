@@ -2,9 +2,9 @@ import Link from 'next/link';
 
 function Closed(): JSX.Element {
   return (
-    <div className="flex h-screen flex-col bg-white pt-16 pb-12">
-      <main className="mx-auto flex w-full max-w-7xl flex-grow flex-col justify-center px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-shrink-0 justify-center">
+    <div className="flex h-screen flex-col bg-white pb-12 pt-16">
+      <main className="mx-auto flex w-full max-w-7xl grow flex-col justify-center px-4 sm:px-6 lg:px-8">
+        <div className="flex shrink-0 justify-center">
           <Link href={`${process.env.NEXT_PUBLIC_SITE_URL}`}>
             <a className="inline-flex">
               <span className="sr-only">Enfront</span>
@@ -28,7 +28,7 @@ function Closed(): JSX.Element {
         </div>
       </main>
 
-      <footer className="mx-auto w-full max-w-7xl flex-shrink-0 px-4 sm:px-6 lg:px-8">
+      <footer className="mx-auto w-full max-w-7xl shrink-0 px-4 sm:px-6 lg:px-8">
         <nav className="flex justify-center space-x-4">
           <span className="text-sm font-medium text-gray-500 hover:text-gray-600">Contact Support</span>
 

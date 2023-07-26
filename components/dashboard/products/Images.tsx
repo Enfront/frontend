@@ -112,8 +112,8 @@ function Images({ getViewedProduct, images, setImages, viewedProduct }: ImagesPr
           {images.map((image: ImageType, index: number) => (
             <div className="relative inline-block aspect-square h-48 overflow-hidden rounded" key={image.dataURL}>
               <span
-                className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-white
-                  bg-opacity-90 text-center opacity-0 duration-300 hover:opacity-100"
+                className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-white/90
+                text-center opacity-0 duration-300 hover:opacity-100"
               >
                 <ActionIcon variant="transparent" color="red" size="sm">
                   <Trash onClick={() => removeImageFromUpload(index)} aria-label="Remove image" />
@@ -132,8 +132,8 @@ function Images({ getViewedProduct, images, setImages, viewedProduct }: ImagesPr
             {viewedProduct.images.map((image: ProductImage, index: number) => (
               <div className="relative inline-block aspect-square h-48 overflow-hidden rounded" key={image.path}>
                 <span
-                  className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-white
-                  bg-opacity-90 text-center opacity-0 duration-300 hover:opacity-100"
+                  className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-white/90
+                  text-center opacity-0 duration-300 hover:opacity-100"
                 >
                   <ActionIcon variant="transparent" color="red" size="sm">
                     <Trash onClick={() => deleteImage(image.ref_id)} aria-label="Remove image" />

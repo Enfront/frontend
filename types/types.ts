@@ -438,7 +438,7 @@ export interface ShopStatus {
 export interface StatsCard {
   id: number;
   name: string;
-  stat: DashboardStats | JSX.Element | string | number;
+  stat: ReactNode | string | number;
   icon: ReactNode;
 }
 

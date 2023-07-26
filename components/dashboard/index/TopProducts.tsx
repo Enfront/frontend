@@ -38,7 +38,7 @@ function TopProducts({ isDesktop, selectedShop, topProducts }: TopProducts): JSX
               wrap={isDesktop ? 'nowrap' : 'wrap'}
             >
               <Group noWrap>
-                <div className="relative h-10 w-10 flex-shrink-0">
+                <div className="relative h-10 w-10 shrink-0">
                   {product.images.length > 0 ? (
                     <Image
                       className="block rounded object-cover"
