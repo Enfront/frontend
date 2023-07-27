@@ -72,10 +72,10 @@ function SignIn(): JSX.Element {
 
             <Text color="gray" size="sm" mt="sm">
               Don’t have an account?{' '}
-              <Link href="/register" passHref>
-                <Anchor component="a" size="sm">
+              <Link href="/register">
+                <Text className="inline" color="brand" size="sm">
                   Sign up
-                </Anchor>
+                </Text>
               </Link>
             </Text>
           </Flex>
@@ -112,10 +112,10 @@ function SignIn(): JSX.Element {
                 </span>
               </Button>
 
-              <Link href="/forgot" passHref>
-                <Anchor className="m-auto" component="a" size="sm">
+              <Link href="/forgot">
+                <Text className="m-auto" color="brand" size="sm">
                   Forgot password
-                </Anchor>
+                </Text>
               </Link>
             </Stack>
           </form>

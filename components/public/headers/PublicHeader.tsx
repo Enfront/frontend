@@ -13,19 +13,19 @@ function PublicHeader(): JSX.Element {
       <Container size="xl">
         <nav className="relative z-50 flex justify-between">
           <div className="flex items-center md:gap-x-12">
-            <Link href="/" aria-label="Home" passHref>
+            <Link href="/" aria-label="Home">
               <Image className="w-auto" src="/logo.png" width="135" height="40" alt="Enfront logo" />
             </Link>
 
             <div className="hidden md:flex md:gap-x-6">
-              <Link href="#features" passHref>
-                <Text color="gray" size="sm" component="a">
+              <Link href="#features">
+                <Text color="gray" size="sm">
                   Features
                 </Text>
               </Link>
 
-              <Link href="#pricing" passHref>
-                <Text color="gray" size="sm" component="a">
+              <Link href="#pricing">
+                <Text color="gray" size="sm">
                   Pricing
                 </Text>
               </Link>
@@ -46,15 +46,17 @@ function PublicHeader(): JSX.Element {
             ) : (
               <>
                 <div className="hidden md:block">
-                  <Link href="/sign-in" passHref>
-                    <Text color="gray" size="sm" component="a">
+                  <Link href="/sign-in">
+                    <Text color="gray" size="sm">
                       Sign In
                     </Text>
                   </Link>
                 </div>
 
-                <Link href="/register" passHref>
-                  <Button radius="xl">Get started today</Button>
+                <Link href="/register">
+                  <Button radius="xl" component="a">
+                    Get started today
+                  </Button>
                 </Link>
               </>
             )}

@@ -8,9 +8,9 @@ module.exports = {
   },
   extends: [
     'next',
-    // 'eslint:recommended',
-    // 'next/core-web-vitals',
-    // 'plugin:@typescript-eslint/recommended',
+    'eslint:recommended',
+    'next/core-web-vitals',
+    'plugin:@typescript-eslint/recommended',
     'plugin:jsx-a11y/recommended',
     'plugin:tailwindcss/recommended',
     'plugin:prettier/recommended',

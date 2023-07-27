@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
-import Image from 'next/future/image';
+import Image from 'next/image';
 
 import { Tab } from '@headlessui/react';
 import { Container, Text, Title } from '@mantine/core';
 import clsx from 'clsx';
 
+import backgroundFeatures from '&/public/backgrounds/background-features.jpg';
 import screenshotCustomer from '&/public/screenshots/customer.png';
 import screenshotOrder from '&/public/screenshots/order.png';
 import screenshotProduct from '&/public/screenshots/product.png';
@@ -65,14 +66,7 @@ function PrimaryFeatures(): JSX.Element {
       className="relative overflow-hidden bg-blue-600 pb-28 pt-20 sm:py-32"
       aria-label="Features for running your books"
     >
-      <Image
-        className="absolute inset-0 max-w-none"
-        src="/backgrounds/background-features.jpg"
-        alt="Gradient background"
-        width={2245}
-        height={1636}
-        unoptimized
-      />
+      <Image className="absolute inset-0" src={backgroundFeatures} alt="Gradient background" unoptimized fill />
 
       <Container className="relative" size="xl">
         <div className="max-w-2xl md:mx-auto md:text-center xl:max-w-none">

@@ -1,11 +1,13 @@
-import Image from 'next/future/image';
+import Image from 'next/image';
 
 import { Stack, Text, Title } from '@mantine/core';
+
+import twoFactor from '&/public/whats_new/two_factor.png';
 
 function WhatsNew(): JSX.Element {
   return (
     <Stack align="center" spacing={4}>
-      <Image src="/whats_new/two_factor.png" height={520} width={400} alt="Two factor setup" priority />
+      <Image className="h-auto w-96" src={twoFactor} placeholder="blur" alt="Two factor setup" priority />
 
       <Title order={1} size="h4" mt="md">
         Two-Factor Authentication Has Been Added

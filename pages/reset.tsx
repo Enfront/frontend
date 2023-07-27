@@ -1,6 +1,4 @@
 import { useEffect } from 'react';
-import Image from 'next/future/image';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import { Button, PasswordInput, Text, Title } from '@mantine/core';
@@ -54,10 +52,6 @@ function Reset(): JSX.Element {
       to simplify, optimize, and accelerate the process."
     >
       <div className="flex flex-col">
-        <Link href="/" aria-label="Home" passHref>
-          <Image src="/logo.png" width="135" height="40" alt="Enfront logo" />
-        </Link>
-
         <div className="mt-8">
           <Title className="text-lg font-semibold text-gray-900" order={2}>
             Reset Your Password

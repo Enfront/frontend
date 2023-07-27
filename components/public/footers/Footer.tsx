@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { Anchor, Container, createStyles, Group, Text } from '@mantine/core';
+import { Container, createStyles, Group, Text } from '@mantine/core';
 
 interface IconProps {
   className: string;
@@ -59,16 +59,22 @@ function Footer(): JSX.Element {
             &copy; {new Date().getFullYear()} Enfront LLC
           </Text>
 
-          <Link href="/legal" passHref>
-            <Anchor size="sm">Terms of Service</Anchor>
+          <Link href="/legal">
+            <Text color="brand" size="sm">
+              Terms of Service
+            </Text>
           </Link>
 
-          <Link href="/legal/acceptable-use" passHref>
-            <Anchor size="sm">Acceptable Use</Anchor>
+          <Link href="/legal/acceptable-use">
+            <Text color="brand" size="sm">
+              Acceptable Use
+            </Text>
           </Link>
 
-          <Link href="/legal/privacy" passHref>
-            <Anchor size="sm">Privacy</Anchor>
+          <Link href="/legal/privacy">
+            <Text color="brand" size="sm">
+              Privacy
+            </Text>
           </Link>
         </Group>
 

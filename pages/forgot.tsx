@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import Image from 'next/future/image';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -49,7 +49,7 @@ function Forgot(): JSX.Element {
       to simplify, optimize, and accelerate the process."
     >
       <div className="flex flex-col">
-        <Link href="/" aria-label="Home" passHref>
+        <Link href="/" aria-label="Home">
           <Image src="/logo.png" width="135" height="40" alt="Enfront logo" />
         </Link>
 

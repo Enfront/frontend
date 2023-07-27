@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
-import Image from 'next/future/image';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import { Anchor, Button, PasswordInput, Text, TextInput, Title } from '@mantine/core';
+import { Button, PasswordInput, Text, TextInput, Title } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 
@@ -55,7 +55,7 @@ function Register(): JSX.Element {
       to simplify, optimize, and accelerate the process."
     >
       <div className="flex flex-col">
-        <Link href="/" aria-label="Home" passHref>
+        <Link href="/" aria-label="Home">
           <Image src="/logo.png" width="135" height="40" alt="Enfront logo" />
         </Link>
 
@@ -66,10 +66,10 @@ function Register(): JSX.Element {
 
           <Text className="mt-2 text-sm text-gray-700">
             Already have an account?{' '}
-            <Link href="/sign-in" passHref>
-              <Anchor component="a" size="sm">
+            <Link href="/sign-in">
+              <Text color="brand" size="sm">
                 Sign in
-              </Anchor>
+              </Text>
             </Link>
           </Text>
         </div>

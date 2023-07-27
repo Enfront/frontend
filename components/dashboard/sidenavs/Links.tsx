@@ -76,7 +76,7 @@ function Links({ currentRouteInfo, links }: LinksProps): JSX.Element {
       >
         <Group position="apart" spacing={0}>
           {links.path ? (
-            <Link href={!shopProcessing && selectedShop.ref_id !== '' ? links.path : '/dashboard'} passHref>
+            <Link href={!shopProcessing && selectedShop.ref_id !== '' ? links.path : '/dashboard'}>
               <Flex align="center">
                 <ThemeIcon color={links.color} size="lg" variant="light">
                   {links.icon}
@@ -117,7 +117,7 @@ function Links({ currentRouteInfo, links }: LinksProps): JSX.Element {
           {links.submenu.map((link: DashboardRoutes) => (
             <Box key={link.title}>
               {link.path && (
-                <Link href={link.path} passHref>
+                <Link href={link.path}>
                   <Text className={classes.link} key={link.title}>
                     {link.title}
                   </Text>

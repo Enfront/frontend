@@ -2,7 +2,7 @@ import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 
-import { Anchor, Badge, Group, Popover, Stack, Text, Title, useMantineTheme } from '@mantine/core';
+import { Badge, Group, Popover, Stack, Text, Title, useMantineTheme } from '@mantine/core';
 import { format, parseISO } from 'date-fns';
 import {
   AccessPoint,
@@ -183,12 +183,10 @@ function Details({ commentCount, customerData, viewedOrder }: OrderDetailsProps)
 
           <Group mt={8}>
             <User className="h-5 w-5 text-gray-400" />
-            <Link href={`/dashboard/customers/${viewedOrder.customer.user.ref_id}`} passHref>
-              <Anchor>
-                <Text size="sm">
-                  {viewedOrder.customer.user.is_active ? viewedOrder.customer.user.username : 'Anonymous Customer'}
-                </Text>
-              </Anchor>
+            <Link href={`/dashboard/customers/${viewedOrder.customer.user.ref_id}`}>
+              <Text size="sm">
+                {viewedOrder.customer.user.is_active ? viewedOrder.customer.user.username : 'Anonymous Customer'}
+              </Text>
             </Link>
           </Group>
 

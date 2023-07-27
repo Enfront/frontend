@@ -120,7 +120,7 @@ function Images({ getViewedProduct, images, setImages, viewedProduct }: ImagesPr
                 </ActionIcon>
               </span>
 
-              <Image src={image.dataURL} layout="fill" objectFit="cover" alt={`Product image ${index + 1}`} />
+              <Image src={image.dataURL} alt={`Product image ${index + 1}`} fill />
             </div>
           ))}
         </Group>
@@ -142,9 +142,8 @@ function Images({ getViewedProduct, images, setImages, viewedProduct }: ImagesPr
 
                 <Image
                   src={`${process.env.NEXT_PUBLIC_AWS_IMAGE_URL}${image.path}`}
-                  layout="fill"
-                  objectFit="cover"
                   alt={`Product image ${index + 1}`}
+                  fill
                 />
               </div>
             ))}

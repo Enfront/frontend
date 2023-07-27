@@ -23,8 +23,10 @@ function Privacy(): JSX.Element {
             Your privacy is important to us. It is Enfront&#39;s policy to respect your privacy and comply with any
             applicable law and regulation regarding any personal information we may collect about you, including across
             our website,{' '}
-            <Link href="https://enfront.io" passHref>
-              <Anchor>https://enfront.io</Anchor>
+            <Link href="https://enfront.io">
+              <Text className="inline-flex" color="brand">
+                https://enfront.io
+              </Text>
             </Link>
             , and other sites we own and operate.
           </Text>

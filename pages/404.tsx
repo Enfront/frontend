@@ -1,14 +1,14 @@
 import Link from 'next/link';
 
+import { Text } from '@mantine/core';
+
 function FourOhFour(): JSX.Element {
   return (
     <div className="flex h-screen flex-col bg-white pb-12 pt-16">
       <main className="mx-auto flex w-full max-w-7xl grow flex-col justify-center px-4 sm:px-6 lg:px-8">
         <div className="flex shrink-0 justify-center">
           <Link href={`${process.env.NEXT_PUBLIC_SITE_URL}`}>
-            <a className="inline-flex">
-              <span className="sr-only">Enfront</span>
-            </a>
+            <span className="sr-only">Enfront</span>
           </Link>
         </div>
         <div className="py-16">
@@ -21,9 +21,9 @@ function FourOhFour(): JSX.Element {
             </p>
             <div className="mt-6">
               <Link href={`${process.env.NEXT_PUBLIC_SITE_URL}`}>
-                <a className="text-base font-medium text-black">
+                <Text>
                   Go back home<span aria-hidden="true"> &rarr;</span>
-                </a>
+                </Text>
               </Link>
             </div>
           </div>

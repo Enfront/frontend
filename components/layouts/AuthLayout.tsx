@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
-import Image from 'next/future/image';
 import Head from 'next/head';
+import Image from 'next/image';
 
 import { useMediaQuery } from '@mantine/hooks';
 
@@ -42,7 +42,11 @@ function AuthLayout({ children, metaDescription, pageTitle }: AuthLayoutProps): 
         </div>
 
         <div className="hidden sm:contents lg:relative lg:block lg:flex-1">
-          <Image className="absolute inset-0 h-full w-full object-cover" src={backgroundImage} alt="" unoptimized />
+          <Image
+            className="absolute inset-0 h-full w-full object-cover"
+            src={backgroundImage}
+            alt="Background gradient"
+          />
         </div>
       </main>
     </>

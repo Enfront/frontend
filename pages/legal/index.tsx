@@ -577,11 +577,13 @@ function Index(): JSX.Element {
           </Title>
 
           <Text color="gray">
-            We care about data privacy and security. Please review our Privacy Policy:
-            <Link href="/legal/privacy" passHref>
-              <Anchor component="a">https://enfront.io/legal/privacy.</Anchor>
+            We care about data privacy and security. Please review our Privacy Policy:{' '}
+            <Link href="/legal/privacy">
+              <Text className="inline-flex" color="brand">
+                https://enfront.io/legal/privacy
+              </Text>
             </Link>
-            By using the Site, you agree to be bound by our Privacy Policy, which is incorporated into these Terms of
+            . By using the Site, you agree to be bound by our Privacy Policy, which is incorporated into these Terms of
             Use. Please be advised the Site is hosted in the United States. If you access the Site from any other region
             of the world with laws or other requirements governing personal data collection, use, or disclosure that
             differ from applicable laws in the United States, then through your continued use of the Site, you are

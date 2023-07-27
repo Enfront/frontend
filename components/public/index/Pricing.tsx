@@ -80,6 +80,7 @@ function Plan({ name, price, description, href, features, featured = false }: Pl
           variant={featured ? 'filled' : 'outline'}
           radius="xl"
           size="md"
+          component="a"
           aria-label={`Get started with the ${name} plan for ${price}`}
         >
           Get started

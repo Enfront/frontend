@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { Anchor, Container, Stack, Text, Title } from '@mantine/core';
+import { Container, Stack, Text, Title } from '@mantine/core';
 
 import PublicLayout from '&/components/layouts/PublicLayout';
 
@@ -17,8 +17,10 @@ function Cookies(): JSX.Element {
 
           <Text color="gray">
             We use cookies to help improve your experience of our website at{' '}
-            <Link href="https://enfront.io" passHref>
-              <Anchor>https://enfront.io</Anchor>
+            <Link href="https://enfront.io">
+              <Text className="inline-flex" color="brand">
+                https://enfront.io
+              </Text>
             </Link>
             . This cookie policy is part of Enfront&#39;s privacy policy. It covers the use of cookies between your
             device and our site.
@@ -31,8 +33,10 @@ function Cookies(): JSX.Element {
 
           <Text color="gray">
             If you don’t wish to accept cookies from us, you should instruct your browser to refuse cookies from{' '}
-            <Link href="https://enfront.io" passHref>
-              <Anchor>https://enfront.io</Anchor>
+            <Link href="https://enfront.io">
+              <Text className="inline-flex" color="brand">
+                https://enfront.io
+              </Text>
             </Link>
             . In such a case, we may be unable to provide you with some of your desired content and services.
           </Text>

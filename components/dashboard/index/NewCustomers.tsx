@@ -25,7 +25,7 @@ function NewCustomers({ isDesktop, newCustomers }: NewCustomersProps): JSX.Eleme
 
       <Stack spacing="xl">
         {newCustomers.current.map((item) => (
-          <Link href={`/dashboard/customers/${item.user.ref_id}`} key={item.user.email} passHref>
+          <Link href={`/dashboard/customers/${item.user.ref_id}`} key={item.user.email}>
             <Flex
               className="cursor-pointer"
               align={isDesktop ? 'center' : 'flex-start'}

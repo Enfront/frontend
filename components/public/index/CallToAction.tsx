@@ -1,4 +1,4 @@
-import Image from 'next/future/image';
+import Image from 'next/image';
 import Link from 'next/link';
 
 import { Button, Container, Text, Title } from '@mantine/core';
@@ -30,7 +30,7 @@ function CallToAction(): JSX.Element {
           <Link href="/register" passHref>
             <Button
               className="mt-8 bg-white text-slate-900 hover:bg-blue-50 focus:outline-none focus-visible:outline-2
-            focus-visible:outline-offset-2 focus-visible:outline-white active:bg-blue-200 active:text-slate-600"
+              focus-visible:outline-offset-2 focus-visible:outline-white active:bg-blue-200 active:text-slate-600"
               component="a"
               radius="xl"
             >

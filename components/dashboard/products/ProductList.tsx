@@ -1,4 +1,4 @@
-import Image from 'next/future/image';
+import Image from 'next/image';
 import { NextRouter } from 'next/router';
 
 import { ActionIcon, Badge, Divider, Group, Paper, Stack, Table, Text, Title } from '@mantine/core';

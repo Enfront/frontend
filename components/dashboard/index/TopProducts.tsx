@@ -29,7 +29,7 @@ function TopProducts({ isDesktop, selectedShop, topProducts }: TopProducts): JSX
 
       <Stack spacing="xl">
         {topProducts.current.map((product: DashboardProduct) => (
-          <Link href={`/dashboard/products/${product.ref_id}`} key={product.name} passHref>
+          <Link href={`/dashboard/products/${product.ref_id}`} key={product.name}>
             <Flex
               className="cursor-pointer"
               align="flex-start"

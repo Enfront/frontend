@@ -8,6 +8,7 @@ import axios, { AxiosResponse } from 'axios';
 import { format, parseISO } from 'date-fns';
 
 import useShop from '&/contexts/ShopContext';
+import bitcoinLogo from '&/public/brands/bitcoin.png';
 import { PayoutHistory } from '&/types/types';
 
 function PayoutsTab(): JSX.Element {
@@ -103,7 +104,7 @@ function PayoutsTab(): JSX.Element {
               Bitcoin (BTC)
             </Text>
 
-            <Image src="/brands/bitcoin.png" height={24} width={24} alt="Bitcoin logo" />
+            <Image className="h-auto w-6" src={bitcoinLogo} alt="Bitcoin logo" />
           </Group>
 
           <Group align="flex-end" spacing="xs" mt={25}>

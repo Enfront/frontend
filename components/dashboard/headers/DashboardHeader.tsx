@@ -1,4 +1,4 @@
-import Image from 'next/future/image';
+import Image from 'next/image';
 import Link from 'next/link';
 
 import { Avatar, Burger, Code, Group, Menu, Text, useMantineColorScheme, useMantineTheme } from '@mantine/core';
@@ -91,7 +91,7 @@ function DashboardHeader({ sidebarOpen, setSidebarOpen }: DashboardHeaderProps):
             <Menu.Divider />
 
             {accountNavigationConfig.map((item: AccountRoutes) => (
-              <Link href={item.path} passHref key={item.key}>
+              <Link href={item.path} key={item.key} passHref>
                 <Menu.Item component="a" icon={<Settings size={16} />} lh={1.15}>
                   {item.title}
                 </Menu.Item>

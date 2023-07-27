@@ -1,7 +1,5 @@
 import type { AppProps } from 'next/app';
 
-import 'leaflet/dist/leaflet.css';
-
 import { ColorScheme, ColorSchemeProvider, MantineProvider } from '@mantine/core';
 import { useLocalStorage } from '@mantine/hooks';
 import { ModalsProvider } from '@mantine/modals';
@@ -13,6 +11,7 @@ import { AuthProvider } from '&/contexts/AuthContext';
 import { ShopProvider } from '&/contexts/ShopContext';
 import { ThemeProvider } from '&/contexts/ThemeContext';
 
+import 'leaflet/dist/leaflet.css';
 import '&/styles/globals.scss';
 
 function Enfront({ Component, pageProps }: AppProps): JSX.Element {

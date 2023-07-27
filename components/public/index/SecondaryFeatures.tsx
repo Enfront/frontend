@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import Image, { StaticImageData } from 'next/future/image';
+import Image, { StaticImageData } from 'next/image';
 
 import { Tab } from '@headlessui/react';
 import { Container, Text, Title } from '@mantine/core';

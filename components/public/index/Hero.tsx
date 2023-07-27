@@ -28,13 +28,13 @@ function Hero(): JSX.Element {
 
         <div className="mt-10 flex justify-center gap-x-6">
           <Link href="/register" passHref>
-            <Button className="bg-slate-900 hover:bg-slate-800" size="md" radius="xl">
+            <Button className="bg-slate-900 hover:bg-slate-800" size="md" radius="xl" component="a">
               Start for Free
             </Button>
           </Link>
 
           <Link href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" passHref>
-            <Button size="md" radius="xl" variant="outline">
+            <Button size="md" radius="xl" variant="outline" component="a">
               Get Rick Rolled?
             </Button>
           </Link>
