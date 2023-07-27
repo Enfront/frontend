@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 
 import { Avatar, Badge, Box, Grid, Group, Stack, Text, Title } from '@mantine/core';
 import { getSymbolWithIsoCode } from 'jkshop-country-list/dist/countryFinder';
-import NumberFormat from 'react-number-format';
+import { NumericFormat } from 'react-number-format';
 import { Barcode } from 'tabler-icons-react';
 
 import { Order, OrderItem } from '&/types/types';
@@ -77,7 +77,7 @@ function Items({ fulfilledOrder, unfulfilledOrder, viewedOrder }: OrderItemProps
                   </Grid.Col>
 
                   <Grid.Col className="flex justify-around" span={2}>
-                    <NumberFormat
+                    <NumericFormat
                       value={(item.price / 100).toFixed(2)}
                       prefix={getSymbolWithIsoCode(viewedOrder.currency)}
                       displayType="text"
@@ -90,7 +90,7 @@ function Items({ fulfilledOrder, unfulfilledOrder, viewedOrder }: OrderItemProps
                   </Grid.Col>
 
                   <Grid.Col className="flex justify-around" span={2}>
-                    <NumberFormat
+                    <NumericFormat
                       value={((item.price * item.quantity) / 100).toFixed(2)}
                       prefix={getSymbolWithIsoCode(viewedOrder.currency)}
                       displayType="text"
@@ -138,7 +138,7 @@ function Items({ fulfilledOrder, unfulfilledOrder, viewedOrder }: OrderItemProps
                   </Grid.Col>
 
                   <Grid.Col className="flex justify-around" span={2}>
-                    <NumberFormat
+                    <NumericFormat
                       value={(item.price / 100).toFixed(2)}
                       prefix={getSymbolWithIsoCode(viewedOrder.currency)}
                       displayType="text"
@@ -151,7 +151,7 @@ function Items({ fulfilledOrder, unfulfilledOrder, viewedOrder }: OrderItemProps
                   </Grid.Col>
 
                   <Grid.Col className="flex justify-around" span={2}>
-                    <NumberFormat
+                    <NumericFormat
                       value={((item.price * item.quantity) / 100).toFixed(2)}
                       prefix={getSymbolWithIsoCode(viewedOrder.currency)}
                       displayType="text"

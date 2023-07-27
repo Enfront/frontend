@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 import { Flex, Group, Paper, Stack, Text, Title } from '@mantine/core';
 import { getSymbolWithIsoCode } from 'jkshop-country-list/dist/countryFinder';
-import NumberFormat from 'react-number-format';
+import { NumericFormat } from 'react-number-format';
 
 import { DashboardProduct, ShopData } from '&/types/types';
 
@@ -57,7 +57,7 @@ function TopProducts({ isDesktop, selectedShop, topProducts }: TopProducts): JSX
                   </Text>
 
                   <Text color="dimmed" size="xs">
-                    <NumberFormat
+                    <NumericFormat
                       value={(product.price / 100).toFixed(2)}
                       prefix={getSymbolWithIsoCode(selectedShop.currency)}
                       displayType="text"

@@ -3,7 +3,7 @@ import { NextRouter } from 'next/router';
 
 import { ActionIcon, Badge, Divider, Group, Paper, Stack, Table, Text, Title } from '@mantine/core';
 import { getSymbolWithIsoCode } from 'jkshop-country-list/dist/countryFinder';
-import NumberFormat from 'react-number-format';
+import { NumericFormat } from 'react-number-format';
 import { Edit } from 'tabler-icons-react';
 
 import { Product, ShopData } from '&/types/types';
@@ -120,7 +120,7 @@ function ProductList({ isDesktop, router, shownProducts, selectedShop }: Product
                   </td>
 
                   <td>
-                    <NumberFormat
+                    <NumericFormat
                       value={(product.price / 100).toFixed(2)}
                       prefix={getSymbolWithIsoCode(selectedShop.currency)}
                       displayType="text"
@@ -199,7 +199,7 @@ function ProductList({ isDesktop, router, shownProducts, selectedShop }: Product
                 </Text>
 
                 <Text size="xs" weight={500}>
-                  <NumberFormat
+                  <NumericFormat
                     value={(product.price / 100).toFixed(2)}
                     prefix={getSymbolWithIsoCode(selectedShop.currency)}
                     displayType="text"

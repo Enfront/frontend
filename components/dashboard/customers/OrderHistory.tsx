@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { Avatar, Badge, Pagination, Stack, Table, Text, Title } from '@mantine/core';
 import { format, parseISO } from 'date-fns';
 import { getSymbolWithIsoCode } from 'jkshop-country-list/dist/countryFinder';
-import NumberFormat from 'react-number-format';
+import { NumericFormat } from 'react-number-format';
 
 import { CustomerOrder, OrderItem } from '&/types/types';
 
@@ -128,7 +128,7 @@ function OrderHistory({ orders, setPage, totalOrdersCount }: OrderHistoryProps):
                 </td>
                 <td>{format(parseISO(order.created_at), 'MMMM do, yyyy H:mma')}</td>
                 <td>
-                  <NumberFormat
+                  <NumericFormat
                     value={(order.total / 100).toFixed(2)}
                     prefix={getSymbolWithIsoCode(order.currency)}
                     displayType="text"

@@ -4,7 +4,7 @@ import { NextRouter } from 'next/router';
 import { Badge, Divider, Group, Pagination, Paper, Stack, Table, Text } from '@mantine/core';
 import { format, parseISO } from 'date-fns';
 import { getSymbolWithIsoCode } from 'jkshop-country-list/dist/countryFinder';
-import NumberFormat from 'react-number-format';
+import { NumericFormat } from 'react-number-format';
 
 import { Order, OrderPagination, ShopData } from '&/types/types';
 
@@ -143,7 +143,7 @@ function OrderList({
                   </td>
 
                   <td>
-                    <NumberFormat
+                    <NumericFormat
                       value={(order.total / 100).toFixed(2)}
                       prefix={getSymbolWithIsoCode(order.currency)}
                       displayType="text"
@@ -197,7 +197,7 @@ function OrderList({
                 </Text>
 
                 <Text size="xs" weight={500}>
-                  <NumberFormat
+                  <NumericFormat
                     value={(order.total / 100).toFixed(2)}
                     prefix={getSymbolWithIsoCode(selectedShop.currency)}
                     displayType="text"

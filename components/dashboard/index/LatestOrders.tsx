@@ -4,7 +4,7 @@ import { NextRouter } from 'next/router';
 import { Badge, Paper, Table, Title } from '@mantine/core';
 import { format, parseISO } from 'date-fns';
 import { getSymbolWithIsoCode } from 'jkshop-country-list/dist/countryFinder';
-import NumberFormat from 'react-number-format';
+import { NumericFormat } from 'react-number-format';
 
 import { Order } from '&/types/types';
 
@@ -118,7 +118,7 @@ function LatestOrders({ newOrders, router }: LatestOrdersProps): JSX.Element {
               <td>{format(parseISO(order.created_at), 'MMMM do, yyyy H:mma')}</td>
 
               <td>
-                <NumberFormat
+                <NumericFormat
                   value={(order.total / 100).toFixed(2)}
                   prefix={getSymbolWithIsoCode(order.currency)}
                   displayType="text"

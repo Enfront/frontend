@@ -6,7 +6,7 @@ import { useMediaQuery } from '@mantine/hooks';
 import axios, { AxiosResponse } from 'axios';
 import { format } from 'date-fns';
 import { getSymbolWithIsoCode } from 'jkshop-country-list/dist/countryFinder';
-import NumberFormat from 'react-number-format';
+import { NumericFormat } from 'react-number-format';
 import { Calendar, CalendarTime, Receipt } from 'tabler-icons-react';
 
 import LatestOrders from '&/components/dashboard/index/LatestOrders';
@@ -43,7 +43,7 @@ function Index(): JSX.Element {
       id: 1,
       name: '7-Day Gross Revenue',
       stat: (
-        <NumberFormat
+        <NumericFormat
           value={(shopStats.past_profit / 100).toFixed(2)}
           prefix={getSymbolWithIsoCode(selectedShop.currency)}
           displayType="text"
@@ -60,7 +60,7 @@ function Index(): JSX.Element {
       id: 2,
       name: 'Gross Revenue',
       stat: (
-        <NumberFormat
+        <NumericFormat
           value={(shopStats.total_profit / 100).toFixed(2)}
           prefix={getSymbolWithIsoCode(selectedShop.currency)}
           displayType="text"
